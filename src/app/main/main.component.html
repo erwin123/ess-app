@@ -1,35 +1,39 @@
 <div ly-paper bg="background">
   <ly-toolbar position="static" bg="primary" [elevation]="3">
-    <h6 lyTyp="title" [withClass]="classes.grow">
+    <button ly-button color="primary:contrast" appearance="icon" (click)="drwMain.toggle()">
+      <ly-icon>menu</ly-icon>
+    </button>
+    <h6 lyTyp="title" [withClass]="classes.grow" style="text-align: center;">
       <a routerLink="/main/anchor" class="nav-link">
-        <img src="assets/img/logo.png" alt="" title="acst-logo" style="height:35px;">
+        <img src="assets/img/logo.png" alt="" title="acst-logo" style="height:30px;">
       </a>
     </h6>
-    <div>
-      <div> Landing</div>
-      <div style="font-size: 10px;"> Landing</div>
-    </div>
-
     <button ly-button color="primary:contrast" appearance="icon" [lyMenuTriggerFor]="menu">
-      <ly-icon>more_vert</ly-icon>
+      <ly-avatar>
+        <img alt="Larm Rmah"
+          src="https://firebasestorage.googleapis.com/v0/b/alyle-ui.appspot.com/o/img%2Flarm-rmah-47685-unsplash.jpeg?alt=media&token=1db05ae5-9c03-437b-9e8c-764dfb257061">
+      </ly-avatar>
     </button>
     <ng-template #menu let-M>
       <ly-menu [ref]="M">
         <button ly-button ly-menu-item *ngFor="let menu of sidemenus" (click)="goTo(menu.Path, menu.Text)">
-          <span><i [class]="menu.Icon"></i> {{ menu.Text }}</span>
+          <ly-icon [withClass]="classes.iconSize">{{menu.Icon}}</ly-icon>&nbsp;{{ menu.Text }}
         </button>
       </ly-menu>
     </ng-template>
   </ly-toolbar>
   <ly-drawer-container [withClass]="classes.drawerContainer" [class.drawerContainerMobile]="mobileQuery.matches">
     <ly-drawer #drwMain="lyDrawer" ly-paper [opened]="!mobileQuery.matches" position="before"
-      [mode]="mobileQuery.matches ? 'over' : 'side'" width="170px" [hasBackdrop]="mobileQuery.matches ? true : false"
+      [mode]="mobileQuery.matches ? 'over' : 'side'" width="200px" [hasBackdrop]="mobileQuery.matches ? true : false"
       bg="background:primary">
       <div>
         <ly-list>
-          <button [routerLink]="menu.Path" (click)="goTo(menu.Path, menu.Text)" ly-list-item *ngFor="let menu of menus">
-            <span style="min-width: 35px;font-size: 20px"><i [class]="menu.Icon"></i></span>
-            <span style="text-align: left;">{{menu.Text}}</span>
+          <button [routerLink]="menu.Path" (click)="goTo(menu.Path, menu.Text);" ly-list-item *ngFor="let menu of menus">
+            <!-- <span style="min-width: 40px;">
+              <ly-icon>{{menu.Icon}}</ly-icon>
+            </span>
+            <span style="text-align: left;font-size: 20px;">{{menu.Text}}</span> -->
+                <ly-icon [withClass]="classes.iconSize">{{menu.Icon}}</ly-icon>&nbsp;{{menu.Text}}
           </button>
         </ly-list>
       </div>
@@ -40,14 +44,14 @@
     </ly-drawer-content>
   </ly-drawer-container>
 
-  <ly-toolbar position="static" [elevation]="3" class="menuDown" [class.menuDesktop]="!mobileQuery.matches">
+  <!-- <ly-toolbar position="static" [elevation]="3" class="menuDown" [class.menuDesktop]="!mobileQuery.matches">
     <ly-grid container [spacing]="2" style="text-align: center;padding: 0px !important;">
       <ly-grid item col *ngFor="let menu of menus" routerLinkActive="active-link">
         <button [routerLink]="menu.Path" (click)="goTo(menu.Path, menu.Text)" routerLinkActive="active-link">
           <span style="font-size:9vw;"><ly-icon>{{menu.Icon}}</ly-icon></span><br />
-          <!-- <span style="font-size:3vw;margin-top:3px;">{{menu.Text}}</span> -->
+           <span style="font-size:3vw;margin-top:3px;">{{menu.Text}}</span> 
         </button>
       </ly-grid>
     </ly-grid>
-  </ly-toolbar>
+  </ly-toolbar> -->
 </div>

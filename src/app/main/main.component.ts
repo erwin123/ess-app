@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { LyTheme2 } from '@alyle/ui';
 import { trigger, animate, style, group, query, transition } from '@angular/animations';
+import { LyDrawer } from '@alyle/ui/drawer';
 const STYLES = ({
   drawerContainer: {
     height: 'calc(100vh - 64px)',
@@ -15,6 +16,9 @@ const STYLES = ({
   },
   icon: {
     margin: '0 8px'
+  },
+  iconSize: {
+    fontSize: "20px"
   },
   grow: {
     flex: 1
@@ -87,6 +91,8 @@ const STYLES = ({
   ]
 })
 export class MainComponent implements OnInit {
+  @ViewChild('drwMain', { static: true })
+  drwMain: LyDrawer;
   menus = [];
   sidemenus = [];
   mobileQuery: MediaQueryList;
@@ -114,6 +120,9 @@ export class MainComponent implements OnInit {
   }
 
   goTo(path, title) {
+    if (this.mobileQuery.matches) {
+      this.drwMain.toggle();
+    }
   }
 
 }

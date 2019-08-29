@@ -23,9 +23,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
-      this.accountService.login(this.username.value, this.password.value).subscribe(res => {
-        localStorage.setItem("currentUser",res);
-      })
+      localStorage.setItem("currentUser","tet");
+      // this.accountService.login(this.username.value, this.password.value).subscribe(res => {
+      //   localStorage.setItem("currentUser",res);
+      // })
     }
   }
 

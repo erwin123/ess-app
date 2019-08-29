@@ -1,14 +1,20 @@
 [
     {
-        "Text": "Info",
-        "Icon": "fas fa-question",
-        "RuleName":"staff",
-        "Path":"/main/trans/info"
+        "Text": "Profil",
+        "Icon": "face",
+        "RuleName":"REG",
+        "Path":"/main/employee-profile/info"
+    },
+    {
+        "Text": "Settings",
+        "Icon": "build",
+        "RuleName":"REG",
+        "Path":"/main/ancor"
     },
     {
         "Text": "Logout",
-        "Icon": "fas fa-sign-out-alt",
-        "RuleName":"staff",
+        "Icon": "exit_to_app",
+        "RuleName":"REG",
         "Path":"/main/ancor"
     }
 ]

@@ -17,6 +17,7 @@ import { LySelectModule } from '@alyle/ui/select';
 import { LyDialogModule } from '@alyle/ui/dialog';
 import { LySnackBarModule } from '@alyle/ui/snack-bar';
 import { LyCheckboxModule } from '@alyle/ui/checkbox';
+import { LyAvatarModule } from '@alyle/ui/avatar';
 
 @NgModule({
   declarations: [],
@@ -25,6 +26,7 @@ import { LyCheckboxModule } from '@alyle/ui/checkbox';
     LyDrawerModule,
     LyButtonModule,
     LyToolbarModule,
+    LyAvatarModule,
     LyResizingCroppingImageModule,
     LyIconModule,
     LyListModule,
@@ -46,6 +48,7 @@ import { LyCheckboxModule } from '@alyle/ui/checkbox';
     LyToolbarModule,
     LyResizingCroppingImageModule,
     LyIconModule,
+    LyAvatarModule,
     LyListModule,
     LyMenuModule,
     LyTypographyModule,
