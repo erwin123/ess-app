@@ -12,7 +12,11 @@ export class AccountService {
   token: any;
   constructor(private httpClient: HttpClient, private app_config: AppConfig) {
     this.config = this.app_config.get();
-    this.token = JSON.parse(localStorage.getItem('currentUser'));
+    //this.token = JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  getJSON(filejson: string): Observable<any> {
+    return this.httpClient.get("assets/jsonatte/" + filejson);
   }
 
   getConfig() {
