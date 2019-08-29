@@ -1,0 +1,25 @@
+<ly-grid container class="login">
+  <ly-grid item col="1 0@XSmall"></ly-grid>
+  <ly-grid item col="4 6@Small 12@XSmall">
+    <div class="login-container">
+      <img class="logo" src="assets/img/logo-white.png">
+      <form class="login-form" (ngSubmit)="login()" [formGroup]="loginForm">
+        <ly-field fullWidth>
+          <input lyNativeControl placeholder="Username" formControlName="username" type="text">
+          <ly-hint></ly-hint>
+          <ly-error>Wajib diisi</ly-error>
+        </ly-field>
+        <ly-field fullWidth>
+          <input lyNativeControl placeholder="Password" formControlName="password" type="password">
+          <ly-hint></ly-hint>
+          <ly-error>Wajib diisi</ly-error>
+        </ly-field>
+        <button ly-button bg="primary">Login</button>
+        <button ly-button color="primary" type="button">Forgot password?</button>
+      </form>
+    </div>
+  </ly-grid>
+  <ly-grid item col="4 0@XSmall">
+
+  </ly-grid>
+</ly-grid>
