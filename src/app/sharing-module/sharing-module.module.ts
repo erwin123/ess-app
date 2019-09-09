@@ -18,9 +18,10 @@ import { LyDialogModule } from '@alyle/ui/dialog';
 import { LySnackBarModule } from '@alyle/ui/snack-bar';
 import { LyCheckboxModule } from '@alyle/ui/checkbox';
 import { LyAvatarModule } from '@alyle/ui/avatar';
+import { DialogInfoComponent } from '../alert/dialog-info/dialog-info.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [DialogInfoComponent],
   imports: [
     CommonModule,
     LyDrawerModule,
@@ -61,7 +62,9 @@ import { LyAvatarModule } from '@alyle/ui/avatar';
     LyDialogModule,
     LySnackBarModule,
     LyRadioModule,
-    LyCheckboxModule]
+    LyCheckboxModule,
+    DialogInfoComponent],
+    entryComponents:[DialogInfoComponent]
 })
 
 export class SharingModuleModule { }

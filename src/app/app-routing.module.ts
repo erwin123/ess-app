@@ -13,9 +13,9 @@ const routes: Routes = [
     children: [
       { path: 'landing', component: LandingComponent, data: { state: 'landing' }},
       {
-        path: 'employee-absent',
-        loadChildren: './main/employee-absent/employee-absent.module#EmployeeAbsentModule',
-        data: { state: 'absent' }
+        path: 'admin',
+        loadChildren: './main/admin/admin.module#AdminModule',
+        data: { state: 'admin' }
       },
     ]
   },

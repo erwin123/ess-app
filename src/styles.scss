@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+.ol-control button { 
+    background-color: rgba(40, 40, 40, 0.8) !important;
+}
+.ol-control button:hover { 
+    background-color: rgba(40, 40, 40, 1) !important;
+}
+
+html{
+    height: 100%;
+}

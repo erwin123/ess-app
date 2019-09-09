@@ -9,12 +9,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    username: new FormControl('', [
+    username: new FormControl('81190181', [
       Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(16)
+      Validators.minLength(7),
+      Validators.maxLength(10)
     ]),
-    password: new FormControl('', Validators.required)
+    password: new FormControl('Sunter123', Validators.required)
   });
   constructor(private accountService: AccountService) { }
 
@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
-      localStorage.setItem("currentUser","tet");
-      // this.accountService.login(this.username.value, this.password.value).subscribe(res => {
-      //   localStorage.setItem("currentUser",res);
-      // })
+      //localStorage.setItem("currentUser","tet");
+      this.accountService.login(this.username.value, this.password.value).subscribe(res => {
+        localStorage.setItem("currentUser",JSON.stringify(res[0]));
+      })
     }
   }
 

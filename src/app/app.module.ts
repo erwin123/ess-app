@@ -15,6 +15,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AuthguardService } from './services/authguard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfig, InitConfig } from './app-config';
+import { BlockUIModule } from 'ng-block-ui';
 
 export class CustomMinimaLight implements PartialThemeVariables {
   name = 'minima-light';
@@ -27,7 +28,7 @@ export class CustomMinimaLight implements PartialThemeVariables {
     contrast: '#eeeeee'
   };
   grind = {
-    default: '#1D5100',
+    default: '#34eb43',
     contrast: '#eeeeee'
   };
 }
@@ -46,7 +47,8 @@ export class CustomMinimaLight implements PartialThemeVariables {
     BrowserAnimationsModule,
     HttpClientModule,
     LyThemeModule.setTheme('minima-light'),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    BlockUIModule.forRoot()
   ],
   providers: [
     AuthguardService,AppConfig,

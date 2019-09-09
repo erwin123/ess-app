@@ -1,0 +1,69 @@
+<h1 lyTyp="display1" gutterBottom>Lokasi</h1>
+<ly-grid container [spacing]="8" style="margin-bottom:18px;">
+    <ly-grid item col="6 12@XSmall">
+        <form [formGroup]="locationForm" (ngSubmit)="onSubmit()" [className]="classes.container">
+            <ly-field appearance="outlined" fullWidth>
+                <input lyNativeControl type="text" placeholder="Nama Lokasi" formControlName="LocationName">
+                <ly-hint></ly-hint>
+                <ly-error *ngIf="locationName.hasError('minlength')">Min 5</ly-error>
+                <ly-error *ngIf="locationName.hasError('maxlength')">Max 16</ly-error>
+                <ly-error *ngIf="locationName.hasError('required')">Wajib diisi</ly-error>
+            </ly-field>
+            <ly-field appearance="outlined" fullWidth>
+                <textarea lyNativeControl placeholder="Alamat Lokasi" formControlName="LocationAddress">
+                </textarea>
+                <ly-hint></ly-hint>
+                <ly-error *ngIf="locationAddress.hasError('minlength')">Min 10</ly-error>
+                <ly-error *ngIf="locationAddress.hasError('maxlength')">Max 50</ly-error>
+                <ly-error *ngIf="locationName.hasError('required')">Wajib diisi</ly-error>
+            </ly-field>
+            <div className="mapContainer">
+                <div id="map" class="map" tabindex="0"></div>
+                <br />
+                <button type="button" ly-button outlined color="primary" (click)="setHeadOffice(headOffice)">
+                    <ly-icon>apartment</ly-icon>&nbsp;Head Office
+                </button>&nbsp;
+                <button type="button" ly-button outlined color="accent" *ngIf="pickedLonLat[0] != 0"
+                    (click)="clearDraw()">
+                    <ly-icon>close</ly-icon>&nbsp;Hapus
+                </button>
+            </div>
+            <ly-field appearance="outlined" fullWidth>
+                <input lyNativeControl type="text" placeholder="Longitute" formControlName="Long">
+                <ly-hint></ly-hint>
+                <ly-error>Wajib diisi</ly-error>
+            </ly-field>
+            <ly-field appearance="outlined" fullWidth>
+                <input lyNativeControl type="text" placeholder="Latitude" formControlName="Lat">
+                <ly-hint></ly-hint>
+                <ly-error>Wajib diisi</ly-error>
+            </ly-field>
+            <ly-field appearance="outlined" fullWidth>
+                <input lyNativeControl floatingLabel type="text" placeholder="Radius" formControlName="Radius">
+                <ly-label>Radius</ly-label>
+                <span>Meter&nbsp;</span>
+                <ly-hint></ly-hint>
+                <ly-error>Wajib diisi</ly-error>
+            </ly-field>
+            <div [className]="classes.switch">
+                <button ly-button [bg]="rowStatus ? 'grind':'white'" type="button"
+                    (click)="switchChange(true)">Aktif</button>
+                <button ly-button [bg]="rowStatus ? 'white':'grind'" type="button"
+                    (click)="switchChange(false)">Nonaktif</button>
+            </div>
+            <div [className]="classes.errMsg" *ngIf="errMsg">
+                {{errMsg}}
+            </div>
+            <br />
+            <button style="width: 49%;margin-right: 2%;" ly-button outlined color="primary" type="reset">
+                <ly-icon>undo</ly-icon>&nbsp;Reset
+            </button>
+            <button style="width: 49%;" ly-button bg="primary" raised type="submit">
+                <ly-icon>save</ly-icon>&nbsp;Simpan
+            </button>
+        </form>
+    </ly-grid>
+    <ly-grid item col="6 12@XSmall">
+
+    </ly-grid>
+</ly-grid>

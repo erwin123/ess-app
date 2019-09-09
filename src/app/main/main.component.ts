@@ -4,6 +4,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { LyTheme2 } from '@alyle/ui';
 import { trigger, animate, style, group, query, transition } from '@angular/animations';
 import { LyDrawer } from '@alyle/ui/drawer';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { StateService } from '../services/state.service';
 const STYLES = ({
   drawerContainer: {
     height: 'calc(100vh - 64px)',
@@ -100,14 +102,23 @@ export class MainComponent implements OnInit {
   readonly classes = this._theme.addStyleSheet(STYLES);
   title = "";
   subtitle = "";
+  @BlockUI() blockUI: NgBlockUI;
   constructor(private _theme: LyTheme2, changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher, private accService: AccountService) {
+    media: MediaMatcher, private accService: AccountService,private stateService: StateService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
   ngOnInit() {
+    this.stateService.currentBlocking.subscribe(b => {
+      if (b == 1) {
+        this.blockUI.start('Loading...');
+      }
+      else {
+        this.blockUI.stop();
+      }
+    })
     this.accService.getJSON("main-menu.json").subscribe(res => {
       this.menus = res;
       console.log(this.menus);
