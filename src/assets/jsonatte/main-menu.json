@@ -1,14 +1,14 @@
 [
     {
-        "Text": "Absensi",
-        "Icon": "alarm",
-        "RuleName":"REG",
-        "Path":"/main/employee-absent/create"
+        "Text": "Clock In",
+        "Icon": "access_time",
+        "RuleName":"reg",
+        "Path":"/main/reg-user/create-absent-in/1"
     },
     {
-        "Text": "Klaim",
-        "Icon": "receipt",
-        "RuleName":"REG",
-        "Path":"/main/employee-absent/create"
+        "Text": "Clock Out",
+        "Icon": "timelapse",
+        "RuleName":"reg",
+        "Path":"/main/reg-user/create-absent-out/2"
     }
 ]

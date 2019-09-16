@@ -16,6 +16,8 @@ import { AuthguardService } from './services/authguard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfig, InitConfig } from './app-config';
 import { BlockUIModule } from 'ng-block-ui';
+import { TreeModule } from 'angular-tree-component';
+
 
 export class CustomMinimaLight implements PartialThemeVariables {
   name = 'minima-light';
@@ -48,10 +50,11 @@ export class CustomMinimaLight implements PartialThemeVariables {
     HttpClientModule,
     LyThemeModule.setTheme('minima-light'),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    TreeModule.forRoot()
   ],
   providers: [
-    AuthguardService,AppConfig,
+    AuthguardService, AppConfig,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: APP_INITIALIZER, useFactory: InitConfig, deps: [AppConfig], multi: true },
     { provide: LY_THEME, useClass: MinimaLight, multi: true },

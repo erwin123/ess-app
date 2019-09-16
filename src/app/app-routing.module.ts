@@ -17,6 +17,11 @@ const routes: Routes = [
         loadChildren: './main/admin/admin.module#AdminModule',
         data: { state: 'admin' }
       },
+      {
+        path: 'reg-user',
+        loadChildren: './main/reg-user/reg-user.module#RegUserModule',
+        data: { state: 'reg-user' }
+      },
     ]
   },
   // otherwise redirect to home

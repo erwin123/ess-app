@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AppConfig } from '../app-config';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+import * as SecureLS from 'secure-ls';
+import { StateService } from './state.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +11,32 @@ import * as moment from 'moment';
 export class MasterService {
   config: any;
   credential: any;
-
-  constructor(private httpClient: HttpClient, private app_config: AppConfig) {
-    this.config = this.app_config.get();
-    this.credential = JSON.parse(localStorage.getItem('currentUser'));
-  }
-
-  postLocation(obj) {
-    let headers = new HttpHeaders({
+  headers:any;
+  ls = new SecureLS();
+  constructor(private httpClient: HttpClient, private stateService:StateService) {
+    this.config = this.stateService.getConfig();
+    this.credential = this.ls.get('currentUser');
+    this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'x-access-token': this.credential.token
     });
+  }
+
+  postLocation(obj) {
     obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
     obj.CreateBy = this.credential.Username;
-    return this.httpClient.post<any>(this.config.Api.global_api + "/location", obj, { headers: headers }).pipe(
+    return this.httpClient.post<any>(this.config.Api.global_api + "/location", obj, { headers: this.headers }).pipe(
+      map(
+        res => {
+          return res;
+        }
+      ));
+  }
+
+  putLocation(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.httpClient.put<any>(this.config.Api.global_api + "/location", obj, { headers: this.headers }).pipe(
       map(
         res => {
           return res;
@@ -33,11 +45,7 @@ export class MasterService {
   }
 
   getLocation(crit) {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'x-access-token': this.credential.token
-    });
-    return this.httpClient.post<any>(this.config.Api.global_api + "/location/cr", crit, { headers: headers }).pipe(
+    return this.httpClient.post<any>(this.config.Api.global_api + "/location/cr", crit, { headers: this.headers }).pipe(
       map(
         res => {
           return res;

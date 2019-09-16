@@ -1,0 +1,9 @@
+<h4 ly-dialog-title gutterBottom>Koreksi Absen</h4>
+<div>
+  <div class="ClockOut" style="min-height: 300px;width:360px;">
+      <owl-date-time-inline [min]="min" [max]="max" (dateTimeChange)="selectedDate($event)" [(ngModel)]="selectedMoment"></owl-date-time-inline>
+  </div>
+</div>
+<ly-grid container justify="center" ly-dialog-actions>
+  <button ly-button bg="primary" (click)="onSave()">Simpan</button>
+</ly-grid>

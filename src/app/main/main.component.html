@@ -9,10 +9,10 @@
           <img src="assets/img/logo.png" alt="" title="acst-logo" style="height:30px;">
         </a>
       </h6>
-      <button ly-button color="primary:contrast" appearance="icon" [lyMenuTriggerFor]="menu">
+      <button *ngIf="credential" ly-button color="primary:contrast" appearance="icon" [lyMenuTriggerFor]="menu">
         <ly-avatar>
-          <img alt="Larm Rmah"
-            src="https://firebasestorage.googleapis.com/v0/b/alyle-ui.appspot.com/o/img%2Flarm-rmah-47685-unsplash.jpeg?alt=media&token=1db05ae5-9c03-437b-9e8c-764dfb257061">
+          <img alt="credential.Username"
+            [src]="profilePhoto">
         </ly-avatar>
       </button>
       <ng-template #menu let-M>
@@ -25,19 +25,24 @@
     </ly-toolbar>
     <ly-drawer-container [withClass]="classes.drawerContainer" [class.drawerContainerMobile]="mobileQuery.matches">
       <ly-drawer #drwMain="lyDrawer" ly-paper [opened]="!mobileQuery.matches" position="before"
-        [mode]="mobileQuery.matches ? 'over' : 'side'" width="200px" [hasBackdrop]="mobileQuery.matches ? true : false"
+        [mode]="mobileQuery.matches ? 'over' : 'side'" width="250px" [hasBackdrop]="mobileQuery.matches ? true : false"
         bg="background:primary">
-        <div>
-          <ly-list>
-            <button [routerLink]="menu.Path" (click)="goTo(menu.Path, menu.Text);" ly-list-item
-              *ngFor="let menu of menus">
-              <!-- <span style="min-width: 40px;">
-              <ly-icon>{{menu.Icon}}</ly-icon>
-            </span>
-            <span style="text-align: left;font-size: 20px;">{{menu.Text}}</span> -->
-              <ly-icon [withClass]="classes.iconSize">{{menu.Icon}}</ly-icon>&nbsp;{{menu.Text}}
+        <div style="margin: 0px 5px 0px 5px;">
+          <ly-field fullWidth>
+            <button ly-button appearance="icon" lyPrefix>
+              <ly-icon>search</ly-icon>
             </button>
-          </ly-list>
+            <input lyNativeControl placeholder="Search" type='text' id="filter" #filter
+              (keyup)="tree.treeModel.filterNodes(filter.value)">
+          </ly-field>
+          <div style="margin-left: 10px;" class="tree">
+            <tree-root #tree [nodes]="nodes">
+              <ng-template #treeNodeTemplate let-node let-index="index">
+                <span (click)="goTo(node.data.path, node.data.name);"
+                  style="font-size:18px;margin:5px;">{{node.data.name}}</span>
+              </ng-template>
+            </tree-root>
+          </div>
         </div>
       </ly-drawer>
       <ly-drawer-content id="main-el" [withClass]="classes.drawerContentArea"
@@ -53,7 +58,7 @@
             <span style="font-size:9vw;">
               <ly-icon>{{menu.Icon}}</ly-icon>
             </span><br />
-            <span style="font-size:3vw;margin-top:3px;">{{menu.Text}}</span>
+            <span style="font-size:3vw;font-weight: bold;">{{menu.Text}}</span>
           </button>
         </ly-grid>
       </ly-grid>

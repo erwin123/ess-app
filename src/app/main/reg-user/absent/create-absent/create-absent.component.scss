@@ -1,0 +1,36 @@
+.actionBtn {
+  float: left;
+  position: absolute;
+  left: calc(50% - 28px);
+  bottom: 10px;
+  z-index: 1000;
+  color: #ffffff;
+}
+
+.helpBtn {
+  float: left;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.locInfo {
+  float: left;
+  text-shadow: 1px 1px 1px #464646;
+  color:#fff;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.snapshot {
+  width: 100%;
+}
+
+.imgResult {
+  opacity: 0.5;
+  width: 100%;
+  height: auto;
+}

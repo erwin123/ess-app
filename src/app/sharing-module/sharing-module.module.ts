@@ -19,6 +19,9 @@ import { LySnackBarModule } from '@alyle/ui/snack-bar';
 import { LyCheckboxModule } from '@alyle/ui/checkbox';
 import { LyAvatarModule } from '@alyle/ui/avatar';
 import { DialogInfoComponent } from '../alert/dialog-info/dialog-info.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
+import { TableModule } from 'ngx-easy-table';
 
 @NgModule({
   declarations: [DialogInfoComponent],
@@ -42,7 +45,9 @@ import { DialogInfoComponent } from '../alert/dialog-info/dialog-info.component'
     LyDialogModule,
     LySnackBarModule,
     LyRadioModule,
-    LyCheckboxModule
+    LyCheckboxModule,
+    TableModule,
+    OwlDateTimeModule, OwlNativeDateTimeModule
   ],
   exports: [LyDrawerModule,
     LyButtonModule,
@@ -63,7 +68,10 @@ import { DialogInfoComponent } from '../alert/dialog-info/dialog-info.component'
     LySnackBarModule,
     LyRadioModule,
     LyCheckboxModule,
-    DialogInfoComponent],
+    DialogInfoComponent,
+    TableModule,
+    OwlDateTimeModule, OwlNativeDateTimeModule
+    ],
     entryComponents:[DialogInfoComponent]
 })
 

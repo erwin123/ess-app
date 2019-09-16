@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SetLocationComponent } from './set-location.component';
+import { MaintainTplComponent } from './maintain-tpl.component';
 
-describe('SetLocationComponent', () => {
-  let component: SetLocationComponent;
-  let fixture: ComponentFixture<SetLocationComponent>;
+describe('MaintainTplComponent', () => {
+  let component: MaintainTplComponent;
+  let fixture: ComponentFixture<MaintainTplComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SetLocationComponent ]
+      declarations: [ MaintainTplComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SetLocationComponent);
+    fixture = TestBed.createComponent(MaintainTplComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,0 @@
-<div id="map" class="map" tabindex="0"></div>
-<br/>
-<button ly-button outlined color="primary" (click)="setHeadOffice(headOffice)"><ly-icon>apartment</ly-icon>&nbsp;Head Office</button>&nbsp;
-<button ly-button outlined bg="primary" *ngIf="pickedLonLat[0] != 0" (click)="setLocation()"><ly-icon>my_location</ly-icon>&nbsp;Set Lokasi</button>
-<!-- <button ly-button outlined color="warn" *ngIf="pickedLonLat[0] != 0" (click)="clearDraw()"><ly-icon>close</ly-icon></button> -->
-<button ly-button appearance="icon" *ngIf="pickedLonLat[0] != 0" (click)="clearDraw()" color="accent"><ly-icon>close</ly-icon></button>

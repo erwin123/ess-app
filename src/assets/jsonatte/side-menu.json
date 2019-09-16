@@ -3,7 +3,7 @@
         "Text": "Profil",
         "Icon": "face",
         "RuleName":"REG",
-        "Path":"/main/employee-profile/info"
+        "Path":"/main/reg-user/profile"
     },
     {
         "Text": "Settings",

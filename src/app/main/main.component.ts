@@ -3,9 +3,11 @@ import { AccountService } from '../services/account.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { LyTheme2 } from '@alyle/ui';
 import { trigger, animate, style, group, query, transition } from '@angular/animations';
-import { LyDrawer } from '@alyle/ui/drawer';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { StateService } from '../services/state.service';
+import { Router } from '@angular/router';
+import * as SecureLS from 'secure-ls';
+
 const STYLES = ({
   drawerContainer: {
     height: 'calc(100vh - 64px)',
@@ -93,8 +95,7 @@ const STYLES = ({
   ]
 })
 export class MainComponent implements OnInit {
-  @ViewChild('drwMain', { static: true })
-  drwMain: LyDrawer;
+  @ViewChild('drwMain', { static: false }) drwMain: any;
   menus = [];
   sidemenus = [];
   mobileQuery: MediaQueryList;
@@ -102,12 +103,22 @@ export class MainComponent implements OnInit {
   readonly classes = this._theme.addStyleSheet(STYLES);
   title = "";
   subtitle = "";
+  nodes = [];
+  options = {};
   @BlockUI() blockUI: NgBlockUI;
+  ls = new SecureLS();
+  credential: any;
+  profilePhoto = "";
+  config: any;
   constructor(private _theme: LyTheme2, changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher, private accService: AccountService,private stateService: StateService) {
+    media: MediaMatcher, private accService: AccountService,
+    private stateService: StateService, private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    this.credential = this.ls.get('currentUser');
+    this.config = this.stateService.getConfig();
+    this.profilePhoto = this.config.Api.profile + "person-icon.png";
   }
 
   ngOnInit() {
@@ -121,19 +132,25 @@ export class MainComponent implements OnInit {
     })
     this.accService.getJSON("main-menu.json").subscribe(res => {
       this.menus = res;
-      console.log(this.menus);
-
     })
     this.accService.getJSON("side-menu.json").subscribe(res => {
       this.sidemenus = res;
-      console.log(this.sidemenus);
     });
+    this.accService.getJSON("left-menu.json").subscribe(res => {
+      this.nodes = res;
+    });
+    console.log(this.credential);
+    if (this.credential.quickProfile.Photo)
+      this.profilePhoto = this.config.Api.profile + this.credential.Username + "/" + this.credential.quickProfile.Photo;
+
   }
 
   goTo(path, title) {
-    if (this.mobileQuery.matches) {
-      this.drwMain.toggle();
+    if (path) {
+      if (this.mobileQuery.matches && this.drwMain._isOpen) {
+        this.drwMain.toggle();
+      }
+      this.router.navigate([path]);
     }
   }
-
 }

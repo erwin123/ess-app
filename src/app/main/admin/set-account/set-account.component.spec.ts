@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateAbsentComponent } from './create-absent.component';
+import { SetAccountComponent } from './set-account.component';
 
-describe('CreateAbsentComponent', () => {
-  let component: CreateAbsentComponent;
-  let fixture: ComponentFixture<CreateAbsentComponent>;
+describe('SetAccountComponent', () => {
+  let component: SetAccountComponent;
+  let fixture: ComponentFixture<SetAccountComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateAbsentComponent ]
+      declarations: [ SetAccountComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateAbsentComponent);
+    fixture = TestBed.createComponent(SetAccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

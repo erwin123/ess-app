@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import * as SecureLS from 'secure-ls';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,16 +17,32 @@ export class LoginComponent implements OnInit {
     ]),
     password: new FormControl('Sunter123', Validators.required)
   });
-  constructor(private accountService: AccountService) { }
+  ls = new SecureLS();
+  message = "";
+  constructor(private accountService: AccountService, private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+
   }
 
   login() {
     if (this.loginForm.valid) {
-      //localStorage.setItem("currentUser","tet");
       this.accountService.login(this.username.value, this.password.value).subscribe(res => {
-        localStorage.setItem("currentUser",JSON.stringify(res[0]));
+        if (res[0]) {
+          this.route.queryParams.subscribe(r => {
+            if (r.returnUrl)
+              this.router.navigate([r.returnUrl]);
+            else
+              this.router.navigate(['main/landing']);
+          });
+
+        } else {
+          this.message = "Username atau password tidak sesuai.";
+          setTimeout(() => {
+            this.message = "";
+          }, 3000);
+        }
       })
     }
   }

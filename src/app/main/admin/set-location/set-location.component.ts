@@ -74,25 +74,25 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
     })
   };
   locationForm = new FormGroup({
-    Id:new FormControl({ value: '', disabled: true }),
+    Id: new FormControl({ value: '', disabled: true }),
     LocationName: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
-      Validators.maxLength(16)
+      Validators.maxLength(100)
     ]),
     LocationAddress: new FormControl('', [
       Validators.required,
       Validators.minLength(10),
-      Validators.maxLength(50)
+      Validators.maxLength(200)
     ]),
     Long: new FormControl({ value: '', disabled: true }, Validators.required),
     Lat: new FormControl({ value: '', disabled: true }, Validators.required),
     Radius: new FormControl({ value: '', disabled: true }, Validators.required),
     RowStatus: new FormControl(true, null),
-    CreateDate:new FormControl({ value: '', disabled: true }),
-    CreateBy:new FormControl({ value: '', disabled: true }),
-    UpdateBy:new FormControl({ value: '', disabled: true }),
-    UpdateDate:new FormControl({ value: '', disabled: true })
+    CreateDate: new FormControl({ value: '', disabled: true }),
+    CreateBy: new FormControl({ value: '', disabled: true }),
+    UpdateBy: new FormControl({ value: '', disabled: true }),
+    UpdateDate: new FormControl({ value: '', disabled: true })
   });
 
   constructor(private theme: LyTheme2, private router: Router,
@@ -100,9 +100,6 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute, private _dialog: LyDialog) { }
 
   ngAfterViewInit() {
-
-  }
-  ngOnInit() {
     this.map = new Map({
       target: 'map',
       projection: 'EPSG:4326',
@@ -188,16 +185,19 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
         })
       }
     });
+  }
+  ngOnInit() {
+
 
   }
 
-  showAlert(msg: string) {
+  showAlert(msg: string, err:boolean) {
     this.stateService.setBlocking(0);
     const dialogRefInfo = this._dialog.open<DialogInfoComponent>(DialogInfoComponent, {
-      data: { Message: msg }
+      data: { Message: msg, err:err }
     });
     dialogRefInfo.afterClosed.subscribe(() => {
-      console.log("done");
+      this.router.navigate(['main/admin/maintain-location']);
     });
   }
   onSubmit() {
@@ -208,9 +208,16 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
         myObj.Lat = this.locationForm.controls["Lat"].value.toString();
         myObj.Radius = this.locationForm.controls["Radius"].value.toString();
         myObj.RowStatus = this.locationForm.controls["RowStatus"].value ? 1 : 0;
-        this.masterService.postLocation(myObj).subscribe(res => {
-          this.showAlert("Data berhasil disimpan");
-        });
+        if (this.locationForm.controls["Id"].value > 0) {
+          myObj.Id = this.locationForm.controls["Id"].value;
+          this.masterService.putLocation(myObj).subscribe(res => {
+            this.showAlert("Data berhasil disimpan", false);
+          });
+        } else {
+          this.masterService.postLocation(myObj).subscribe(res => {
+            this.showAlert("Data berhasil disimpan", false);
+          });
+        }
       } else {
         this.errMsg = "Data lokasi memerlukan titik koordinat";
         setTimeout(() => {
@@ -225,55 +232,8 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
     }
   }
 
-  setLocation() {
-    this.map.getLayers().forEach(el => {
-      try {
-
-        if (el.constructor.name === "VectorLayer") {
-          let features = el.getSource().getFeatures();
-          if (features.length == 0) {
-            alert("draw circle first !");
-            return;
-          }
-          let circleFeature = features[0].getGeometry();
-          let units = this.map.getView().getProjection().getUnits();
-          let center = circleFeature.getCenter();
-          let radius = circleFeature.getRadius();
-          console.log("POINT: " + transform(center, 'EPSG:3857', 'EPSG:4326'));
-          console.log("RADIUS: " + radius * METERS_PER_UNIT[units]);
-          console.log(transform(circleFeature.getFirstCoordinate(), 'EPSG:3857', 'EPSG:4326'));
-          console.log(transform(circleFeature.getLastCoordinate(), 'EPSG:3857', 'EPSG:4326'));
-          let first = transform(circleFeature.getFirstCoordinate(), 'EPSG:3857', 'EPSG:4326');
-          let last = transform(circleFeature.getLastCoordinate(), 'EPSG:3857', 'EPSG:4326');
-          this.getDistance(first[0], first[1], last[0], last[1]);
-
-        }
-      } catch (e) {
-        return;
-      }
-    });
-
-  }
-
   switchChange(val) {
     this.locationForm.controls['RowStatus'].setValue(val);
-  }
-
-  deg2rad(degrees) {
-    var pi = Math.PI;
-    return degrees * (pi / 180);
-  }
-
-  getDistance(lon1, lat1, lon2, lat2) {
-    let earth_radius = 6371;
-
-    let dLat = this.deg2rad(lat2 - lat1);
-    let dLon = this.deg2rad(lon2 - lon1);
-
-    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    let c = 2 * Math.asin(Math.sqrt(a));
-    let d = earth_radius * c;
-
   }
 
   setupSearch() {

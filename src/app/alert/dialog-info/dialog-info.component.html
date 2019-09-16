@@ -1,9 +1,8 @@
 <h4 ly-dialog-title gutterBottom>Information</h4>
 <div ly-dialog-content>
-  <p lyTyp="body2" color="text:secondary">
-    {{data.Message}}
+  <p lyTyp="body2" color="text:secondary" [innerHTML]="data.Message">
   </p>
 </div>
-<ly-grid container justify="end" ly-dialog-actions>
-  <button ly-button bg="calm" (click)="dialogRefInfo.close()">OK</button>
+<ly-grid container justify="center" ly-dialog-actions>
+  <button ly-button [bg]="data.err ? 'warn' : 'grind'" (click)="dialogRefInfo.close()">OK</button>
 </ly-grid>
