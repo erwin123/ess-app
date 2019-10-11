@@ -2,12 +2,15 @@
 @import "~ngx-easy-table/style.scss";
 @import "~angular-tree-component/dist/angular-tree-component.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
+@import "ol-css.scss";
 .ol-control button {
   background-color: rgba(40, 40, 40, 0.8) !important;
 }
 .ol-control button:hover {
   background-color: rgba(40, 40, 40, 1) !important;
 }
+
 html {
   height: 100%;
 }

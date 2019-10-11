@@ -1,0 +1,26 @@
+[
+    {
+        "Text": "Absen Masuk",
+        "Icon": "masuk.jpg",
+        "RuleName":"reg",
+        "Path":"/main/reg-user/create-absent-in/1"
+    },
+    {
+        "Text": "Absen Keluar",
+        "Icon": "pulang.jpg",
+        "RuleName":"reg",
+        "Path":"/main/reg-user/create-absent-out/2"
+    },
+    {
+        "Text": "Riwayat Absen",
+        "Icon": "history.jpg",
+        "RuleName":"reg",
+        "Path":"/main/reg-user/history-absent"
+    },
+    {
+        "Text": "Pesan Masuk",
+        "Icon": "inbox.jpg",
+        "RuleName":"reg",
+        "Path":"/main/inbox"
+    }
+]

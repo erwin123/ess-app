@@ -1,0 +1,108 @@
+[
+    {
+        "key": "Relation",
+        "label": "Hubungan",
+        "type": "dropdown",
+        "validator": [
+            "required"
+        ],
+        "option": [
+            {
+                "text": "Ayah",
+                "value": "Ayah"
+            },
+            {
+                "text": "Ibu",
+                "value": "Ibu"
+            },
+            {
+                "text": "Kakak",
+                "value": "Kakak"
+            },
+            {
+                "text": "Adik",
+                "value": "Adik"
+            },
+            {
+                "text": "Suami",
+                "value": "Suami"
+            },
+            {
+                "text": "Istri",
+                "value": "Istri"
+            },
+            {
+                "text": "Anak",
+                "value": "Anak"
+            }
+        ]
+    },
+    {
+        "key": "FullName",
+        "label": "Nama Lengkap",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "BirthPlace",
+        "label": "Tempat Lahir",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "BirthDate",
+        "label": "Tanggal Lahir",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "BloodType",
+        "label": "Golongan Darah",
+        "type": "dropdown",
+        "option": [
+            {
+                "text": "A",
+                "value": "A"
+            },
+            {
+                "text": "B",
+                "value": "B"
+            },
+            {
+                "text": "AB",
+                "value": "AB"
+            },
+            {
+                "text": "O",
+                "value": "O"
+            }
+        ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Gender",
+        "label": "Jenis Kelamin",
+        "type": "radio",
+        "option": [
+            {
+                "text": "Laki-laki",
+                "value": "Laki-laki"
+            },
+            {
+                "text": "Perempuan",
+                "value": "Perempuan"
+            }
+        ],
+        "validator": [
+            "required"
+        ]
+    }
+]

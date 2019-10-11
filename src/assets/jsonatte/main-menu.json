@@ -1,12 +1,12 @@
 [
     {
-        "Text": "Clock In",
+        "Text": "Absen Masuk",
         "Icon": "access_time",
         "RuleName":"reg",
         "Path":"/main/reg-user/create-absent-in/1"
     },
     {
-        "Text": "Clock Out",
+        "Text": "Absen Keluar",
         "Icon": "timelapse",
         "RuleName":"reg",
         "Path":"/main/reg-user/create-absent-out/2"

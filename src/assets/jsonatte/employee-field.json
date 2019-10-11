@@ -1,0 +1,395 @@
+[
+    {
+        "order": 1,
+        "key": "NRP",
+        "label": "NRP",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "order": 2,
+        "key": "FullName",
+        "label": "Nama Lengkap",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 3,
+        "key": "Gender",
+        "label": "Jenis Kelamin",
+        "type": "radio",
+        "option": [
+            {
+                "text": "Laki-laki",
+                "value": "Laki-laki"
+            },
+            {
+                "text": "Perempuan",
+                "value": "Perempuan"
+            }
+        ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 4,
+        "key": "Marriage",
+        "label": "Status Pernikahan",
+        "type": "radio",
+        "option": [
+            {
+                "text": "Kawin",
+                "value": "Kawin"
+            },
+            {
+                "text": "Tidak Kawin",
+                "value": "Tidak Kawin"
+            }
+        ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 5,
+        "key": "Religion",
+        "label": "Agama",
+        "type": "dropdown",
+        "option": [  ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 6,
+        "key": "BirthPlace",
+        "label": "Tempat Lahir",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 7,
+        "key": "BirthDate",
+        "label": "Tanggal Lahir",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 8,
+        "key": "BloodType",
+        "label": "Golongan Darah",
+        "type": "dropdown",
+        "option": [
+            {
+                "text": "A",
+                "value": "A"
+            },
+            {
+                "text": "B",
+                "value": "B"
+            },
+            {
+                "text": "AB",
+                "value": "AB"
+            },
+            {
+                "text": "O",
+                "value": "O"
+            }
+        ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 9,
+        "key": "NoKtp",
+        "label": "No KTP.",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 10,
+        "key": "NoKk",
+        "label": "No KK.",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 11,
+        "key": "Nationality",
+        "label": "Kebangsaan",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 12,
+        "key": "NoNpwp",
+        "label": "NPWP",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 13,
+        "key": "AddressKtp",
+        "label": "Alamat KTP",
+        "type": "textarea",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 14,
+        "key": "AreaCodeKtp",
+        "label": "Kota KTP",
+        "type": "selectarea",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 15,
+        "key": "AddressDomisile",
+        "label": "Alamat Tinggal",
+        "type": "textarea",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 16,
+        "key": "AreaCodeDomisile",
+        "label": "Kota Domisili",
+        "type": "selectarea",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 17,
+        "key": "HomeStatus",
+        "label": "Status Rumah",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 18,
+        "key": "Phone",
+        "label": "Telepon",
+        "type": "text",
+        "validator": [
+            "number"
+        ]
+    },
+    {
+        "order": 19,
+        "key": "Handphone1",
+        "label": "Handphone 1",
+        "type": "text",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "order": 20,
+        "key": "Handphone2",
+        "label": "Handphone 2",
+        "type": "text",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "order": 21,
+        "key": "EmailOffice",
+        "label": "Email Kantor",
+        "type": "text",
+        "validator": [
+            "required",
+            "email"
+        ]
+    },
+    {
+        "order": 22,
+        "key": "EmailPrivate",
+        "label": "EmailPribadi",
+        "type": "text",
+        "validator": [
+            "required",
+            "email"
+        ]
+    },
+    {
+        "order": 23,
+        "key": "Weight",
+        "label": "Berat Badan",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "order": 24,
+        "key": "Tall",
+        "label": "Tinggi Badan",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "order": 25,
+        "key": "ShirtSize",
+        "label": "Ukuran Baju (Contoh XS, S, M,..)",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 26,
+        "key": "ShoesSize",
+        "label": "Ukuran Sepatu (Contoh 40, 41, 42,..)",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "order": 27,
+        "key": "FamilyTax",
+        "label": "Jenis Pajak",
+        "type": "dropdown",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 33,
+        "key": "EmergencyContact",
+        "label": "Nama Kontak Darurat",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 37,
+        "key": "EmergencyRelation",
+        "label": "Hubungan Kontak Darurat",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 34,
+        "key": "EmergencyCall1",
+        "label": "Nomor Kontak Darurat 1",
+        "type": "number",
+        "validator": [
+            "required","number"
+        ]
+    },
+    {
+        "order": 35,
+        "key": "EmergencyCall2",
+        "label": "Nomor Kontak Darurat 2",
+        "type": "number",
+        "validator": [
+            "required","number"
+        ]
+    },
+    {
+        "order": 36,
+        "key": "EmergencyEmail",
+        "label": "Email Kontak Darurat",
+        "type": "text",
+        "validator": [
+            "required","email"
+        ]
+    },
+    {
+        "order": 28,
+        "key": "DepartmentID",
+        "label": "Sub-Function",
+        "type": "dropdown",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 29,
+        "key": "OrganizationLevelID",
+        "label": "Jabatan",
+        "type": "dropdown",
+        "option": [  ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 33,
+        "key": "DirectReportID",
+        "label": "Atasan Langsung",
+        "type": "select",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 30,
+        "key": "Photo",
+        "label": "Pas Foto",
+        "type": "photo",
+        "validator": []
+    },
+    {
+        "order": 31,
+        "key": "ClockIn",
+        "label": "Jam Masuk",
+        "type": "texttime",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 32,
+        "key": "ClockOut",
+        "label": "Jam Pulang",
+        "type": "texttime",
+        "validator": [
+            "required"
+        ]
+    }
+]

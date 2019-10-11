@@ -1,0 +1,188 @@
+[
+    {
+        "id": 1,
+        "name": "Master Data",
+        "icon": "nature_people",
+        "path": "",
+        "role": "ESS_ADM",
+        "children": [
+            {
+                "id": 2,
+                "name": "Lokasi",
+                "icon": "nature_people",
+                "path": "",
+                "role": "ESS_ADM",
+                "children": [
+                    {
+                        "id": 3,
+                        "icon": "",
+                        "path": "main/admin/set-location",
+                        "name": "Set Lokasi",
+                        "role": "ESS_ADM"
+                    },
+                    {
+                        "id": 4,
+                        "icon": "",
+                        "path": "main/admin/maintain-location",
+                        "name": "Maintain Lokasi",
+                        "role": "ESS_ADM"
+                    }
+                ]
+            },
+            {
+                "id": 21,
+                "name": "Karyawan",
+                "icon": "nature_people",
+                "path": "",
+                "role": "ESS_ADM",
+                "children": [
+                    {
+                        "id": 22,
+                        "icon": "",
+                        "path": "main/admin/set-acc",
+                        "name": "Set Karyawan",
+                        "role": "ESS_ADM"
+                    },
+                    {
+                        "id": 23,
+                        "icon": "",
+                        "path": "main/admin/maintain-employee",
+                        "name": "Maintain Karyawan",
+                        "role": "ESS_ADM"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Absen",
+        "icon": "",
+        "path": "",
+        "role": "ESS_REG",
+        "children": [
+            {
+                "id": 6,
+                "icon": "",
+                "path": "main/reg-user/create-absent-in/1",
+                "name": "Absen Masuk",
+                "role": "ESS_REG"
+            },
+            {
+                "id": 7,
+                "icon": "",
+                "path": "main/reg-user/create-absent-out/2",
+                "name": "Absen Keluar",
+                "role": "ESS_REG"
+            },
+            {
+                "id": 8,
+                "name": "Riwayat Absen",
+                "icon": "",
+                "path": "main/reg-user/history-absent",
+                "role": "ESS_REG"
+            },
+            {
+                "id": 24,
+                "name": "Set Absen",
+                "icon": "",
+                "path": "main/admin/set-absence",
+                "role": "ESS_REG"
+            },
+            {
+                "id": 25,
+                "name": "Maintain Absen",
+                "icon": "",
+                "path": "main/admin/maintain-absence",
+                "role": "ESS_REG"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Klaim",
+        "icon": "",
+        "path": "",
+        "role": "ESS_REG",
+        "children": [
+            {
+                "id": 11,
+                "icon": "",
+                "path": "",
+                "name": "Buat Klaim",
+                "role": "ESS_REG"
+            },
+            {
+                "id": 12,
+                "name": "Maintain Klaim",
+                "icon": "",
+                "path": "",
+                "role": "ESS_REG",
+                "children": [
+                    {
+                        "id": 13,
+                        "icon": "",
+                        "path": "",
+                        "name": "subsub",
+                        "role": "ESS_REG"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Cuti",
+        "icon": "",
+        "path": "",
+        "role": "ESS_REG",
+        "children": [
+            {
+                "id": 15,
+                "icon": "",
+                "path": "",
+                "name": "Pengajuan Cuti",
+                "role": "ESS_REG"
+            },
+            {
+                "id": 16,
+                "name": "Maintain Cuti",
+                "icon": "",
+                "path": "",
+                "role": "ESS_REG",
+                "children": [
+                    {
+                        "id": 17,
+                        "icon": "",
+                        "path": "",
+                        "name": "subsub",
+                        "role": "ESS_REG"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Surat Ijin",
+        "icon": "",
+        "path": "",
+        "role": "ESS_REG",
+        "children": [
+            {
+                "id": 19,
+                "icon": "",
+                "path": "",
+                "name": "Buat Surat Ijin",
+                "role": "ESS_REG"
+            },
+            {
+                "id": 20,
+                "name": "Maintain Surat Ijin",
+                "icon": "",
+                "path": "",
+                "role": "ESS_REG"
+            }
+        ]
+    }
+]

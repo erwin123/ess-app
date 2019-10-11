@@ -1,15 +1,164 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { StateService } from 'src/app/services/state.service';
+import { AccountService } from 'src/app/services/account.service';
+import { LyTheme2 } from '@alyle/ui';
+import { MasterService } from 'src/app/services/master.service';
+import { forkJoin } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EmployeeService } from 'src/app/services/employee.service';
+import * as moment from 'moment';
+import { LyDialog } from '@alyle/ui/dialog';
+import { DialogInfoComponent } from 'src/app/alert/dialog-info/dialog-info.component';
+const thmstyles = ({
+  errMsg: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginTop: '20px',
+    textAlign: 'center'
+  },
+  button: {
+    width: '100%'
+  },
+  labelAfter: {
+    paddingBefore: '8px'
+  }
+});
 @Component({
   selector: 'app-set-account',
   templateUrl: './set-account.component.html',
   styleUrls: ['./set-account.component.scss']
 })
 export class SetAccountComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  @ViewChild("fileInput", { static: false }) fileInput: ElementRef;
+  readonly classes = this.theme.addStyleSheet(thmstyles);
+  accForm: FormGroup;
+  config: any;
+  fields = [];
+  employeeID = 0;
+  params;
+  constructor(private theme: LyTheme2, private stateService: StateService,
+    private route: ActivatedRoute, private _dialog: LyDialog, private router: Router,
+    private employeeService: EmployeeService, private accountService: AccountService,
+    private masterService: MasterService) {
+    this.config = this.stateService.getConfig();
   }
 
+  ngOnInit() {
+    this.accountService.getJSON("acc-field.json").subscribe(res => {
+      this.accForm = this.stateService.toFormGroup(res);
+      this.fields = res;
+      if (this.fields) {
+        this.fetchParameter();
+        this.route.queryParams.subscribe(params => {
+          if (params.emp) { //view
+            this.params = params.emp;
+            this.stateService.setBlocking(1);
+            this.employeeService.getEmployeeQuickProfile({ Username: params.emp }, null).subscribe(res => {
+              if (res) {
+                this.employeeID = res[0].EmployeeID;
+                let acc = res.map(m => {
+                  return {
+                    RowStatus: m.RowStatus,
+                    Username: m.Username,
+                    FullName: m.FullName,
+                    Gender: m.Gender,
+                    LocationID: m.LocationID,
+                    EmailPrivate: m.EmailPrivate,
+                    DepartmentID: m.DepartmentID,
+                    DivisionID: m.DivisionID,
+                    DirectReportID: m.DirectReportID,
+                    OrganizationLevelID: m.OrganizationLevelID,
+                    ClockIn: moment(m.ClockIn).utc().format("YYYY-MM-DD HH:mm"),
+                    ClockOut: moment(m.ClockOut).utc().format("YYYY-MM-DD HH:mm")
+                  }
+                })[0];
+                this.stateService.resetForm(this.accForm, acc);
+                this.stateService.setBlocking(0);
+              }
+            })
+          }
+        });
+      }
+    })
+  }
+
+  fetchParameter() {
+    let master = forkJoin(
+      this.masterService.getDepartment({}),
+      this.masterService.getDivision({}),
+      this.masterService.getTitle({}),
+      this.masterService.getLocation({}),
+      this.employeeService.getEmployeeQuickProfileSimple({})
+    )
+    master.subscribe(res => {
+      this.fields.find(f => f.key === 'DivisionID').option = res[1] ? res[1].map(m => {
+        m.text = m.Name,
+          m.value = m.Id
+        return m;
+      }) : [];
+      this.fields.find(f => f.key === 'DepartmentID').option = res[0] ? res[0].map(m => {
+        m.text = m.Name,
+          m.value = m.Id
+        return m;
+      }) : [];
+      this.fields.find(f => f.key === 'OrganizationLevelID').option = res[2] ? res[2].map(m => {
+        m.text = m.Name,
+          m.value = m.Id
+        return m;
+      }) : [];
+      this.fields.find(f => f.key === 'LocationID').option = res[3] ? res[3].map(m => {
+        m.text = m.LocationName,
+          m.value = m.Id
+        return m;
+      }) : [];
+      this.fields.find(f => f.key === 'DirectReportID').option = res[4] ? res[4].map(m => {
+        m.text = "(" + m.Username + ") " + m.FullName,
+          m.value = m.EmployeeId
+        return m;
+      }).filter(f => f.Username !== this.params) : [];
+    });
+  }
+  showAlert(msg: string, err: boolean) {
+    this.stateService.setBlocking(0);
+    const dialogRefInfo = this._dialog.open<DialogInfoComponent>(DialogInfoComponent, {
+      data: { Message: msg, err: err }
+    });
+    dialogRefInfo.afterClosed.subscribe(() => {
+      this.router.navigate(['main/admin/maintain-employee']);
+    });
+  }
+  checkProfile() {
+    this.router.navigate(['main/reg-user/profile-main/' + this.params]);
+  }
+  onSubmit() {
+    if (this.accForm.valid) {
+      let objInsert = this.accForm.value;
+      objInsert.ClockIn = moment(objInsert.ClockIn).format("YYYY-MM-DD HH:mm:ss");
+      objInsert.ClockOut = moment(objInsert.ClockOut).format("YYYY-MM-DD HH:mm:ss");
+      if (this.employeeID > 0) {
+        objInsert.Id = this.employeeID;
+        delete objInsert.Username;
+        this.employeeService.putEmployee(objInsert).subscribe(ins => {
+          if (ins) {
+            this.showAlert("Data tersimpan", false);
+          }
+        }, err => {
+          if (err.error.error === "not_unique") {
+            this.showAlert("Data tidak tersimpan, NRP sudah terdaftar sebelumnya", true);
+          }
+        })
+      } else {
+        this.employeeService.postEmployeeAccount(objInsert).subscribe(ins => {
+          if (ins) {
+            this.showAlert("Data tersimpan, password dikirim ke email karyawan", false);
+          }
+        }, err => {
+          if (err.error.error === "not_unique") {
+            this.showAlert("Data tidak tersimpan, NRP sudah terdaftar sebelumnya", true);
+          }
+        })
+      }
+    }
+  }
 }

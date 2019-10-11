@@ -10,7 +10,8 @@ export class AppConfig {
     constructor() { }
     load() {
         return new Promise((resolve) => {
-            let jsonConfig = "assets/jsonatte/config.json" + "?_cache_buster=" + new Date().getTime();
+            //let jsonConfig = "assets/jsonatte/config.json" + "?_cache_buster=" + new Date().getTime();
+            let jsonConfig = "assets/jsonatte/config.json";
             const xmlHttp = new XMLHttpRequest();
             xmlHttp.open('GET', jsonConfig, false); // false for synchronous request
             xmlHttp.send(null);

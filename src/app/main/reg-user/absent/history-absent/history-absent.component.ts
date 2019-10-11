@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbsentService } from 'src/app/services/absent.service';
 import { StateService } from 'src/app/services/state.service';
-import * as SecureLS from 'secure-ls';
 import * as moment from 'moment';
-import { map } from 'rxjs/operators';
-
 import { LyTheme2, ThemeVariables } from '@alyle/ui';
 import { LyDialog } from '@alyle/ui/dialog';
 import { EditAbsentComponent } from '../edit-absent/edit-absent.component';
@@ -24,13 +21,14 @@ const STYLES = (_theme: ThemeVariables) => ({
 export class HistoryAbsentComponent implements OnInit {
   readonly classes = this.theme.addStyleSheet(STYLES);
   credential: any;
-  ls = new SecureLS();
   quickProfile: any;
   data = [];
   constructor(private absenService: AbsentService, private stateService: StateService,
-    private theme: LyTheme2,private _dialog: LyDialog) {
-    this.credential = this.ls.get('currentUser');
-    this.quickProfile = this.credential.quickProfile;
+    private theme: LyTheme2, private _dialog: LyDialog) {
+    this.stateService.currentCredential.subscribe(cr => {
+      this.credential = cr;
+      this.quickProfile = cr.quickProfile;
+    })
   }
 
   ngOnInit() {
@@ -38,12 +36,14 @@ export class HistoryAbsentComponent implements OnInit {
   }
 
   fetchData() {
+    this.stateService.setBlocking(1);
     this.absenService.getLastHistory(8, moment().format("YYYY-MM-DD"), this.quickProfile.EmployeeID).subscribe(last8 => {
       this.data = last8.map(m => {
-        m.ClockIn = m.ClockIn ? m.ClockIn.split('T')[0]+" " +m.ClockIn.split('T')[1].replace('.000Z', '') : "-Belum Absen-";
-        m.ClockOut = m.ClockOut ? m.ClockOut.split('T')[0]+" " +m.ClockOut.split('T')[1].replace('.000Z', '') : "-Belum Absen-";
+        m.ClockIn = m.ClockIn ? m.ClockIn.split('T')[0] + " " + m.ClockIn.split('T')[1].replace('.000Z', '') : "-Belum Absen-";
+        m.ClockOut = m.ClockOut ? m.ClockOut.split('T')[0] + " " + m.ClockOut.split('T')[1].replace('.000Z', '') : "-Belum Absen-";
         return m;
       });
+      this.stateService.setBlocking(0);
     })
   }
 
@@ -63,8 +63,8 @@ export class HistoryAbsentComponent implements OnInit {
       data: obj
     });
     dialogEdit.afterClosed.subscribe((res) => {
-      if(res){
-        this.showAlert("Koreksi berhasil diajukan",false);
+      if (res) {
+        this.showAlert("Koreksi berhasil diajukan", false);
       }
     });
   }

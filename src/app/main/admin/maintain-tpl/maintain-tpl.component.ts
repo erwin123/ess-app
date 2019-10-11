@@ -24,6 +24,7 @@ export class MaintainTplComponent implements OnInit {
   readonly classes = this.theme.addStyleSheet(STYLES);
   @ViewChild('table', { static: false }) table: APIDefinition;
   @Input('columns') columns = [];
+  @Input('addButton') addButton = true;
   @Input('data') data = [];
   @Input('objectData') objectData;
   @Output() actionClickEvent = new EventEmitter<any>();

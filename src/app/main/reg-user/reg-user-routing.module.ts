@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CreateAbsentComponent } from './absent/create-absent/create-absent.component';
 import { AuthguardService } from 'src/app/services/authguard.service';
 import { HistoryAbsentComponent } from './absent/history-absent/history-absent.component';
-import { ProfilComponent } from './profil/profil.component';
+import { ProfilMainComponent } from './profil/profil-main/profil-main.component';
 
 const routes: Routes = [
   {
@@ -25,11 +25,11 @@ const routes: Routes = [
     canActivate:[AuthguardService]
   },
   {
-    path: 'profile',
-    component: ProfilComponent,
-    data: { state: 'profile' },
+    path: 'profile-main/:emp',
+    component: ProfilMainComponent,
+    data: { state: 'profile-main' },
     canActivate:[AuthguardService]
-  }
+  },
 ];
 
 @NgModule({

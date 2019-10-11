@@ -6,6 +6,7 @@
         "global_api": "http://localhost:3005/api",
         "global_attachment": "http://localhost:3005/attachment/",
         "global_img": "http://localhost:3005/img/",
-        "profile": "http://localhost:3005/img/profile/"
+        "profile": "http://localhost:3005/img/profile/",
+        "absen": "http://localhost:3005/img/absen/"
     }
 }

@@ -3,13 +3,13 @@
         "Text": "Profil",
         "Icon": "face",
         "RuleName":"REG",
-        "Path":"/main/reg-user/profile"
+        "Path":"/main/reg-user/profile-main"
     },
     {
         "Text": "Settings",
         "Icon": "build",
         "RuleName":"REG",
-        "Path":"/main/ancor"
+        "Path":"/main/settings/change-password"
     },
     {
         "Text": "Logout",

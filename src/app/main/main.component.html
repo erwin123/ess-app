@@ -12,7 +12,7 @@
       <button *ngIf="credential" ly-button color="primary:contrast" appearance="icon" [lyMenuTriggerFor]="menu">
         <ly-avatar>
           <img alt="credential.Username"
-            [src]="profilePhoto">
+            [src]="profilePhoto ? profilePhoto:'assets/img/person-icon.png'">
         </ly-avatar>
       </button>
       <ng-template #menu let-M>

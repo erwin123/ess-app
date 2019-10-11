@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppConfig, InitConfig } from './app-config';
 import { BlockUIModule } from 'ng-block-ui';
 import { TreeModule } from 'angular-tree-component';
+import { InboxComponent } from './main/inbox/inbox.component';
 
 
 export class CustomMinimaLight implements PartialThemeVariables {
@@ -39,7 +40,8 @@ export class CustomMinimaLight implements PartialThemeVariables {
     AppComponent,
     LoginComponent,
     MainComponent,
-    LandingComponent
+    LandingComponent,
+    InboxComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ export class CustomMinimaLight implements PartialThemeVariables {
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: APP_INITIALIZER, useFactory: InitConfig, deps: [AppConfig], multi: true },
     { provide: LY_THEME, useClass: MinimaLight, multi: true },
-    { provide: LY_THEME, useClass: CustomMinimaLight, multi: true }],
+    { provide: LY_THEME, useClass: CustomMinimaLight, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

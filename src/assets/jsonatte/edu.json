@@ -1,0 +1,72 @@
+[
+    {
+        "key": "Degree",
+        "label": "Gelar",
+        "type": "dropdown",
+        "validator": [
+            "required"
+        ],
+        "option": [
+            {
+                "text": "SMA Sederajat",
+                "value": "SMA Sederajat"
+            },
+            {
+                "text": "D3",
+                "value": "D3"
+            },
+            {
+                "text": "S1",
+                "value": "S1"
+            },
+            {
+                "text": "S2",
+                "value": "S2"
+            },
+            {
+                "text": "S3",
+                "value": "S3"
+            }
+        ]
+    },
+    {
+        "key": "Institution",
+        "label": "Nama Sekolah/Universitas",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Major",
+        "label": "Fakultas/Jurusan",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Course",
+        "label": "Bidang Studi",
+        "type": "text",
+        "validator": []
+    },
+    {
+        "key": "StartDate",
+        "label": "Tahun Mulai",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "key": "EndDate",
+        "label": "Tahun Selesai",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    }
+]

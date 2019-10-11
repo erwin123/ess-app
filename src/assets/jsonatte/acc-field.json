@@ -1,0 +1,133 @@
+[
+    {
+        "order": 1,
+        "key": "Username",
+        "label": "NRP (Username)",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "order": 2,
+        "key": "FullName",
+        "label": "Nama Lengkap",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 3,
+        "key": "Gender",
+        "label": "Jenis Kelamin",
+        "type": "radio",
+        "option": [
+            {
+                "text": "Laki-laki",
+                "value": "Laki-laki"
+            },
+            {
+                "text": "Perempuan",
+                "value": "Perempuan"
+            }
+        ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 4,
+        "key": "EmailPrivate",
+        "label": "Email Pribadi",
+        "type": "text",
+        "validator": [
+            "required",
+            "email"
+        ]
+    },
+    {
+        "order": 6,
+        "key": "OrganizationLevelID",
+        "label": "Jabatan",
+        "type": "dropdown",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 5,
+        "key": "DivisionID",
+        "label": "Function",
+        "type": "dropdown",
+        "option": [],
+        "validator": [  ]
+    },
+    {
+        "order": 5,
+        "key": "DepartmentID",
+        "label": "Sub-Function",
+        "type": "dropdown",
+        "option": [],
+        "validator": [  ]
+    },
+    {
+        "order": 10,
+        "key": "DirectReportID",
+        "label": "Atasan Langsung",
+        "type": "select",
+        "option": [],
+        "validator": [
+        ]
+    },
+    {
+        "order": 7,
+        "key": "LocationID",
+        "label": "Lokasi Kerja",
+        "type": "dropdown",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 8,
+        "key": "ClockIn",
+        "label": "Jam Masuk",
+        "type": "texttime",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 9,
+        "key": "ClockOut",
+        "label": "Jam Pulang",
+        "type": "texttime",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 1,
+        "key": "RowStatus",
+        "label": "Status",
+        "type": "dropdown",
+        "validator": [
+            "required",
+            "number"
+        ],
+        "option": [
+            {
+                "text": "Aktif",
+                "value": 1
+            },
+            {
+                "text": "NonAktif",
+                "value": 0
+            }
+        ]
+    }
+]

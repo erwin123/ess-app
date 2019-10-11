@@ -1,6 +1,6 @@
 <div style="margin: 6px 6px 6px 6px;">
     <h1 lyTyp="display1" gutterBottom *ngIf="objectData">Maintain {{objectData}}
-        <button ly-button outlined color="primary" size="small" (click)="sendAdd()">
+        <button *ngIf="addButton" ly-button outlined color="primary" size="small" (click)="sendAdd()">
           <ly-icon>add</ly-icon>Tambah baru
         </button>
     </h1>

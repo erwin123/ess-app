@@ -1,0 +1,88 @@
+<div *ngIf="fields">
+    <form [formGroup]="genForm" (ngSubmit)="formSubmit()">
+        <div *ngFor="let f of fields">
+            <div [ngSwitch]="f.type">
+                <div *ngSwitchCase="'text'">
+                    <ly-field appearance="outlined" fullWidth>
+                        <input lyNativeControl type="text" [placeholder]="f.label" [formControlName]="f.key">
+                        <ly-hint></ly-hint>
+                        <ly-error>Wajib diisi</ly-error>
+                    </ly-field>
+                </div>
+                <div *ngSwitchCase="'password'">
+                    <ly-field appearance="outlined" fullWidth>
+                        <input lyNativeControl type="password" [placeholder]="f.label" [formControlName]="f.key">
+                        <ly-hint></ly-hint>
+                        <ly-error>Wajib diisi</ly-error>
+                    </ly-field>
+                </div>
+                <div *ngSwitchCase="'textarea'">
+                    <ly-field appearance="outlined" fullWidth>
+                        <textarea lyNativeControl [placeholder]="f.label" [formControlName]="f.key">
+                                            </textarea>
+                    </ly-field>
+                </div>
+                <div *ngSwitchCase="'number'">
+                    <ly-field appearance="outlined" fullWidth>
+                        <input lyNativeControl type="number" [placeholder]="f.label" [formControlName]="f.key">
+                        <ly-hint></ly-hint>
+                        <ly-error>Wajib diisi</ly-error>
+                    </ly-field>
+                </div>
+                <div *ngSwitchCase="'textdate'">
+                    <ly-field appearance="outlined" fullWidth>
+                        <input (click)="pickDate = true" lyNativeControl [placeholder]="f.label"
+                            [formControlName]="f.key">
+                        <ly-hint></ly-hint>
+                        <ly-error>Wajib diisi</ly-error>
+                        <div *ngIf="pickDate">
+                            <owl-date-time-inline (ngModelChange)="handleDate($event)"
+                                [ngModelOptions]="{standalone: true}" [(ngModel)]="pickDateModel"
+                                [pickerType]="'calendar'">
+                            </owl-date-time-inline>
+                        </div>
+                    </ly-field>
+                </div>
+                <div *ngSwitchCase="'texttime'">
+                    <ly-field appearance="outlined" fullWidth>
+                        <input [owlDateTimeTrigger]="tPicker2" [owlDateTime]="tPicker2" lyNativeControl
+                            [placeholder]="f.label" [formControlName]="f.key">
+                        <ly-hint></ly-hint>
+                        <ly-error>Wajib diisi</ly-error>
+                        <owl-date-time [pickerType]="'timer'" #tPicker2></owl-date-time>
+                    </ly-field>
+                </div>
+                <div *ngSwitchCase="'dropdown'">
+                    <ly-field appearance="outlined" *ngIf="f.option.length" fullWidth>
+                        <ly-select [placeholder]="f.label" [formControlName]="f.key">
+                            <ly-option *ngFor="let opt of f.option" [value]="opt.value">{{opt.text}}
+                            </ly-option>
+                        </ly-select>
+                        <ly-hint></ly-hint>
+                        <ly-error>Wajib diisi</ly-error>
+                    </ly-field>
+                </div>
+                <div *ngSwitchCase="'radio'">
+                    <br />
+                    <ly-radio-group [formControlName]="f.key">
+                        <span>{{f.label}}</span><br />
+                        <ly-radio color="primary" *ngFor="let opt of f.option" [value]="opt.value">{{opt.text}}
+                        </ly-radio>
+                    </ly-radio-group>
+                </div>
+                <div *ngSwitchCase="'selectarea'">
+                    <ng-select groupBy="ParentDescription" [items]="f.option" bindLabel="Description"
+                        bindValue="AreaCode" [loading]="areaLoading" [placeholder]="f.label" [formControlName]="f.key">
+                        <ng-template ng-optgroup-tmp let-item="item">
+                            <span style="font-weight: bold;color:#000;">{{item.ParentDescription}}</span>
+                        </ng-template>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <button [withClass]="classes.button" ly-button bg="primary" *ngIf="mode != 2">
+            <ly-icon>check</ly-icon>
+            <span [className]="classes.labelAfter">Simpan</span>
+        </button>
+    </form>
+</div>

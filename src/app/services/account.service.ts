@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 import * as SecureLS from 'secure-ls';
 import { StateService } from './state.service';
 
@@ -9,11 +9,11 @@ import { StateService } from './state.service';
   providedIn: 'root'
 })
 export class AccountService {
-  config:any;
+  config: any;
   credential: any;
   headers: any;
   ls = new SecureLS();
-  constructor(private httpClient: HttpClient, private stateService:StateService) {
+  constructor(private httpClient: HttpClient, private stateService: StateService) {
     this.config = this.stateService.getConfig();
     this.credential = this.ls.get('currentUser');
     if (this.credential) {
@@ -28,16 +28,29 @@ export class AccountService {
     return this.httpClient.get("assets/jsonatte/" + filejson);
   }
 
-  
   login(username, password) {
     let _headers = new HttpHeaders().set('Content-Type', 'application/json');
-    // const headers = _headers.append('x-access-token', this.token);
     return this.httpClient.post<any>(this.config.Api.global_api + "/account/login", { Username: username, Password: password }, { headers: _headers }).pipe(
-      map(
+      retry(3), map(
         res => {
-          if(res[0])
-          {
-            this.ls.set("currentUser", res[0]);
+          if (res[0]) {
+            this.stateService.setCredential(res[0]);
+          }
+          return res;
+        }
+      ));
+  }
+
+  chPwd(obj) {
+    // this.headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'x-access-token': this.credential.token
+    // });
+    return this.httpClient.post<any>(this.config.Api.global_api + "/account/chpwd", obj, { headers: this.headers }).pipe(
+      retry(3), map(
+        res => {
+          if (res[0]) {
+            this.stateService.setCredential(res[0]);
           }
           return res;
         }

@@ -21,7 +21,7 @@ const STYLES = (theme: ThemeVariables) => ({
 export class AppComponent {
   readonly classes = this.theme.addStyleSheet(STYLES);
 
-  title = 'ess-app';
+  title = 'ACST|ESS';
 
   constructor(private theme: LyTheme2) { }
 

@@ -7,7 +7,6 @@ import { Point } from 'ol/geom';
 import { Circle as circularPolygon } from 'ol/geom';
 import Feature from 'ol/Feature';
 import TileLayer from 'ol/layer/Tile';
-
 import LayerVector from 'ol/layer/Vector';
 import { fromLonLat, transform, METERS_PER_UNIT } from 'ol/proj';
 import OSM from 'ol/source/OSM';

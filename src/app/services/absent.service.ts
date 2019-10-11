@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import * as moment from 'moment';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 import * as SecureLS from 'secure-ls';
 import { StateService } from './state.service';
 @Injectable({
@@ -30,7 +30,7 @@ export class AbsentService {
       EmployeeID:empId
     };
     return this.httpClient.post<any>(this.config.Api.global_api + "/absen/history",obj, { headers: this.headers }).pipe(
-      map(
+      retry(3),map(
         res => {
           return res;
         }
@@ -39,7 +39,7 @@ export class AbsentService {
 
   getLast(empId){
     return this.httpClient.get<any>(this.config.Api.global_api + "/absen/last?empid="+empId, { headers: this.headers }).pipe(
-      map(
+      retry(3),map(
         res => {
           return res;
         }
@@ -47,8 +47,8 @@ export class AbsentService {
   }
 
   postCriteria(criteria) {
-    return this.httpClient.post<any>(this.config.Api.global_api + "/absen/cr", criteria, { headers: this.headers }).pipe(
-      map(
+    return this.httpClient.post<any>(this.config.Api.global_api + "/absen/maintain/cr", criteria, { headers: this.headers }).pipe(
+      retry(3),map(
         res => {
           return res;
         }
@@ -57,7 +57,7 @@ export class AbsentService {
 
   postAbsent(obj) {
     return this.httpClient.post<any>(this.config.Api.global_api + "/absen", obj, { headers: this.headers }).pipe(
-      map(
+      retry(3),map(
         res => {
           return res;
         }
@@ -66,7 +66,7 @@ export class AbsentService {
 
   putAbsent(obj) {
     return this.httpClient.put<any>(this.config.Api.global_api + "/absen", obj, { headers: this.headers }).pipe(
-      map(
+      retry(3),map(
         res => {
           return res;
         }
@@ -87,6 +87,6 @@ export class AbsentService {
       headers: _headers
     };
     const req = new HttpRequest('POST', this.config.Api.global_api + "/absen/upload", formData, options);
-    return this.httpClient.request(req).pipe(map(event => { return event }));
+    return this.httpClient.request(req).pipe(retry(3),map(event => { return event }));
   }
 }

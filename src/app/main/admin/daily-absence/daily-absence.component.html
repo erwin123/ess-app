@@ -1,0 +1,42 @@
+<div style="margin: 6px 6px 6px 6px;" *ngIf="data">
+    <h1 lyTyp="display1" gutterBottom>
+        Detail Absen
+    </h1>
+    <ly-grid container [spacing]="8" style="margin-bottom:18px;">
+        <ly-grid item col="4 12@XSmall" *ngIf="fields">
+            <app-abstract-form [fields]="fields" [mode]="2" (onSubmit)="onSubmit($event)" [data]="dataView"></app-abstract-form>
+        </ly-grid>
+        <ly-grid item col="8 12@XSmall">
+            <ly-grid container [spacing]="8">
+                <ly-grid item col="12 12@XSmall" *ngIf="data.PhotoIn">
+                    <h2 lyTyp="title">Masuk</h2>
+                    <ly-grid container [spacing]="8">
+                        <ly-grid item col="6 12@XSmall">
+                            <img [src]="data.PhotoIn" [alt]="data.PhotoIn" style="width: 100%">
+                        </ly-grid>
+                        <ly-grid item col="6 12@XSmall">
+                            <div [className]="classes.mapContainer">
+                                <app-check-location *ngIf="dataMapIn" [data]="dataMapIn"></app-check-location>
+                            </div>
+                        </ly-grid>
+                    </ly-grid>
+                </ly-grid>
+
+                <ly-grid item col="12 12@XSmall" *ngIf="data.PhotoOut">
+                    <h2 lyTyp="title">Keluar</h2>
+                    <ly-grid container [spacing]="8">
+                        <ly-grid item col="6 12@XSmall">
+                            <img [src]="data.PhotoOut" [alt]="data.PhotoOut" style="width: 100%">
+                        </ly-grid>
+                        <ly-grid item col="6 12@XSmall">
+                            <div [className]="classes.mapContainer">
+                                <app-check-location *ngIf="dataMapOut" [data]="dataMapOut"></app-check-location>
+                            </div>
+                        </ly-grid>
+                    </ly-grid>
+
+                </ly-grid>
+            </ly-grid>
+        </ly-grid>
+    </ly-grid>
+</div>

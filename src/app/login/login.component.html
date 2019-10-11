@@ -5,9 +5,9 @@
       <img class="logo" src="assets/img/logo-white.png">
       <form class="login-form" (ngSubmit)="login()" [formGroup]="loginForm">
         <ly-field fullWidth>
-          <input lyNativeControl placeholder="Username" formControlName="username" type="text">
+          <input lyNativeControl placeholder="NRP" formControlName="username" type="text">
           <ly-hint></ly-hint>
-          <ly-error>Wajib diisi</ly-error>
+          <ly-error>Wajib diisi NRP (min 7)</ly-error>
         </ly-field>
         <ly-field fullWidth>
           <input lyNativeControl placeholder="Password" formControlName="password" type="password">

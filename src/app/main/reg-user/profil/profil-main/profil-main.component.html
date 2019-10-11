@@ -1,0 +1,76 @@
+<div style="margin: 6px 6px 0px 6px;">
+    <h1 lyTyp="display1" gutterBottom>Profil</h1>
+    <ly-grid container [spacing]="8">
+        <ly-grid item col="7 12@XSmall" [withClass]="classes.photoProfile">
+
+        </ly-grid>
+        <ly-grid item col="7 12@XSmall">
+            <div style="text-align: center;margin-top:-80px;margin-bottom:30px;">
+                <ly-avatar *ngIf="currentEmployee &&  currentEmployee.Id!=credential.quickProfile.EmployeeID" size="150" style="border:3px solid #fff;cursor: pointer;">
+                    <img alt="credential.Username" [src]="profilePhoto">
+                </ly-avatar>
+                <ly-avatar *ngIf="currentEmployee &&  currentEmployee.Id==credential.quickProfile.EmployeeID" size="150" style="border:3px solid #fff;cursor: pointer;" (click)="fileInput.click();">
+                    <div *ngIf="loadImage"
+                        style="position: absolute;background: rgb(0,0,0,0.5);height: 100%;width: 100%;border-radius: 50%;padding-top:30%;">
+                        Mengganti <br />foto profile...</div>
+                    <img alt="credential.Username" [src]="profilePhoto">
+                </ly-avatar>
+                <input type="file" accept="image/*" #fileInput name="attch" (change)="readUrlImg($event)"
+                    style="display:none;" />
+            </div>
+            <ly-accordion [withClass]="classesEx.expansion" [hasToggle]="false">
+                <ly-expansion-panel *ngFor="let panel of groupInfo; index as i" [expanded]="panel.state"
+                    (opened)="panel.state = true" (closed)="panel.state = false">
+                    <ly-expansion-panel-header>
+                        <ly-panel-title>
+                            <h1 ly-line style="font-size: 18px;">{{ panel.key }}</h1>
+                        </ly-panel-title>
+                        <button ly-button *ngIf="panel.state && panel.key !=='Human Capital'" bg="primary" size="small"
+                            (click)="showSection(panel.key)">
+                            &nbsp;Ubah&nbsp;
+                        </button>&nbsp;&nbsp;
+                        <button ly-button [color]="panel.state ? 'primary' : 'text'" appearance="icon">
+                            <ly-expansion-icon [up]="panel.state"></ly-expansion-icon>
+                        </button>
+                    </ly-expansion-panel-header>
+                    <ly-list>
+                        <div *ngFor="let det of panel.value">
+                            <ly-list-item>
+                                <span ly-line>{{det.label}}</span>
+                                <h1 ly-line style="font-size: 18px;padding-top:8px;" *ngIf="currentEmployee">
+                                    {{currentEmployee[det.key] ? (det.option ? (det.option | textval:currentEmployee[det.key]).text : currentEmployee[det.key]) : '-'}}
+                                </h1>
+                            </ly-list-item>
+                            <ly-divider></ly-divider>
+                        </div>
+                    </ly-list>
+                </ly-expansion-panel>
+            </ly-accordion>
+        </ly-grid>
+        <ly-grid item col="7 12@XSmall">
+            <ly-grid container [spacing]="8" style="margin:10px 0 10px 0;">
+                <ly-grid item col="4 12@XSmall">
+                    <button outlined color="primary" [withClass]="classes.button" (click)="showPopUp('fam')" type="button"
+                        ly-button>
+                        <ly-icon>people</ly-icon>
+                        <span [className]="classes.labelAfter">Keluarga</span>
+                    </button>
+                </ly-grid>
+                <ly-grid item col="4 12@XSmall">
+                    <button outlined color="primary" [withClass]="classes.button" (click)="showPopUp('edu')" type="button"
+                        ly-button>
+                        <ly-icon>school</ly-icon>
+                        <span [className]="classes.labelAfter">Pendidikan</span>
+                    </button>
+                </ly-grid>
+                <ly-grid item col="4 12@XSmall">
+                    <button outlined color="primary" [withClass]="classes.button" (click)="showPopUp('trn')" type="button"
+                        ly-button>
+                        <ly-icon>sports_handball</ly-icon>
+                        <span [className]="classes.labelAfter">Pelatihan</span>
+                    </button>
+                </ly-grid>
+            </ly-grid>
+        </ly-grid>
+    </ly-grid>
+</div>

@@ -10,12 +10,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    username: new FormControl('81190181', [
+    username: new FormControl('', [ //'81190181'
       Validators.required,
       Validators.minLength(7),
       Validators.maxLength(10)
     ]),
-    password: new FormControl('Sunter123', Validators.required)
+    password: new FormControl('', Validators.required) //'Sunter123'
   });
   ls = new SecureLS();
   message = "";
@@ -23,7 +23,9 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-
+    if (localStorage.getItem('currentUser')) {
+      this.router.navigate(['/main/landing']);
+    }
   }
 
   login() {

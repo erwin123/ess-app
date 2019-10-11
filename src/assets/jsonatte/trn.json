@@ -1,0 +1,27 @@
+[
+    {
+        "key": "Institution",
+        "label": "Institusi",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Description",
+        "label": "Deskripsi",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Tahun",
+        "label": "Tahun",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    }
+]

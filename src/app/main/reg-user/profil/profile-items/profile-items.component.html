@@ -1,0 +1,55 @@
+<ly-toolbar position="static" bg="primary" [elevation]="3">
+    <h6 lyTyp="title" style="flex-grow: 1">{{title}}</h6>
+    <button color="primary:contrast" ly-button appearance="icon" (click)="closeDialog();">
+        <ly-icon>close</ly-icon>
+    </button>
+</ly-toolbar>
+<div ly-dialog-content>
+    <ly-grid container [spacing]="8" *ngIf="dataTemp.length" style="margin-top:10px;background: #ced4ee;">
+        <span style="padding:5px;">Data belum diverifikasi</span>
+        <ly-grid item col="12 12@XSmall" *ngFor="let i of dataTemp">
+            <ly-card>
+                <ly-card-content>
+                    <ly-grid container [spacing]="8">
+                        <ly-grid item col="4">
+                            <h2 lyTyp="title" gutterBottom>{{i[columns[0]]}}</h2>
+                        </ly-grid>
+                        <ly-grid item col="8">
+                            {{i[columns[1]]}}
+                        </ly-grid>
+                    </ly-grid>
+                </ly-card-content>
+            </ly-card>
+        </ly-grid>
+    </ly-grid>
+    <ly-grid container [spacing]="8" *ngIf="data.length" style="margin-top:10px;">
+        <ly-grid item col="12 12@XSmall" *ngFor="let i of data">
+            <ly-card>
+                <ly-card-content>
+                    <ly-grid container [spacing]="8">
+                        <ly-grid item col="4">
+                            <h2 lyTyp="title" gutterBottom>{{i[columns[0].key]}}</h2>
+                        </ly-grid>
+                        <ly-grid item col="8">
+                            {{i[columns[1].key]}}
+                        </ly-grid>
+                    </ly-grid>
+                </ly-card-content>
+            </ly-card>
+        </ly-grid>
+    </ly-grid>
+    <ly-grid container [spacing]="8" *ngIf="!addRow">
+        <ly-grid item col="12 12@XSmall">
+            <button [withClass]="classes.button" type="submit" ly-button bg="primary" (click)="addRow = true">
+                <ly-icon>add</ly-icon>
+                <span [className]="classes.labelAfter">Tambah Data</span>
+            </button>
+        </ly-grid>
+    </ly-grid>
+
+    <app-profile-items-field *ngIf="addRow && fields.length" [type]="title" [fields]="fields"
+        (addedRow)="addedRow($event)">
+    </app-profile-items-field>
+
+
+</div>

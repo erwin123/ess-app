@@ -1,7 +1,8 @@
-<h4 ly-dialog-title gutterBottom>Koreksi Absen</h4>
+<h4 ly-dialog-title gutterBottom>Pilih Kalender</h4>
 <div>
-  <div class="ClockOut" style="min-height: 300px;width:360px;">
-      <owl-date-time-inline [min]="min" [max]="max" (dateTimeChange)="selectedDate($event)" [(ngModel)]="selectedMoment"></owl-date-time-inline>
+  <div class="ClockOut" style="min-height: 300px;max-width:380px;text-align: center;">
+    <owl-date-time-inline [min]="min" [max]="max" [(ngModel)]="selectedMoment">
+    </owl-date-time-inline>
   </div>
 </div>
 <ly-grid container justify="center" ly-dialog-actions>

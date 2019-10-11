@@ -28,6 +28,29 @@
                         "role": "ESS_ADM"
                     }
                 ]
+            },
+            {
+                "id": 21,
+                "name": "Karyawan",
+                "icon": "nature_people",
+                "path": "",
+                "role": "ESS_ADM",
+                "children": [
+                    {
+                        "id": 22,
+                        "icon": "",
+                        "path": "main/admin/set-acc",
+                        "name": "Set Karyawan",
+                        "role": "ESS_ADM"
+                    },
+                    {
+                        "id": 23,
+                        "icon": "",
+                        "path": "main/admin/maintain-employee",
+                        "name": "Maintain Karyawan",
+                        "role": "ESS_ADM"
+                    }
+                ]
             }
         ]
     },
@@ -57,6 +80,13 @@
                 "name": "Riwayat Absen",
                 "icon": "",
                 "path": "main/reg-user/history-absent",
+                "role": "ESS_REG"
+            },
+            {
+                "id": 25,
+                "name": "Maintain Absen",
+                "icon": "",
+                "path": "main/admin/maintain-absence",
                 "role": "ESS_REG"
             }
         ]

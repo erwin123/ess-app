@@ -1,0 +1,14 @@
+<ly-toolbar position="static" bg="primary" [elevation]="3">
+  <h6 lyTyp="title" style="flex-grow: 1">Lokasi Saya</h6>
+  <button color="primary:contrast" ly-button appearance="icon" (click)="dialogMap.close(false);">
+    <ly-icon>close</ly-icon>
+  </button>
+</ly-toolbar><br />
+<div ly-dialog-content>
+  <!-- <div id="map" style="width: 100%;height:90%;" class="map" tabindex="0"></div>
+  <h6 lyTyp="title" style="text-align: center">{{message}}</h6>
+  <br/> -->
+  <div>
+    <app-check-location *ngIf="data" [data]="data"></app-check-location>
+  </div>
+</div>

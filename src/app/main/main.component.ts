@@ -116,12 +116,19 @@ export class MainComponent implements OnInit {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    this.credential = this.ls.get('currentUser');
+    this.stateService.currentCredential.subscribe(cr => {
+      this.credential = cr;
+    })
+
     this.config = this.stateService.getConfig();
-    this.profilePhoto = this.config.Api.profile + "person-icon.png";
+    //this.profilePhoto = this.config.Api.profile + "person-icon.png";
   }
 
   ngOnInit() {
+    this.stateService.currentProfilePic.subscribe(pp => {
+      this.profilePhoto = pp;
+      console.log(pp);
+    })
     this.stateService.currentBlocking.subscribe(b => {
       if (b == 1) {
         this.blockUI.start('Loading...');
@@ -141,8 +148,7 @@ export class MainComponent implements OnInit {
     });
     console.log(this.credential);
     if (this.credential.quickProfile.Photo)
-      this.profilePhoto = this.config.Api.profile + this.credential.Username + "/" + this.credential.quickProfile.Photo;
-
+      this.profilePhoto = this.config.Api.profile + this.credential.quickProfile.Username + "/" + this.credential.quickProfile.Photo;
   }
 
   goTo(path, title) {
@@ -150,7 +156,15 @@ export class MainComponent implements OnInit {
       if (this.mobileQuery.matches && this.drwMain._isOpen) {
         this.drwMain.toggle();
       }
-      this.router.navigate([path]);
+      if (title === "Profil") {
+        this.router.navigate([path + "/" + this.credential.Username]);
+      } else if (title === "Logout") {
+        this.stateService.logout();
+      }
+      else {
+        this.router.navigate([path]);
+      }
+
     }
   }
 }

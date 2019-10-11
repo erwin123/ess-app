@@ -1,18 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { LyDialogRef, LY_DIALOG_DATA } from '@alyle/ui/dialog';
 import * as moment from 'moment';
-import * as SecureLS from 'secure-ls';
 import { AbsentService } from 'src/app/services/absent.service';
+import { StateService } from 'src/app/services/state.service';
 
-export const MY_MOMENT_FORMATS = {
-  parseInput: 'l LT',
-  fullPickerInput: 'l LT',
-  datePickerInput: 'l',
-  timePickerInput: 'LT',
-  monthYearLabel: 'MMM YYYY',
-  dateA11yLabel: 'LL',
-  monthYearA11yLabel: 'MMMM YYYY',
-};
 @Component({
   selector: 'app-edit-absent',
   templateUrl: './edit-absent.component.html',
@@ -23,12 +14,16 @@ export class EditAbsentComponent implements OnInit {
   min;
   max;
   credential: any;
-  ls = new SecureLS();
   constructor(@Inject(LY_DIALOG_DATA) public data: any, public dialogEditAbsent: LyDialogRef,
-    private absenService: AbsentService) {
-    this.min = moment().subtract(10, 'days').toDate();
-    this.max = moment().toDate();
-    this.credential = this.ls.get('currentUser');
+    private absenService: AbsentService, private stateService:StateService) {
+    // this.min = moment().subtract(10, 'days').toDate();
+    // this.max = moment().toDate();
+    this.stateService.currentCredential.subscribe(cr=>{
+      this.min = moment().subtract(10, 'days');
+      this.max = moment();
+      this.credential = cr;
+    })
+    
   }
 
   ngOnInit() {

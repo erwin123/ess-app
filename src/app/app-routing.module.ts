@@ -4,6 +4,7 @@ import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
 import { AuthguardService } from './services/authguard.service';
 import { LandingComponent } from './main/landing/landing.component';
+import { InboxComponent } from './main/inbox/inbox.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
     path: 'main', component: MainComponent, canActivate: [AuthguardService],
     children: [
       { path: 'landing', component: LandingComponent, data: { state: 'landing' }},
+      { path: 'inbox', component: InboxComponent, data: { state: 'inbox' }},
       {
         path: 'admin',
         loadChildren: './main/admin/admin.module#AdminModule',
@@ -21,6 +23,11 @@ const routes: Routes = [
         path: 'reg-user',
         loadChildren: './main/reg-user/reg-user.module#RegUserModule',
         data: { state: 'reg-user' }
+      },
+      {
+        path: 'settings',
+        loadChildren: './main/settings/settings.module#SettingsModule',
+        data: { state: 'admin' }
       },
     ]
   },

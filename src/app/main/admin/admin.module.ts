@@ -6,15 +6,19 @@ import { SharingModuleModule } from 'src/app/sharing-module/sharing-module.modul
 import { MaintainLocationComponent } from './maintain-location/maintain-location.component';
 import { MaintainTplComponent } from './maintain-tpl/maintain-tpl.component';
 import { SetAccountComponent } from './set-account/set-account.component';
+import { MaintainEmployeeComponent } from './maintain-employee/maintain-employee.component';
+import { DailyAbsenceComponent } from './daily-absence/daily-absence.component';
+import { MaintainAbsenceComponent } from './maintain-absence/maintain-absence.component';
 
 @NgModule({
   declarations: [SetLocationComponent, MaintainLocationComponent,
-     MaintainTplComponent, SetAccountComponent],
+    MaintainTplComponent, SetAccountComponent, MaintainEmployeeComponent,
+    DailyAbsenceComponent, MaintainAbsenceComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     SharingModuleModule
   ],
-  
+
 })
 export class AdminModule { }

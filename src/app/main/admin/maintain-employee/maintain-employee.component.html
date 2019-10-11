@@ -1,0 +1,10 @@
+<app-maintain-tpl [addButton]="true" [columns]='columns' [data]='data' [objectData]="'Karyawan'"
+(actionClickEvent)="receiveEvent($event)" (actionAddEvent)="receiveAddEvent($event)"></app-maintain-tpl>
+
+
+<!-- <app-maintain-tpl-server
+[columns]='columns' [data]='data' [objectData]="'Karyawan'"
+(actionClickEvent)="receiveEvent($event)"
+(actionAddEvent)="receiveAddEvent($event)"
+(actionPagingEvent)="receivePagingEvent($event)"
+(actionSearchEvent)="receiveSearchEvent($event)"></app-maintain-tpl-server> -->

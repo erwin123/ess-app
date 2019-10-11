@@ -10,7 +10,9 @@
         <button (click)="help();" class="helpBtn" ly-button raised size="small">
           Bantuan
         </button>
-        <span class="locInfo" *ngIf="quickProfile">{{quickProfile.LocationName}}</span>
+        <span class="locInfo" *ngIf="quickProfile" (click)="showMap();">
+          &nbsp;Lihat Posisi&nbsp;
+        </span>
       </div>
       <div *ngIf="!showWebcam" style="margin:100px auto;">
         Mengakses Kamera...
