@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { API, APIDefinition } from 'ngx-easy-table';
 import { LyTheme2, ThemeVariables } from '@alyle/ui';
 
@@ -23,13 +23,18 @@ const STYLES = (_theme: ThemeVariables) => ({
 export class MaintainTplComponent implements OnInit {
   readonly classes = this.theme.addStyleSheet(STYLES);
   @ViewChild('table', { static: false }) table: APIDefinition;
+  @ViewChild('table2', { static: false }) table2: APIDefinition;
+
   @Input('columns') columns = [];
   @Input('addButton') addButton = true;
   @Input('data') data = [];
   @Input('objectData') objectData;
+  @Input('isAdvanced') isAdvanced = false;
+
   @Output() actionClickEvent = new EventEmitter<any>();
   @Output() actionAddEvent = new EventEmitter<number>();
-
+  @Output() actionDeleteEvent = new EventEmitter<any>();
+  public toggledRows = new Set<number>();
   constructor(private theme: LyTheme2) { }
 
   ngOnInit() {
@@ -42,10 +47,17 @@ export class MaintainTplComponent implements OnInit {
     }
   }
   sendAction($event) {
-    if($event.value.row)
+    console.log($event);
+    if ($event.value.row)
       this.actionClickEvent.emit($event.value.row);
   }
-  sendAdd(){
+
+  sendAdd() {
     this.actionAddEvent.emit(1);
+  }
+
+  deleteAction($event,data){
+    this.actionDeleteEvent.emit(data);
+    $event.stopPropagation();
   }
 }

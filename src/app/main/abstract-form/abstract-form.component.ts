@@ -43,8 +43,10 @@ export class AbstractFormComponent implements OnInit {
     this.genForm = this.stateService.toFormGroup(this.fields);
     if (this.data)
       setTimeout(() => {this.stateService.resetForm(this.genForm, this.data);}, 0);
+    if(this.mode == 2){
+      this.genForm.disable();
+    }
   }
-
 
 
   formSubmit() {

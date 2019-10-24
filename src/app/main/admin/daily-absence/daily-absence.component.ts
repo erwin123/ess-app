@@ -2,15 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AbsentService } from 'src/app/services/absent.service';
 import { StateService } from 'src/app/services/state.service';
-import { LyTheme2 } from '@alyle/ui';
+import { LyTheme2, ThemeVariables } from '@alyle/ui';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AccountService } from 'src/app/services/account.service';
-const thmstyles = (theme) => ({
+import { LyDialog } from '@alyle/ui/dialog';
+import { DialogInfoComponent } from 'src/app/alert/dialog-info/dialog-info.component';
+import { callbackify } from 'util';
+const thmstyles = () => ({
   container: {
     maxWidth: '100%'
   },
-  mapContainer:{
-    height:'200px !important'
+  mapContainer: {
+    height: '200px !important'
+  },
+  button: {
+    width: '45%'
+  }
+});
+const STYLES_DIALOG = (theme: ThemeVariables) => ({
+  width: '800px',
+  borderRadius: 0,
+  [theme.getBreakpoint('XSmall')]: {
+    width: '100vw',
+    height: '100vh',
+    maxWidth: '100vw !important',
+    maxHeight: '100vh !important'
   }
 });
 @Component({
@@ -20,23 +36,15 @@ const thmstyles = (theme) => ({
 })
 export class DailyAbsenceComponent implements OnInit {
   readonly classes = this.theme.addStyleSheet(thmstyles);
-  data = [];
+  data;
   dataView = [];
   dataMapIn;
   dataMapOut;
   credential;
   config;
   fields;
-  // absenForm: FormGroup = new FormGroup({
-  //   FullName: new FormControl({ value: '', disabled: true }),
-  //   AbsentDate: new FormControl({ value: '', disabled: true }),
-  //   ClockIn: new FormControl({ value: '', disabled: true }),
-  //   ClockOut: new FormControl({ value: '', disabled: true }),
-  //   NRP: new FormControl({ value: '', disabled: true }),
-  //   EmpLocName: new FormControl({ value: '', disabled: true })
-  // });
-
-  constructor(private absenService: AbsentService, private theme: LyTheme2,private accService:AccountService,
+  approveMode = false;
+  constructor(private _dialog: LyDialog, private absenService: AbsentService, private theme: LyTheme2, private accService: AccountService,
     private stateService: StateService, private router: Router, private route: ActivatedRoute) {
     this.stateService.currentCredential.subscribe(cr => {
       this.credential = cr;
@@ -46,19 +54,23 @@ export class DailyAbsenceComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(p => {
       if (p.idabs) {
-        this.fetchData({ Id: p.idabs });
+        this.fetchDataUv({ Id: p.idabs }, (cb) => {
+          if (cb.Status == 2 && p.apabs == 1) {
+            this.approveMode = true;
+          }
+        });
       }
     })
   }
-  fetchData(crit) {
+  fetchDataUv(crit, callback) {
     this.stateService.setBlocking(1);
-    this.absenService.postCriteria(crit).subscribe(emp => {
+    this.absenService.postCriteriaUv(crit).subscribe(emp => {
       if (emp.length) {
         this.dataView = emp.map(m => {
           m.ClockIn = m.ClockIn ? m.ClockIn.split('T')[0] + " " + m.ClockIn.split('T')[1].replace('.000Z', '') : "-Belum Absen-";
           m.ClockOut = m.ClockOut ? m.ClockOut.split('T')[0] + " " + m.ClockOut.split('T')[1].replace('.000Z', '') : "-Belum Absen-";
-          m.PhotoIn = m.PhotoIn ? this.config.Api.absen  + "/" + m.PhotoIn : null;
-          m.PhotoOut = m.PhotoOut ?this.config.Api.absen  + "/" + m.PhotoOut:null;
+          m.PhotoIn = m.PhotoIn ? this.config.Api.absen + "/" + m.PhotoIn : null;
+          m.PhotoOut = m.PhotoOut ? this.config.Api.absen + "/" + m.PhotoOut : null;
           return {
             FullName: m.FullName,
             AbsentDate: m.AbsentDate,
@@ -70,27 +82,80 @@ export class DailyAbsenceComponent implements OnInit {
         })[0];
         this.data = emp[0];
         this.setupMap(this.data);
-        //this.stateService.resetForm(this.absenForm, this.dataView);
-        this.accService.getJSON("absen-field.json").subscribe(f=>{
-          this.fields =f;
+        this.accService.getJSON("absen-field.json").subscribe(f => {
+          this.fields = f;
         })
+        callback(emp[0]);
         this.stateService.setBlocking(0);
       }
     });
   }
 
-  setupMap(data){
+  setupMap(data) {
     this.dataMapIn = {
-      Identity:"dataMapIn",
+      Identity: "dataMapIn",
       LocOffice: [Number(data.EmpLong), Number(data.EmpLat)],
-      RadiusOffice:Number(data.EmpRadius),
+      RadiusOffice: Number(data.EmpRadius),
       LocUser: [Number(data.LongIn), Number(data.LatIn)]
     }
     this.dataMapOut = {
-      Identity:"dataMapOut",
+      Identity: "dataMapOut",
       LocOffice: [Number(data.EmpLong), Number(data.EmpLat)],
-      RadiusOffice:Number(data.EmpRadius),
+      RadiusOffice: Number(data.EmpRadius),
       LocUser: [Number(data.LongOut), Number(data.LatOut)]
     }
+  }
+
+  actionData(a) {
+    if (a == 0) {
+      this.showAlert(
+        {
+          Subject: "Konfirmasi",
+          Message: "Anda yakin menolak absen ini?<br><b>(*) Dengan melakukan penolakan, maka karyawan dianggap tidak masuk</b>",
+          ConfirmationMode: true
+        }, true, (cb) => {
+          if (cb == 1) {
+            this.putData(0, (cb) => {
+              if (cb) {
+                this.showBox("Data berhasil disimpan", false, () => {
+                  this.router.navigate(['main/inbox']);
+                })
+              }
+            })
+          }
+        })
+    } else {
+      this.putData(3, (cb) => {
+        if (cb) {
+          this.showBox("Data berhasil disimpan", false, () => {
+            this.router.navigate(['main/inbox']);
+          })
+        }
+      })
+    }
+  }
+
+  showBox(message: string, err: boolean, callback) {
+    const dialogRefInfo = this._dialog.open<DialogInfoComponent>(DialogInfoComponent, {
+      data: { Message: message, err: err }
+    });
+    dialogRefInfo.afterClosed.subscribe(() => {
+      callback();
+    });
+  }
+  putData(isApprove, callback) {
+    this.absenService.putAbsent({ Id: this.data.Id, Status: isApprove }, this.data.EmployeeID).subscribe(res => {
+      callback(res);
+    });
+  }
+
+  showAlert(data: any, err: boolean, callback) {
+    const dialogRefInfo = this._dialog.open<DialogInfoComponent>(DialogInfoComponent, {
+      containerClass: this.theme.style(STYLES_DIALOG),
+      data: { MessageTitle: data.Subject, Message: data.Message, err: err, ConfirmationMode: data.ConfirmationMode ? data.ConfirmationMode : false }
+    });
+    dialogRefInfo.afterClosed.subscribe((res) => {
+      callback(res);
+    });
   }
 }

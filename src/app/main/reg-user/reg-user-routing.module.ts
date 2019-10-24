@@ -4,6 +4,8 @@ import { CreateAbsentComponent } from './absent/create-absent/create-absent.comp
 import { AuthguardService } from 'src/app/services/authguard.service';
 import { HistoryAbsentComponent } from './absent/history-absent/history-absent.component';
 import { ProfilMainComponent } from './profil/profil-main/profil-main.component';
+import { KlaimComponent } from './klaim/klaim.component';
+import { SuratTugasComponent } from './surat-tugas/surat-tugas.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,18 @@ const routes: Routes = [
     path: 'profile-main/:emp',
     component: ProfilMainComponent,
     data: { state: 'profile-main' },
+    canActivate:[AuthguardService]
+  },
+  {
+    path: 'maintain-claim',
+    component: KlaimComponent,
+    data: { state: 'klaim-maintain' },
+    canActivate:[AuthguardService]
+  },
+  {
+    path: 'maintain-surat-tugas',
+    component: SuratTugasComponent,
+    data: { state: 'surat-tugas-maintain' },
     canActivate:[AuthguardService]
   },
 ];

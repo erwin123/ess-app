@@ -131,6 +131,18 @@ export class SetAccountComponent implements OnInit {
   checkProfile() {
     this.router.navigate(['main/reg-user/profile-main/' + this.params]);
   }
+  resetPassword(){
+    if (this.accForm.valid) {
+      let objInsert = this.accForm.value;
+      let objPut ={
+        Username:objInsert.Username,
+        EmailPrivate:objInsert.EmailPrivate
+      }
+      this.accountService.resetPwd(objPut).subscribe(res=>{
+        this.showAlert("Password baru telah dikirim email pribadi", false);
+      })
+    }
+  }
   onSubmit() {
     if (this.accForm.valid) {
       let objInsert = this.accForm.value;
@@ -144,6 +156,7 @@ export class SetAccountComponent implements OnInit {
             this.showAlert("Data tersimpan", false);
           }
         }, err => {
+          console.log(err)
           if (err.error.error === "not_unique") {
             this.showAlert("Data tidak tersimpan, NRP sudah terdaftar sebelumnya", true);
           }
@@ -154,6 +167,7 @@ export class SetAccountComponent implements OnInit {
             this.showAlert("Data tersimpan, password dikirim ke email karyawan", false);
           }
         }, err => {
+          console.log(err)
           if (err.error.error === "not_unique") {
             this.showAlert("Data tidak tersimpan, NRP sudah terdaftar sebelumnya", true);
           }

@@ -3,6 +3,7 @@ import { StateService } from 'src/app/services/state.service';
 import { AccountService } from 'src/app/services/account.service';
 import { LyDialog } from '@alyle/ui/dialog';
 import { DialogInfoComponent } from 'src/app/alert/dialog-info/dialog-info.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-change-password',
@@ -13,7 +14,8 @@ export class ChangePasswordComponent implements OnInit {
   fields;
   message;
   credential: any;
-  constructor(private _dialog: LyDialog, private stateService: StateService, private accService: AccountService) {
+  constructor(private _dialog: LyDialog, private stateService: StateService,
+    private accService: AccountService, private router:Router) {
     this.stateService.currentCredential.subscribe(cr => {
       this.credential = cr;
     });
@@ -24,7 +26,7 @@ export class ChangePasswordComponent implements OnInit {
       data: { Message: msg, err: err }
     });
     dialogRefInfo.afterClosed.subscribe(() => {
-
+      this.router.navigate(['main/landing']);
     });
   }
   ngOnInit() {
@@ -35,6 +37,7 @@ export class ChangePasswordComponent implements OnInit {
 
   onSubmit(obj) {
     if (obj.valid) {
+      this.stateService.setBlocking(1);
       let objPwd = obj.value;
       if (objPwd.NewPassword1 !== objPwd.NewPassword2) {
         this.message = "Password dan konfirmasi tidak sama.";

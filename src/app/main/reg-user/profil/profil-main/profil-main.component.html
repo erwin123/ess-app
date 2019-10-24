@@ -25,7 +25,7 @@
                         <ly-panel-title>
                             <h1 ly-line style="font-size: 18px;">{{ panel.key }}</h1>
                         </ly-panel-title>
-                        <button ly-button *ngIf="panel.state && panel.key !=='Human Capital'" bg="primary" size="small"
+                        <button ly-button *ngIf="panel.state && panel.key !=='Human Capital' && (currentEmployee.Id==credential.quickProfile.EmployeeID)" bg="primary" size="small"
                             (click)="showSection(panel.key)">
                             &nbsp;Ubah&nbsp;
                         </button>&nbsp;&nbsp;

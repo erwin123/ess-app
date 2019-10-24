@@ -4,15 +4,26 @@
     </h1>
     <ly-grid container [spacing]="8" style="margin-bottom:18px;">
         <ly-grid item col="4 12@XSmall" *ngIf="fields">
-            <app-abstract-form [fields]="fields" [mode]="2" (onSubmit)="onSubmit($event)" [data]="dataView"></app-abstract-form>
+            <app-abstract-form [fields]="fields" [mode]="2" (onSubmit)="onSubmit($event)" [data]="dataView">
+            </app-abstract-form>
+            <button type="button" [withClass]="classes.button" ly-button bg="primary" *ngIf="approveMode"
+                (click)="actionData(1)">
+                <ly-icon>check</ly-icon>
+                <span [className]="classes.labelAfter">Approve</span>
+            </button>&nbsp;
+            <button type="button" outlined color="warn" [withClass]="classes.button" ly-button *ngIf="approveMode"
+                (click)="actionData(0)">
+                <ly-icon>close</ly-icon>
+                <span [className]="classes.labelAfter">Reject</span>
+            </button>
         </ly-grid>
         <ly-grid item col="8 12@XSmall">
             <ly-grid container [spacing]="8">
-                <ly-grid item col="12 12@XSmall" *ngIf="data.PhotoIn">
+                <ly-grid item col="12 12@XSmall" *ngIf="data.PhotoIn" style="margin-top: 20px;">
                     <h2 lyTyp="title">Masuk</h2>
                     <ly-grid container [spacing]="8">
                         <ly-grid item col="6 12@XSmall">
-                            <img [src]="data.PhotoIn" [alt]="data.PhotoIn" style="width: 100%">
+                            <img [src]="data.PhotoIn" [alt]="data.PhotoIn" style="width: 100%" />
                         </ly-grid>
                         <ly-grid item col="6 12@XSmall">
                             <div [className]="classes.mapContainer">
@@ -21,12 +32,11 @@
                         </ly-grid>
                     </ly-grid>
                 </ly-grid>
-
-                <ly-grid item col="12 12@XSmall" *ngIf="data.PhotoOut">
+                <ly-grid item col="12 12@XSmall" *ngIf="data.PhotoOut" style="margin-top: 20px;">
                     <h2 lyTyp="title">Keluar</h2>
                     <ly-grid container [spacing]="8">
                         <ly-grid item col="6 12@XSmall">
-                            <img [src]="data.PhotoOut" [alt]="data.PhotoOut" style="width: 100%">
+                            <img [src]="data.PhotoOut" [alt]="data.PhotoOut" style="width: 100%" />
                         </ly-grid>
                         <ly-grid item col="6 12@XSmall">
                             <div [className]="classes.mapContainer">
@@ -34,7 +44,6 @@
                             </div>
                         </ly-grid>
                     </ly-grid>
-
                 </ly-grid>
             </ly-grid>
         </ly-grid>

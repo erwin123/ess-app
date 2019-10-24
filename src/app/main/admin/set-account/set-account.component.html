@@ -6,7 +6,6 @@
     </h1>
     <ly-grid container [spacing]="8" style="margin-bottom:18px;">
         <ly-grid item col="7 12@XSmall" *ngIf="fields.length">
-
             <form [formGroup]="accForm" (ngSubmit)="onSubmit()">
                 <div *ngFor="let f of fields">
                     <div [ngSwitch]="f.type">
@@ -78,11 +77,16 @@
                             </ng-select>
                         </div>
                         <div *ngSwitchCase="'select'">
-                            <ng-select [placeholder]="f.label" [items]="f.option" bindValue="value" bindLabel="text" [formControlName]="f.key">
+                            <ng-select [placeholder]="f.label" [items]="f.option" bindValue="value" bindLabel="text"
+                                [formControlName]="f.key">
                             </ng-select>
                         </div>
                     </div>
                 </div>
+                <button type="button" [withClass]="classes.button" ly-button outlined (click)="resetPassword()" *ngIf="employeeID>0">
+                    <ly-icon>settings_backup_restore</ly-icon>
+                    <span [className]="classes.labelAfter">Reset Password</span>
+                </button><br /><br />
                 <button [withClass]="classes.button" ly-button bg="primary">
                     <ly-icon>save</ly-icon>
                     <span [className]="classes.labelAfter">Simpan</span>

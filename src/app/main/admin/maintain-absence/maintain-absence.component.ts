@@ -23,7 +23,7 @@ export class MaintainAbsenceComponent implements OnInit {
   }
   fetchData(crit) {
     this.stateService.setBlocking(1);
-    this.absenService.postCriteria(crit).subscribe(emp => {
+    this.absenService.postCriteriaUv(crit).subscribe(emp => {
       emp.map(m => {
         m.ClockIn = m.ClockIn ? m.ClockIn.split('T')[0] + " " + m.ClockIn.split('T')[1].replace('.000Z', '') : "-Belum Absen-";
         m.ClockOut = m.ClockOut ? m.ClockOut.split('T')[0] + " " + m.ClockOut.split('T')[1].replace('.000Z', '') : "-Belum Absen-";

@@ -175,7 +175,7 @@ export class ProfilMainComponent implements OnInit {
         m.value = m.AreaCode;
         return m;
       });
-      
+
       fields.find(f => f.key === 'Religion').option = res[2].filter(f => f.Code === 'AGM').map(m => {
         m.text = m.Text;
         m.value = m.Value;
@@ -192,7 +192,7 @@ export class ProfilMainComponent implements OnInit {
         return m;
       }) : [];
       fields.find(f => f.key === 'DepartmentID').option = res[3] ? res[3].map(m => {
-        m.text =  m.Name,
+        m.text = m.Name,
           m.value = m.Id
         return m;
       }) : [];
@@ -205,7 +205,8 @@ export class ProfilMainComponent implements OnInit {
         m.text = "(" + m.Username + ") " + m.FullName,
           m.value = m.EmployeeId
         return m;
-      }).filter(f => f.EmployeeId != this.currentQuickProfile.EmployeeId) : [];
+      }).filter(f => f.EmployeeId != this.currentQuickProfile.EmployeeID) : [];
+      
       if (res[0] && res[1] && res[2] && res[3] && res[4] && res[5] && res[6]) {
         this.stateService.setBlocking(0);
         callback(fields);
@@ -280,7 +281,7 @@ export class ProfilMainComponent implements OnInit {
                             this.stateService.setProfilePic(this.config.Api.profile + prof.Username + "/" + up.filename);
                             this.stateService.setCredential(this.credential);
                           }
-                          this.profilePhoto = this.config.Api.profile + prof.Username + "/" + prof.Photo;                
+                          this.profilePhoto = this.config.Api.profile + prof.Username + "/" + prof.Photo;
                           this.loadImage = false;
                         }
                       })

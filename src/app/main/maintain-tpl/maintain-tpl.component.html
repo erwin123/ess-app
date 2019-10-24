@@ -1,0 +1,44 @@
+<div style="margin: 6px 6px 6px 6px;">
+  <h1 lyTyp="display1" gutterBottom *ngIf="objectData">Maintain {{objectData}}
+    <button *ngIf="addButton" ly-button outlined color="primary" size="small" (click)="sendAdd()">
+      <ly-icon>add</ly-icon>Tambah baru
+    </button>
+  </h1>
+  <ly-grid container>
+    <ly-grid item col="12 12@XSmall">
+      <div [className]="classes.table">
+        <form style="padding: 0 10px 0 10px;">
+          <ly-field fullWidth>
+            <input lyNativeControl placeholder="Search" type='text' (input)="onChange($event)">
+            <button ly-button appearance="icon" lySuffix>
+              <ly-icon>search</ly-icon>
+            </button>
+          </ly-field>
+        </form>
+        <ngx-table *ngIf="!isAdvanced" (event)="sendAction($event)" selectRow="true" clickEvent="true"
+          globalSearchEnabled="true" [data]="data" [columns]="columns" #table>
+        </ngx-table>
+        <!--Advanced-->
+        <ngx-table *ngIf="isAdvanced" [data]="data" (event)="sendAction($event)"
+          selectRow="true" clickEvent="true" globalSearchEnabled="true" #table [columns]="columns">
+          <ng-template let-row let-index="index">
+              <td>
+                <button ly-button appearance="icon" color="primary" (click)="deleteAction($event,row)">
+                  <ly-icon>delete</ly-icon>
+                </button>
+              </td>
+              <td>
+                <span [style.font-weight]="row.ReadIt == 0 ? 'bold':'normal'">{{row.Employee.FullName}}</span>
+              </td>
+              <td>
+                <span [style.font-weight]="row.ReadIt == 0 ? 'bold':'normal'">{{row.Subject}}</span>
+              </td>
+              <td>
+                <span [style.font-weight]="row.ReadIt == 0 ? 'bold':'normal'">{{row.CreateDate}}</span>
+              </td>
+          </ng-template>
+        </ngx-table>
+      </div>
+    </ly-grid>
+  </ly-grid>
+</div>

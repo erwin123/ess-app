@@ -16,15 +16,17 @@ import { LyDialogModule } from '@alyle/ui/dialog';
 import { LySnackBarModule } from '@alyle/ui/snack-bar';
 import { LyCheckboxModule } from '@alyle/ui/checkbox';
 import { LyAvatarModule } from '@alyle/ui/avatar';
+import { LyListModule } from '@alyle/ui/list';
 import { DialogInfoComponent } from '../alert/dialog-info/dialog-info.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TableModule } from 'ngx-easy-table';
 import { OwlMomentDateTimeModule } from 'ng-pick-datetime/date-time/adapter/moment-adapter/moment-date-time.module';
-import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS,OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { TextvalPipe } from '../pipe/textval.pipe';
 import { CheckLocationComponent } from '../main/location/check-location/check-location.component';
 import { AbstractFormComponent } from '../main/abstract-form/abstract-form.component';
-
+import { MaintainTplComponent } from '../main/maintain-tpl/maintain-tpl.component';
+import { LyCarouselModule } from '@alyle/ui/carousel';
 export const MY_MOMENT_FORMATS = {
   parseInput: 'l LT',
   fullPickerInput: 'l LT',
@@ -36,7 +38,11 @@ export const MY_MOMENT_FORMATS = {
 };
 
 @NgModule({
-  declarations: [DialogInfoComponent, TextvalPipe, CheckLocationComponent, AbstractFormComponent],
+  declarations: [DialogInfoComponent,
+    TextvalPipe,
+    CheckLocationComponent,
+    AbstractFormComponent,
+    MaintainTplComponent],
   imports: [
     CommonModule,
     LyDrawerModule,
@@ -60,7 +66,9 @@ export const MY_MOMENT_FORMATS = {
     NgSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    OwlMomentDateTimeModule
+    OwlMomentDateTimeModule,
+    LyCarouselModule,
+    LyListModule
   ],
   exports: [LyDrawerModule,
     LyButtonModule,
@@ -82,16 +90,19 @@ export const MY_MOMENT_FORMATS = {
     DialogInfoComponent,
     CheckLocationComponent,
     AbstractFormComponent,
+    MaintainTplComponent,
     TableModule,
     NgSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     OwlMomentDateTimeModule,
-    TextvalPipe
+    TextvalPipe,
+    LyCarouselModule,
+    LyListModule
   ],
   entryComponents: [DialogInfoComponent],
   providers: [
-     { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS }
+    { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS }
   ],
 })
 

@@ -1,10 +1,22 @@
 <ly-grid container [spacing]="8" style="margin-bottom:18px;" *ngIf="menus.length">
-    <ly-grid item col="4 12@XSmall" *ngFor="let menu of menus">
-        <ly-paper [withClass]="classes.paper" bg="primary" (click)="goTo(menu.Path)"
-            [elevation]="2" [disableRipple]="false">
-            <img [src]="'assets/img/'+menu.Icon" [alt]="menu.Icon" [withClass]="classes.img"/>
-            <div [withClass]="classes.overlay"></div>
-            <div [withClass]="classes.texting">{{menu.Text}}</div>
-        </ly-paper>
+    <ly-grid item col="12 12@XSmall" style="padding:0px !important;">
+        <ly-carousel [withClass]="classes.carousel" touch>
+            <ly-carousel-item *ngFor="let item of car" [withClass]="classes.carouselItem" [srcImg]="item.img">
+                <div>{{ item.title }}</div>
+            </ly-carousel-item>
+        </ly-carousel>
+    </ly-grid>
+    <ly-grid item col="12 12@XSmall" style="margin-top:-18px;">
+        <ly-grid container [justify]="'center'" [spacing]="8" style="margin-bottom:18px;">
+            <ly-grid item col="3 6@XSmall" *ngFor="let menu of menus">
+                <ly-paper [withClass]="classes.paper" bg="primary" (click)="goTo(menu.Path)" [elevation]="2"
+                    [disableRipple]="false">
+                    <div [withClass]="classes.icon">
+                        <ly-icon style="font-size:3em;">{{menu.Icon}}</ly-icon>
+                    </div>
+                    <div [withClass]="classes.texting">{{menu.Text}}</div>
+                </ly-paper>
+            </ly-grid>
+        </ly-grid>
     </ly-grid>
 </ly-grid>

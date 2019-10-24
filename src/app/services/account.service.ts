@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
 import * as SecureLS from 'secure-ls';
@@ -42,16 +42,19 @@ export class AccountService {
   }
 
   chPwd(obj) {
-    // this.headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'x-access-token': this.credential.token
-    // });
     return this.httpClient.post<any>(this.config.Api.global_api + "/account/chpwd", obj, { headers: this.headers }).pipe(
       retry(3), map(
         res => {
-          if (res[0]) {
-            this.stateService.setCredential(res[0]);
-          }
+          return res;
+        }
+      ));
+  }
+  resetPwd(obj) {
+    let objPut = obj;
+    objPut.UpdateBy=this.credential.Username;
+    return this.httpClient.post<any>(this.config.Api.global_api + "/account/resetpwd", obj, { headers: this.headers }).pipe(
+      retry(3), map(
+        res => {
           return res;
         }
       ));

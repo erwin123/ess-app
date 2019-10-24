@@ -1,1 +1,8 @@
-<p>inbox works!</p>
+<ly-grid container [spacing]="8" style="margin-bottom:18px;">
+    <ly-grid item col="12 12@XSmall">
+        <app-maintain-tpl [isAdvanced]="true" [addButton]="false" [columns]='columns' [data]='data'
+            [objectData]="'Pesan Masuk'" (actionClickEvent)="receiveEvent($event)"
+            (actionAddEvent)="receiveAddEvent($event)"
+            (actionDeleteEvent)="receiveDeleteEvent($event)"></app-maintain-tpl>
+    </ly-grid>
+</ly-grid>

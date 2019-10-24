@@ -1,0 +1,58 @@
+[
+    {
+        "id": 0,
+        "name": "Beranda",
+        "icon": "home",
+        "path": "main/landing",
+        "role": "ESS_REG"
+    },
+    {
+        "id": 1,
+        "name": "Lokasi",
+        "icon": "outlined_flag",
+        "path": "main/admin/maintain-location",
+        "role": "ESS_ADM"
+    },
+    {
+        "id": 2,
+        "name": "Karyawan",
+        "icon": "supervised_user_circle",
+        "path": "main/admin/maintain-employee",
+        "role": "ESS_ADM"
+    },
+    {
+        "id": 3,
+        "name": "Absensi",
+        "icon": "assignment_ind",
+        "path": "main/admin/maintain-absence",
+        "role": "ESS_ADM"
+    },
+    {
+        "id": 4,
+        "name": "Klaim",
+        "icon": "receipt",
+        "path": "main/reg-user/maintain-claim",
+        "role": "ESS_REG"
+    },
+    {
+        "id": 5,
+        "name": "Cuti",
+        "icon": "directions_run",
+        "path": "main/reg-user/maintain-cuti",
+        "role": "ESS_REG"
+    },
+    {
+        "id": 6,
+        "name": "Surat Tugas",
+        "icon": "markunread_mailbox",
+        "path": "main/reg-user/maintain-surat-tugas",
+        "role": "ESS_REG"
+    },
+    {
+        "id": 7,
+        "name": "Logout",
+        "icon": "exit_to_app",
+        "path": "exit",
+        "role": "ESS_REG"
+    }
+]

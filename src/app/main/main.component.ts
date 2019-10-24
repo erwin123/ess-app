@@ -35,7 +35,7 @@ const STYLES = ({
   styleUrls: ['./main.component.scss'],
   animations: [
     trigger('routerTransition', [
-      transition('* => feed', [
+      transition('* => landing', [
         query(':enter, :leave', style({ position: 'fixed', width: '100%' })
           , { optional: true }),
         group([
@@ -49,7 +49,7 @@ const STYLES = ({
           ], { optional: true }),
         ])
       ]),
-      transition('feed => *', [
+      transition('landing => *', [
         group([
           query(':enter, :leave', style({ position: 'fixed', width: '100%' })
             , { optional: true }),
@@ -143,7 +143,10 @@ export class MainComponent implements OnInit {
     this.accService.getJSON("side-menu.json").subscribe(res => {
       this.sidemenus = res;
     });
-    this.accService.getJSON("left-menu.json").subscribe(res => {
+    // this.accService.getJSON("left-menu.json").subscribe(res => {
+    //   this.nodes = res;
+    // });
+    this.accService.getJSON("left-menu-personal.json").subscribe(res => {
       this.nodes = res;
     });
     console.log(this.credential);

@@ -1,57 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { map,retry } from 'rxjs/operators';
 import * as SecureLS from 'secure-ls';
 import { StateService } from './state.service';
 import * as moment from 'moment';
+import { AbstractService } from './abstract.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class EmployeeService extends AbstractService{
   config: any;
   credential: any;
   headers: any;
-  serviceObj="/employee";
+  serviceObjEmployee="/employee";
+  serviceObjMessage="/message";
   ls = new SecureLS();
-  constructor(private httpClient: HttpClient, private stateService: StateService) {
-    this.config = this.stateService.getConfig();
-    this.credential = this.ls.get('currentUser');
-    if (this.credential) {
-      this.headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'x-access-token': this.credential.token
-      });
-    }
+  constructor(private httpClients: HttpClient, private stateServices: StateService) {
+    super(httpClients, stateServices);
   }
 
   getEmployee(crit) {
-    return this.httpClient.post<any>(this.config.Api.global_api + this.serviceObj+"/cr", crit, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.get_post(this.serviceObjEmployee+"/cr",crit);
   }
   getEmployeeQuickProfile(crit, page) {
-    let appended = this.serviceObj+"/quickprofile";
+    let appended = this.serviceObjEmployee+"/quickprofile";
     appended = page? appended+"/"+page.page+"/"+page.pagesize:appended;
-    return this.httpClient.post<any>(this.config.Api.global_api + appended, crit, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.get_post(appended,crit);
   }
   getEmployeeQuickProfileSimple(crit) {
-    let appended = this.serviceObj+"/quickprofile-simple";
-    return this.httpClient.post<any>(this.config.Api.global_api + appended, crit, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    let appended = this.serviceObjEmployee+"/quickprofile-simple";
+    return this.get_post(appended,crit);
   }
   postUpload(fileToUpload: File, nameTag: string, nrp: string) {
     let _headers = new HttpHeaders().set('x-access-token', this.credential.token);
@@ -66,100 +45,55 @@ export class EmployeeService {
       observe: 'events',
       headers: _headers
     };
-    const req = new HttpRequest('POST', this.config.Api.global_api + this.serviceObj+"/upload/" + nrp, formData, options);
+    const req = new HttpRequest('POST', this.config.Api.global_api + this.serviceObjEmployee+"/upload/" + nrp, formData, options);
     return this.httpClient.request(req).pipe(retry(3),map(event => { return event }));
   }
 
   putEmployee(obj) {
     let objAddOn = this.addAuditProp(obj, false);
-    return this.httpClient.put<any>(this.config.Api.global_api + this.serviceObj ,objAddOn, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.put(this.serviceObjEmployee,objAddOn);
   }
 
   postEmployeeAccount(obj) {
     let objAddOn = this.addAuditProp(obj, true);
-    return this.httpClient.post<any>(this.config.Api.global_api + "/account/register",objAddOn, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post("/account/register",objAddOn);
   }
 
   //edu
   postEmployeeEdu(obj) {
     let objAddOn = this.addAuditProp(obj, true);
-    return this.httpClient.post<any>(this.config.Api.global_api + this.serviceObj+"/edu",objAddOn, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObjEmployee+"/edu",objAddOn);
   }
 
   postEmployeeEduTemp(obj) {
     let objAddOn = this.addAuditProp(obj, true);
-    return this.httpClient.post<any>(this.config.Api.global_api + this.serviceObj+"/edutemp",objAddOn, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObjEmployee+"/edutemp",objAddOn);
   }
 
   //trn
   postEmployeeTrn(obj) {
     let objAddOn = this.addAuditProp(obj, true);
-    return this.httpClient.post<any>(this.config.Api.global_api + this.serviceObj+"/trn",objAddOn, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObjEmployee+"/trn",objAddOn);
   }
 
   postEmployeeTrnTemp(obj) {
     let objAddOn = this.addAuditProp(obj, true);
-    return this.httpClient.post<any>(this.config.Api.global_api + this.serviceObj+"/trntemp",objAddOn, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObjEmployee+"/trntemp",objAddOn);
   }
 
   //trn
   postEmployeeFam(obj) {
     let objAddOn = this.addAuditProp(obj, true);
-    return this.httpClient.post<any>(this.config.Api.global_api + this.serviceObj+"/fam",objAddOn, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObjEmployee+"/fam",objAddOn);
   }
 
   postEmployeeFamTemp(obj) {
     let objAddOn = this.addAuditProp(obj, true);
-    return this.httpClient.post<any>(this.config.Api.global_api + this.serviceObj+"/famtemp",objAddOn, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObjEmployee+"/famtemp",objAddOn);
   }
 
   deleteFileProfile(nrp, filename) {
-    return this.httpClient.post<any>(this.config.Api.global_api + this.serviceObj+"/deletefile/" + nrp, { filename: filename }, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObjEmployee+"/deletefile/"+ nrp,{ filename: filename });
   }
 
   addAuditProp(obj, isInsert){
@@ -171,5 +105,12 @@ export class EmployeeService {
       obj.UpdateBy = this.credential.Username;
     }
     return obj;
+  }
+
+  getMessage(crit) {
+    return this.get_post(this.serviceObjMessage+"/cr",crit);
+  }
+  putMessage(obj) {
+    return this.put(this.serviceObjMessage,obj);
   }
 }

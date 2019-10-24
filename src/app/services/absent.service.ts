@@ -1,26 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import * as moment from 'moment';
 import { map, retry } from 'rxjs/operators';
 import * as SecureLS from 'secure-ls';
 import { StateService } from './state.service';
+import { AbstractService } from './abstract.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AbsentService {
+export class AbsentService extends AbstractService {
   config:any;
   credential: any;
   headers: any;
   ls = new SecureLS();
-  constructor(private httpClient: HttpClient, private stateService:StateService) {
-    this.config = this.stateService.getConfig();
-    this.credential = this.ls.get('currentUser');
-    if (this.credential) {
-      this.headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'x-access-token': this.credential.token
-      });
-    }
+  serviceObj = "/absen"
+  constructor(private httpClients: HttpClient, private stateServices:StateService) {
+    super(httpClients, stateServices);
   }
 
   getLastHistory(limit, dateEnd, empId){
@@ -29,48 +23,27 @@ export class AbsentService {
       DateEnd:dateEnd,
       EmployeeID:empId
     };
-    return this.httpClient.post<any>(this.config.Api.global_api + "/absen/history",obj, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObj+"/history",obj);
   }
 
   getLast(empId){
-    return this.httpClient.get<any>(this.config.Api.global_api + "/absen/last?empid="+empId, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.get(this.serviceObj+"/last?empid="+empId);
   }
 
   postCriteria(criteria) {
-    return this.httpClient.post<any>(this.config.Api.global_api + "/absen/maintain/cr", criteria, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObj+"/cr",criteria);
+  }
+
+  postCriteriaUv(criteria) {
+    return this.post(this.serviceObj+"/maintain/cr",criteria);
   }
 
   postAbsent(obj) {
-    return this.httpClient.post<any>(this.config.Api.global_api + "/absen", obj, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post(this.serviceObj,obj);
   }
 
-  putAbsent(obj) {
-    return this.httpClient.put<any>(this.config.Api.global_api + "/absen", obj, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+  putAbsent(obj,empid) {
+    return this.put(this.serviceObj+"/"+empid,obj);
   }
 
   postUpload(fileToUpload: File, nameTag: string) {

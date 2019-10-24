@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { LyDividerModule } from '@alyle/ui/divider';
+import { LyExpansionIconModule } from '@alyle/ui';
+import { LyExpansionModule } from '@alyle/ui/expansion';
 import { RegUserRoutingModule } from './reg-user-routing.module';
 import { CreateAbsentComponent } from './absent/create-absent/create-absent.component';
 import { WebcamModule } from 'ngx-webcam';
@@ -11,11 +13,9 @@ import { MyLocationComponent } from './absent/my-location/my-location.component'
 import { ProfileItemsComponent } from './profil/profile-items/profile-items.component';
 import { ProfileItemsFieldComponent } from './profil/profile-items-field/profile-items-field.component';
 import { ProfilMainComponent } from './profil/profil-main/profil-main.component';
-import { LyListModule } from '@alyle/ui/list';
-import { LyDividerModule } from '@alyle/ui/divider';
-import { LyExpansionIconModule } from '@alyle/ui';
-import { LyExpansionModule } from '@alyle/ui/expansion';
 import { ProfilMainFieldComponent } from './profil/profil-main-field/profil-main-field.component';
+import { KlaimComponent } from './klaim/klaim.component';
+import { SuratTugasComponent } from './surat-tugas/surat-tugas.component';
 @NgModule({
   declarations: [CreateAbsentComponent,
     ProfileItemsComponent,
@@ -24,13 +24,12 @@ import { ProfilMainFieldComponent } from './profil/profil-main-field/profil-main
     MyLocationComponent, 
     ProfileItemsFieldComponent, 
     ProfilMainComponent, 
-    ProfilMainFieldComponent],
+    ProfilMainFieldComponent, KlaimComponent, SuratTugasComponent],
   imports: [
     CommonModule,
     RegUserRoutingModule,
     WebcamModule,
     SharingModuleModule,
-    LyListModule,
     LyDividerModule,
     LyExpansionIconModule,
     LyExpansionModule

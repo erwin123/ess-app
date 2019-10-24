@@ -1,6 +1,6 @@
-.add-border{
-    border-right: 1px solid #ccc;
-}
+// .add-border{
+//     border-right: 1px solid #ccc;
+// }
 
 .drawerContentMenu{
     height: calc(100vh - 64px);
@@ -16,10 +16,7 @@
 }
 
 .menuDown{
-    border-top:1px #777777 solid;
-    box-shadow:  0px 1px 8px 0px rgba(41, 41, 41, 0.3),
-                 0px 3px 4px 0px rgba(39, 39, 39, 0.3),
-                 0px 3px 3px -2px rgba(37, 37, 37, 0.3) !important;
+    border-top:1px #1d13aa solid;
     background: #fff;
 }
 
@@ -27,7 +24,7 @@
     background: none;
     border: none;
     white-space: normal;
-    color:#7e7e7e;
+    color:#163999;
     outline: none;
     background-position: center;
     transition: background 0.8s;
@@ -39,7 +36,7 @@
     transition: background 0s;
   }
 
-.active-link{
+.side-button{
     color:#213071 !important;
     font-weight: bold;
 }

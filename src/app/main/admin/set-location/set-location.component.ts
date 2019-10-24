@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import Map from 'ol/Map';
 import { Draw } from 'ol/interaction';
-import Overlay from 'ol/Overlay';
 import { ScaleLine, Zoom, Rotate } from 'ol/control';
 import { Point } from 'ol/geom';
 import { Circle as circularPolygon } from 'ol/geom';
@@ -10,7 +9,6 @@ import TileLayer from 'ol/layer/Tile';
 import LayerVector from 'ol/layer/Vector';
 import { fromLonLat, transform, METERS_PER_UNIT } from 'ol/proj';
 import OSM from 'ol/source/OSM';
-import XYZ from 'ol/source/XYZ';
 import SourceVector from 'ol/source/Vector';
 import View from 'ol/View';
 import { Circle as Circle, Fill, Icon, Stroke, Style } from 'ol/style';
@@ -122,20 +120,24 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
 
     //clear previous first
     this.draw.on('drawstart', (e) => {
+      // console.log(source.getFeatures());
+      // console.log(source.getLayers());
       //clear
       source.getFeatures().forEach(el => {
         source.removeFeature(el, true);
       });
       this.map.getLayers().forEach(el => {
-        try {
-          if (el.constructor.name === "VectorLayer") {
-            let features = el.getSource().getFeatures();
-            if (features.length > 0) {
-              this.map.removeLayer(el);
+        if (el) {
+          try {
+            if (el.constructor.name === "VectorLayer" || el.type === "VECTOR") {
+              let features = el.getSource().getFeatures();
+              if (features.length > 0) {
+                this.map.removeLayer(el);
+              }
             }
+          } catch (e) {
+            console.log(e);
           }
-        } catch (e) {
-
         }
       });
     })
@@ -146,15 +148,17 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
         source.removeFeature(el, true);
       });
       this.map.getLayers().forEach(el => {
-        try {
-          if (el.constructor.name === "VectorLayer") {
-            let features = el.getSource().getFeatures();
-            if (features.length > 0) {
-              this.map.removeLayer(el);
+        if (el) {
+          try {
+            if (el.constructor.name === "VectorLayer" || el.type === "VECTOR") {
+              let features = el.getSource().getFeatures();
+              if (features.length > 0) {
+                this.map.removeLayer(el);
+              }
             }
-          }
-        } catch (e) {
+          } catch (e) {
 
+          }
         }
       });
 
@@ -170,6 +174,7 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
       this.locationForm.controls['Long'].setValue(this.pickedLonLat[0]);
       this.locationForm.controls['Lat'].setValue(this.pickedLonLat[1]);
       this.locationForm.controls['Radius'].setValue(radius * METERS_PER_UNIT[units]);
+
     });
     //this.map.addControl(this.setupSearch());
 
@@ -190,10 +195,10 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
 
   }
 
-  showAlert(msg: string, err:boolean) {
+  showAlert(msg: string, err: boolean) {
     this.stateService.setBlocking(0);
     const dialogRefInfo = this._dialog.open<DialogInfoComponent>(DialogInfoComponent, {
-      data: { Message: msg, err:err }
+      data: { Message: msg, err: err }
     });
     dialogRefInfo.afterClosed.subscribe(() => {
       this.router.navigate(['main/admin/maintain-location']);

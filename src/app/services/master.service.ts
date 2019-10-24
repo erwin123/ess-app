@@ -4,94 +4,46 @@ import { map, retry } from 'rxjs/operators';
 import * as moment from 'moment';
 import * as SecureLS from 'secure-ls';
 import { StateService } from './state.service';
+import { extend } from 'webdriver-js-extender';
+import { AbstractService } from './abstract.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MasterService {
+export class MasterService extends AbstractService {
   config: any;
   credential: any;
-  headers:any;
+  headers: any;
   ls = new SecureLS();
-  constructor(private httpClient: HttpClient, private stateService:StateService) {
-    this.config = this.stateService.getConfig();
-    this.credential = this.ls.get('currentUser');
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'x-access-token': this.credential.token
-    });
+  constructor(private httpClients: HttpClient, private stateServices: StateService) {
+    super(httpClients, stateServices);
   }
-
   postLocation(obj) {
     obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
     obj.CreateBy = this.credential.Username;
-    return this.httpClient.post<any>(this.config.Api.global_api + "/location", obj, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.post("/location",obj);
   }
-
   putLocation(obj) {
     obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
     obj.UpdateBy = this.credential.Username;
-    return this.httpClient.put<any>(this.config.Api.global_api + "/location", obj, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.put("/location",obj);
   }
-
   getLocation(crit) {
-    return this.httpClient.post<any>(this.config.Api.global_api + "/location/cr", crit, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.get_post("/location/cr", crit);
   }
-
   getArea(crit) {
-    return this.httpClient.post<any>(this.config.Api.global_api + "/area/cr", crit, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.get_post("/area/cr", crit);
   }
-
   getEnum(crit) {
-    return this.httpClient.post<any>(this.config.Api.global_api + "/enum/cr", crit, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.get_post("/enum/cr", crit);
   }
   getTitle(crit) {
-    return this.httpClient.post<any>(this.config.Api.global_api + "/organizationlevel/cr", crit, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.get_post("/organizationlevel/cr", crit);
   }
   getDepartment(crit) {
-    return this.httpClient.post<any>(this.config.Api.global_api + "/department/cr", crit, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.get_post("/department/cr", crit);
   }
   getDivision(crit) {
-    return this.httpClient.post<any>(this.config.Api.global_api + "/division/cr", crit, { headers: this.headers }).pipe(
-      retry(3),map(
-        res => {
-          return res;
-        }
-      ));
+    return this.get_post("/division/cr", crit);
   }
 }

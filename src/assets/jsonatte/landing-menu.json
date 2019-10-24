@@ -1,26 +1,32 @@
 [
     {
         "Text": "Absen Masuk",
-        "Icon": "masuk.jpg",
+        "Icon": "access_time",
         "RuleName":"reg",
         "Path":"/main/reg-user/create-absent-in/1"
     },
     {
         "Text": "Absen Keluar",
-        "Icon": "pulang.jpg",
+        "Icon": "timelapse",
         "RuleName":"reg",
         "Path":"/main/reg-user/create-absent-out/2"
     },
     {
         "Text": "Riwayat Absen",
-        "Icon": "history.jpg",
+        "Icon": "history",
         "RuleName":"reg",
         "Path":"/main/reg-user/history-absent"
     },
     {
         "Text": "Pesan Masuk",
-        "Icon": "inbox.jpg",
+        "Icon": "mail_outline",
         "RuleName":"reg",
         "Path":"/main/inbox"
+    },
+    {
+        "Text": "Klaim",
+        "Icon": "receipt",
+        "RuleName":"reg",
+        "Path":"/main/reg-user/maintain-claim"
     }
 ]

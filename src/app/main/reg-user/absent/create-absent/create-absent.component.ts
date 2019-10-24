@@ -66,10 +66,11 @@ export class CreateAbsentComponent implements OnInit, AfterViewInit {
 
   quickProfile: any;
   progressPercent = 0;
-  lastAbsent = {
-    ClockIn: "",
-    ClockOut: ""
-  }
+  // lastAbsent = {
+  //   ClockIn: "",
+  //   ClockOut: ""
+  // }
+  lastAbsent;
   clockIn = true;
   validateOnceAllow = false;
   todayDate = "";
@@ -89,6 +90,7 @@ export class CreateAbsentComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getLastAbsen();
+
     switch (this.route.snapshot.paramMap.get('purpose')) {
       case "1":
         this.title = "Absen Masuk ";
@@ -108,6 +110,10 @@ export class CreateAbsentComponent implements OnInit, AfterViewInit {
         this.showAlert("Mohon izikan Aplikasi untuk mencatat lokasi pada device Anda!", false);
       }, { maximumAge: 60000, timeout: 5000, enableHighAccuracy: true });
     }
+
+    this.quickProfile.ClockIn = this.quickProfile.ClockIn.split('T').length == 2 ? this.quickProfile.ClockIn.split('T')[1].replace('.000Z', '') : this.quickProfile.ClockIn;
+    this.quickProfile.ClockOut = this.quickProfile.ClockOut.split('T').length == 2 ? this.quickProfile.ClockOut.split('T')[1].replace('.000Z', '') : this.quickProfile.ClockOut;
+
   }
 
   ngAfterViewInit() {
@@ -131,6 +137,7 @@ export class CreateAbsentComponent implements OnInit, AfterViewInit {
           this.lastAbsent = res[0];
           this.lastAbsent.ClockIn = this.lastAbsent.ClockIn ? this.lastAbsent.ClockIn.split('T')[0] + " " + this.lastAbsent.ClockIn.split('T')[1].replace('.000Z', '') : "";
           this.lastAbsent.ClockOut = this.lastAbsent.ClockOut ? this.lastAbsent.ClockOut.split('T')[0] + " " + this.lastAbsent.ClockOut.split('T')[1].replace('.000Z', '') : "";
+
           if (this.clockIn) {
             this.validateOnceAllow = this.lastAbsent.ClockIn ? false : true;
           } else {
@@ -230,9 +237,13 @@ export class CreateAbsentComponent implements OnInit, AfterViewInit {
 
   postAbsen(lonlat, absenDate, filename, callback) {
     let myObj: any;
+    //1|1 valid all , 1|2 invalid loc, 2|1 invalid time, 2|2 invalid all
+    let validation = this.checkValid(lonlat, absenDate, this.clockIn ? true:false);
     myObj = {
       LongIn: lonlat[0].toString(),
       LatIn: lonlat[1].toString(),
+      LongOut: lonlat[0].toString(),
+      LatOut: lonlat[1].toString(),
       AbsentDate: moment().format('YYYY-MM-DD'),
       EmployeeID: this.quickProfile.EmployeeID,
       ClockIn: absenDate,
@@ -240,26 +251,42 @@ export class CreateAbsentComponent implements OnInit, AfterViewInit {
       RowStatus: 1,
       ClockOut: absenDate,
       PhotoOut: filename,
-      Status: this.checkValidLocation(lonlat)
+      StatusIn: validation,
+      StatusOut: validation//,
+      //Status: validation ==="1|1"? 1 : 2 //    0:rejected, 1: valid, 2: need approval, 3: approved
     }
     if (this.clockIn) {
       delete myObj.ClockOut;
       delete myObj.PhotoOut;
+      delete myObj.LongOut;
+      delete myObj.LatOut;
+      delete myObj.StatusOut;
     } else {
       delete myObj.ClockIn;
       delete myObj.PhotoIn;
+      delete myObj.LatIn;
+      delete myObj.LongIn;
+      delete myObj.StatusIn;
+      myObj.Status = this.lastAbsent.StatusIn === "1|1" && this.lastAbsent.StatusOut === "1|1" ? 1 :2 ;
     }
     this.absenService.postAbsent(myObj).subscribe(res => {
       callback(res);
     });
   }
 
-  checkValidLocation(currentLonLat){
-    let distance = this.stateService.getDistanceLonLat([Number(this.quickProfile.Long),Number(this.quickProfile.Lat)], currentLonLat);
+  checkValid(currentLonLat, absenDate, clockIn) {
+    let checkLate;
+    if (clockIn)
+      checkLate = moment(moment(absenDate).format('HH:mm:ss'), 'HH:mm:ss').isBefore(moment(this.quickProfile.ClockIn, 'HH:mm:ss'));
+    else
+      checkLate = moment(moment(absenDate).format('HH:mm:ss'), 'HH:mm:ss').isAfter(moment(this.quickProfile.ClockOut, 'HH:mm:ss'));
+      
+    let result = checkLate ? "1":"2";
+    let distance = this.stateService.getDistanceLonLat([Number(this.quickProfile.Long), Number(this.quickProfile.Lat)], currentLonLat);
     if (distance < this.quickProfile.Radius) {
-      return 1;
-    }else{
-      return 2;
+      return result+"|1";
+    } else {
+      return  result+"|2";
     }
   }
 

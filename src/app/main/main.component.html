@@ -4,15 +4,14 @@
       <button ly-button color="primary:contrast" appearance="icon" (click)="drwMain.toggle()">
         <ly-icon>menu</ly-icon>
       </button>
-      <h6 lyTyp="title" [withClass]="classes.grow" style="text-align: center;">
+      <h6 lyTyp="title" [withClass]="classes.grow" style="padding-left: 10px;">
         <a routerLink="/main/anchor" class="nav-link">
-          <img src="assets/img/logo.png" alt="" title="acst-logo" style="height:30px;">
+          <img src="assets/img/logo.png" alt="" title="acst-logo">
         </a>
       </h6>
       <button *ngIf="credential" ly-button color="primary:contrast" appearance="icon" [lyMenuTriggerFor]="menu">
         <ly-avatar>
-          <img alt="credential.Username"
-            [src]="profilePhoto ? profilePhoto:'assets/img/person-icon.png'">
+          <img alt="credential.Username" [src]="profilePhoto ? profilePhoto:'assets/img/person-icon.png'">
         </ly-avatar>
       </button>
       <ng-template #menu let-M>
@@ -28,7 +27,7 @@
         [mode]="mobileQuery.matches ? 'over' : 'side'" width="250px" [hasBackdrop]="mobileQuery.matches ? true : false"
         bg="background:primary">
         <div style="margin: 0px 5px 0px 5px;">
-          <ly-field fullWidth>
+          <!-- <ly-field fullWidth>
             <button ly-button appearance="icon" lyPrefix>
               <ly-icon>search</ly-icon>
             </button>
@@ -42,7 +41,15 @@
                   style="font-size:18px;margin:5px;">{{node.data.name}}</span>
               </ng-template>
             </tree-root>
-          </div>
+          </div> -->
+          <ly-paper>
+            <ly-list>
+              <button class="side-button" *ngFor="let node of nodes" (click)="goTo(node.path, node.name);" ly-list-item>
+                <ly-icon class="side-button"  ly-list-icon>{{node.icon}}</ly-icon>
+                <span ly-line>{{node.name}}</span>
+              </button>
+            </ly-list>
+          </ly-paper>
         </div>
       </ly-drawer>
       <ly-drawer-content id="main-el" [withClass]="classes.drawerContentArea"
@@ -55,8 +62,8 @@
       <ly-grid container [spacing]="2" style="text-align: center;padding: 0px !important;">
         <ly-grid item col *ngFor="let menu of menus" routerLinkActive="active-link">
           <button [routerLink]="menu.Path" (click)="goTo(menu.Path, menu.Text)" routerLinkActive="active-link">
-            <span style="font-size:9vw;">
-              <ly-icon>{{menu.Icon}}</ly-icon>
+            <span>
+              <ly-icon style="font-size:2.5em;">{{menu.Icon}}</ly-icon>
             </span><br />
             <span style="font-size:3vw;font-weight: bold;">{{menu.Text}}</span>
           </button>

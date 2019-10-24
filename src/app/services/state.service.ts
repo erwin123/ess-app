@@ -22,9 +22,13 @@ export class StateService {
   currentProfilePic = this.profilePic.asObservable();
 
   constructor(private app_config: AppConfig) {
+    
     this.config = this.app_config.get();
     if (this.ls.get('currentUser') && this.config) {
       this.objCredential = this.ls.get('currentUser');
+      if(!this.objCredential.quickProfile){
+        this.logout();
+      }
       if (this.objCredential.quickProfile.Photo) {
         this.profilePic.next(this.config.Api.profile + this.objCredential.Username + "/" + this.objCredential.quickProfile.Photo);
       } else {

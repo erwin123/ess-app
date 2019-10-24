@@ -33,11 +33,12 @@ export class EditAbsentComponent implements OnInit {
     let myObj = {
       ClockOut: moment(this.selectedMoment).format("YYYY-MM-DD HH:mm:ss"),
       RowStatus: 1,
+      Status:2,
       UpdateDate: moment().format("YYYY-MM-DD HH:mm:ss"),
       UpdateBy: this.credential.Username,
       Id:this.data.Id
     }
-    this.absenService.putAbsent(myObj).subscribe(put=>{
+    this.absenService.putAbsent(myObj,this.credential.quickProfile.EmployeeID).subscribe(put=>{
       if(put){
         this.dialogEditAbsent.close(put);
       }
