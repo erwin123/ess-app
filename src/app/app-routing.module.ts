@@ -13,6 +13,7 @@ const routes: Routes = [
     path: 'main', component: MainComponent, canActivate: [AuthguardService],
     children: [
       { path: 'landing', component: LandingComponent, data: { state: 'landing' }},
+      { path: 'inbox/:id', component: InboxComponent, data: { state: 'inbox' }},
       { path: 'inbox', component: InboxComponent, data: { state: 'inbox' }},
       {
         path: 'admin',

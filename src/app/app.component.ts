@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LyTheme2, ThemeVariables } from '@alyle/ui';
 import { SwUpdate } from '@angular/service-worker';
 
@@ -19,22 +19,30 @@ const STYLES = (theme: ThemeVariables) => ({
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   readonly classes = this.theme.addStyleSheet(STYLES);
 
   title = 'ACST - ESS';
 
-  constructor(private theme: LyTheme2, private swUpdate: SwUpdate) { }
-  ngOnInit() {
-    if (this.swUpdate.isEnabled) {
+  constructor(private theme: LyTheme2, private swUpdate: SwUpdate) {
+    this.swUpdate.available.subscribe(() => {
 
-      this.swUpdate.available.subscribe(() => {
+      if (confirm("Versi terbaru tersedia, muat ulang konten?")) {
 
-        if (confirm("Versi terbaru tersedia, muat ulang konten?")) {
+        window.location.reload(true);
+      }
+    });
+   }
+  //ngOnInit() {
+    // if (this.swUpdate.isEnabled) {
 
-          window.location.reload(true);
-        }
-      });
-    }
-  }
+    //   this.swUpdate.available.subscribe(() => {
+
+    //     if (confirm("Versi terbaru tersedia, muat ulang konten?")) {
+
+    //       window.location.reload(true);
+    //     }
+    //   });
+    // }
+  //}
 }

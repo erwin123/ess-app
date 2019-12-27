@@ -10,7 +10,7 @@
         <ly-grid item col="12 12@XSmall" *ngFor="let i of dataTemp">
             <ly-card>
                 <ly-card-content>
-                    <ly-grid container [spacing]="8">
+                    <ly-grid container [spacing]="8" (click)="showData(i, true)">
                         <ly-grid item col="4">
                             <h2 lyTyp="title" gutterBottom>{{i[columns[0]]}}</h2>
                         </ly-grid>
@@ -26,30 +26,59 @@
         <ly-grid item col="12 12@XSmall" *ngFor="let i of data">
             <ly-card>
                 <ly-card-content>
-                    <ly-grid container [spacing]="8">
+                    <ly-grid container [spacing]="8" (click)="showData(i, false)">
                         <ly-grid item col="4">
-                            <h2 lyTyp="title" gutterBottom>{{i[columns[0].key]}}</h2>
+                            <h2 lyTyp="title" gutterBottom>{{i[columns[0]]}}</h2>
                         </ly-grid>
                         <ly-grid item col="8">
-                            {{i[columns[1].key]}}
+                            {{i[columns[1]]}}
                         </ly-grid>
                     </ly-grid>
                 </ly-card-content>
             </ly-card>
         </ly-grid>
     </ly-grid>
+    <div *ngIf="files.length>0">
+        <br />
+        <div *ngFor="let f of files" style="float: left;">
+            <button style="margin: 10px;" size="small" outlined (click)="windowOpenDataUrl(f)" ly-button
+                color="primary">
+                <ly-icon>attachment</ly-icon>
+                {{ f.name}}
+            </button>
+            <span class="badge1" data-badge="x" (click)="deleteFile(f);fileInput.value=null;"></span>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <div *ngIf="message"><br />{{message}}</div>
+    <div [withClass]="classes.btnWrapper" style="position: relative;">
+        <button [withClass]="classes.button" ly-button outlined color="primary" (click)="fileInput.click()">
+            <ly-icon>search</ly-icon>Pilih File (Max 1Mb)
+        </button>
+        <input [withClass]="classes.uploadBtnFile" type="file" #fileInput name="empFile" (change)="readFile($event)"
+            accept="image/jpg,image/jpeg,image/png,application/pdf" multiple />
+    </div>
+    <button *ngIf="files.length>0 && fileInput.value" style="margin-bottom:15px;" [withClass]="classes.button"
+        type="button" ly-button bg="primary" (click)="uploadFile()">
+        <ly-icon>arrow_upward</ly-icon> &nbsp;Upload File
+    </button>
     <ly-grid container [spacing]="8" *ngIf="!addRow">
         <ly-grid item col="12 12@XSmall">
             <button [withClass]="classes.button" type="submit" ly-button bg="primary" (click)="addRow = true">
-                <ly-icon>add</ly-icon>
-                <span [className]="classes.labelAfter">Tambah Data</span>
+                <ly-icon>add</ly-icon> &nbsp;Tambah Data
             </button>
         </ly-grid>
     </ly-grid>
-
+    <br /><br />
+    <div [withClass]="classes.adminFloat" *ngIf="credential.Role === 'ESS_ADM'">
+        <button ly-button bg="grind" raised (click)="onAction(true)">
+            <ly-icon>check</ly-icon>&nbsp; Setuju
+        </button>&nbsp;
+        <button ly-button outlined color="warn" raised (click)="onAction(false)">
+            <ly-icon>close</ly-icon>&nbsp; Tolak
+        </button>
+    </div>
     <app-profile-items-field *ngIf="addRow && fields.length" [type]="title" [fields]="fields"
-        (addedRow)="addedRow($event)">
+        (addedRow)="addedRow($event)" [isTemp]="isTemp" (editedRow)="editedRow($event)" [data]="dataEdit" (cancelRow)="cancelRow($event)">
     </app-profile-items-field>
-
-
 </div>

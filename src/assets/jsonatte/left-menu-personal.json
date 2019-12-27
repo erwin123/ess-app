@@ -4,55 +4,100 @@
         "name": "Beranda",
         "icon": "home",
         "path": "main/landing",
-        "role": "ESS_REG"
+        "role": [
+            "ESS_REG",
+            "ESS_ADM"
+        ]
     },
     {
         "id": 1,
         "name": "Lokasi",
         "icon": "outlined_flag",
         "path": "main/admin/maintain-location",
-        "role": "ESS_ADM"
+        "role": [
+            "ESS_ADM"
+        ]
     },
     {
         "id": 2,
         "name": "Karyawan",
         "icon": "supervised_user_circle",
         "path": "main/admin/maintain-employee",
-        "role": "ESS_ADM"
+        "role": [
+            "ESS_ADM"
+        ]
     },
     {
         "id": 3,
         "name": "Absensi",
         "icon": "assignment_ind",
         "path": "main/admin/maintain-absence",
-        "role": "ESS_ADM"
+        "role": [
+            "ESS_ADM"
+        ]
     },
     {
         "id": 4,
         "name": "Klaim",
         "icon": "receipt",
-        "path": "main/reg-user/maintain-claim",
-        "role": "ESS_REG"
+        "path": "main/reg-user/isi-klaim",
+        "role": [
+            "ESS_REG"
+        ]
     },
     {
         "id": 5,
         "name": "Cuti",
         "icon": "directions_run",
-        "path": "main/reg-user/maintain-cuti",
-        "role": "ESS_REG"
+        "path": "main/reg-user/isi-cuti",
+        "role": [
+            "ESS_REG"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Master Cuti",
+        "icon": "directions_run",
+        "path": "main/admin/maintain-mastercuti",
+        "role": [
+            "ESS_ADM"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Master Approval",
+        "icon": "ballot",
+        "path": "main/admin/maintain-masterapproval",
+        "role": [
+            "ESS_ADM"
+        ]
     },
     {
         "id": 6,
-        "name": "Surat Tugas",
-        "icon": "markunread_mailbox",
-        "path": "main/reg-user/maintain-surat-tugas",
-        "role": "ESS_REG"
+        "name": "Master Claim",
+        "icon": "how_to_vote",
+        "path": "main/admin/maintain-masterclaim",
+        "role": [
+            "ESS_ADM"
+        ]
     },
     {
         "id": 7,
+        "name": "Surat Tugas",
+        "icon": "markunread_mailbox",
+        "path": "main/reg-user/isi-surat-tugas",
+        "role": [
+            "ESS_REG"
+        ]
+    },
+    {
+        "id": 8,
         "name": "Logout",
         "icon": "exit_to_app",
         "path": "exit",
-        "role": "ESS_REG"
+        "role": [
+            "ESS_REG",
+            "ESS_ADM"
+        ]
     }
 ]

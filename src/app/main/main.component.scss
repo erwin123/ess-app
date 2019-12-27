@@ -2,41 +2,41 @@
 //     border-right: 1px solid #ccc;
 // }
 
-.drawerContentMenu{
-    height: calc(100vh - 64px);
+.drawerContentMenu {
+  height: calc(100vh - 64px);
 }
 
-.menuDesktop{
-    display: none;
-    height: 0px;
+.menuDesktop {
+  display: none;
+  height: 0px;
 }
 
-.drawerContainerMobile{
-    height: calc(100vh - 114px);
+.drawerContainerMobile {
+  height: calc(100vh - 114px);
 }
 
-.menuDown{
-    border-top:1px #1d13aa solid;
-    background: #fff;
+.menuDown {
+  border-top: 1px #1d13aa solid;
+  background: #fff;
 }
 
-.menuDown button{
-    background: none;
-    border: none;
-    white-space: normal;
-    color:#163999;
-    outline: none;
-    background-position: center;
-    transition: background 0.8s;
+.menuDown button {
+  background: none;
+  border: none;
+  white-space: normal;
+  color: #163999;
+  outline: none;
+  background-position: center;
+  transition: background 0.8s;
 }
 
 .menuDown button:active {
-    background-color: #cacaca;
-    background-size: 100%;
-    transition: background 0s;
-  }
+  background-color: #cacaca;
+  background-size: 100%;
+  transition: background 0s;
+}
 
-.side-button{
-    color:#213071 !important;
-    font-weight: bold;
+.side-button {
+  color: #213071 !important;
+  font-weight: bold;
 }

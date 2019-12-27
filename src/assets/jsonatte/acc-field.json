@@ -63,7 +63,7 @@
         "label": "Function",
         "type": "dropdown",
         "option": [],
-        "validator": [  ]
+        "validator": []
     },
     {
         "order": 5,
@@ -108,6 +108,25 @@
         "type": "texttime",
         "validator": [
             "required"
+        ]
+    },
+    {
+        "order": 11,
+        "key": "Role",
+        "label": "Role",
+        "type": "dropdown",
+        "validator": [
+            "required"
+        ],
+        "option": [
+            {
+                "text": "REGULER",
+                "value": "ESS_REG"
+            },
+            {
+                "text": "ADMIN",
+                "value": "ESS_ADM"
+            }
         ]
     },
     {

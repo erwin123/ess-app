@@ -3,6 +3,7 @@ import { AccountService } from '../services/account.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as SecureLS from 'secure-ls';
 import { Router, ActivatedRoute } from '@angular/router';
+import { StateService } from '../services/state.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   ls = new SecureLS();
   message = "";
   constructor(private accountService: AccountService, private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private stateService:StateService) { }
 
   ngOnInit() {
     if (localStorage.getItem('currentUser')) {
@@ -30,9 +31,11 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
+      this.stateService.setBlocking(1);
       this.accountService.login(this.username.value, this.password.value).subscribe(res => {
         if (res[0]) {
           this.route.queryParams.subscribe(r => {
+            this.stateService.setBlocking(0);
             if (r.returnUrl)
               this.router.navigate([r.returnUrl]);
             else

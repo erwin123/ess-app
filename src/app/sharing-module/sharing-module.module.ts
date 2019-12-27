@@ -17,6 +17,7 @@ import { LySnackBarModule } from '@alyle/ui/snack-bar';
 import { LyCheckboxModule } from '@alyle/ui/checkbox';
 import { LyAvatarModule } from '@alyle/ui/avatar';
 import { LyListModule } from '@alyle/ui/list';
+import { LyBadgeModule } from '@alyle/ui/badge';
 import { DialogInfoComponent } from '../alert/dialog-info/dialog-info.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TableModule } from 'ngx-easy-table';
@@ -68,7 +69,8 @@ export const MY_MOMENT_FORMATS = {
     OwlNativeDateTimeModule,
     OwlMomentDateTimeModule,
     LyCarouselModule,
-    LyListModule
+    LyListModule,
+    LyBadgeModule
   ],
   exports: [LyDrawerModule,
     LyButtonModule,
@@ -98,7 +100,8 @@ export const MY_MOMENT_FORMATS = {
     OwlMomentDateTimeModule,
     TextvalPipe,
     LyCarouselModule,
-    LyListModule
+    LyListModule,
+    LyBadgeModule
   ],
   entryComponents: [DialogInfoComponent],
   providers: [

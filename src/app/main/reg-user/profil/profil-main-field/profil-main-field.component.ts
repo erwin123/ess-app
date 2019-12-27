@@ -74,6 +74,8 @@ export class ProfilMainFieldComponent implements OnInit, AfterViewInit {
     this.title = this.parser.objectData;
     this.data = this.parser.data;
     this.EmployeeId = this.parser.EmployeeID;
+    console.log(this.parser.data);
+    console.log(this.parser.fieldInput)
     this.genForm = this.stateService.toFormGroup(this.fields);
   }
 
@@ -89,12 +91,18 @@ export class ProfilMainFieldComponent implements OnInit, AfterViewInit {
   onSubmit(){
     if(this.genForm.valid){
       let obj = this.genForm.value;
-      obj.Id = this.EmployeeId;
-      this.employeeService.putEmployee(obj).subscribe(res=>{
+      //obj.Id = this.EmployeeId;
+      obj.EmployeeID = this.EmployeeId;
+      this.employeeService.postEmployeeTemp(obj).subscribe(res=>{
         if(res){
           this.dialog.close(1);
         }
       })
+      // this.employeeService.putEmployee(obj).subscribe(res=>{
+      //   if(res){
+      //     this.dialog.close(1);
+      //   }
+      // })
     }
   }
 }

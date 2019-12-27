@@ -1,1 +1,19 @@
-<p>surat-tugas works!</p>
+<div style="margin: 6px 6px 6px 6px;">
+    <h1 lyTyp="display1" gutterBottom>
+        {{title}}
+        <button (click)="goTo('main/reg-user/maintain-surat-tugas')" size="small" outlined ly-button type="button"
+            color="primary" *ngIf="mode != 2">
+            <ly-icon>history</ly-icon>
+            <span [className]="classes.labelAfter">History</span>
+        </button>
+    </h1>
+    <ly-grid container [spacing]="8" style="margin-bottom:18px;">
+        <ly-grid item col="7 12@XSmall" *ngIf="fields.length">
+            <div *ngIf="message" [className]="classes.msg">
+                {{message}}
+            </div>
+            <app-abstract-form [fields]="fields" (onChange)="handleChange($event)" [mode]="mode" (onSubmit)="onSubmit($event)" [data]="dataView">
+            </app-abstract-form>
+        </ly-grid>
+    </ly-grid>
+</div>

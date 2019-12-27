@@ -81,6 +81,11 @@ const thmstyles = ({
   },
   labelAfter: {
     paddingBefore: '8px'
+  },
+  adminFloat: {
+    position: 'absolute',
+    bottom: '5px',
+    right: '25px'
   }
 });
 
@@ -116,6 +121,7 @@ export class ProfilMainComponent implements OnInit {
   profilePhoto = "";
   groupInfo = [];
   loadImage = false;
+
   constructor(private stateService: StateService, private imageCompress: NgxImageCompressService,
     private theme: LyTheme2, private employeeService: EmployeeService,
     private accountService: AccountService, private masterService: MasterService,
@@ -127,28 +133,32 @@ export class ProfilMainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accountService.getJSON("emp.json").subscribe(f => {
-      this.fetchParameter(f, cb => {
-        this.groupInfo = this.stateService.groupFunc(cb, "order");
-        this.groupInfo = this.groupInfo.map(m => {
-          m.state = false;
-          return m;
-        })
-      });
-    })
-    this.getQuickCredential(qc => {
-      this.currentQuickProfile = qc;
-      if (this.currentQuickProfile.Photo) {
-        this.profilePhoto = this.config.Api.profile + this.currentQuickProfile.Username + "/" + this.currentQuickProfile.Photo;
-      }
-      else {
-        this.profilePhoto = this.stateService.getDefaultPhoto();
-      }
-    })
+    if ((this.route.snapshot.paramMap.get('emp') && (this.route.snapshot.paramMap.get('emp') === this.credential.Username)) || this.credential.Role === "ESS_ADM") {
+      this.accountService.getJSON("emp.json").subscribe(f => {
+        this.fetchParameter(f, cb => {
+          this.groupInfo = this.stateService.groupFunc(cb, "order");
+          this.groupInfo = this.groupInfo.map(m => {
+            m.state = false;
+            return m;
+          })
+        });
+      })
+      this.getQuickCredential(qc => {
+        this.currentQuickProfile = qc;
+        if (this.currentQuickProfile.Photo) {
+          this.profilePhoto = this.config.Api.profile + this.currentQuickProfile.Username + "/" + this.currentQuickProfile.Photo;
+        }
+        else {
+          this.profilePhoto = this.stateService.getDefaultPhoto();
+        }
+      })
 
-    this.bindData(qc => {
-      this.currentEmployee = qc;
-    })
+      this.bindData(qc => {
+        this.currentEmployee = qc;
+      })
+    } else {
+
+    }
   }
 
   fetchParameter(fields, callback) {
@@ -206,7 +216,7 @@ export class ProfilMainComponent implements OnInit {
           m.value = m.EmployeeId
         return m;
       }).filter(f => f.EmployeeId != this.currentQuickProfile.EmployeeID) : [];
-      
+
       if (res[0] && res[1] && res[2] && res[3] && res[4] && res[5] && res[6]) {
         this.stateService.setBlocking(0);
         callback(fields);
@@ -230,6 +240,7 @@ export class ProfilMainComponent implements OnInit {
   }
 
   bindData(callback) {
+    //adding checking role
     if (this.route.snapshot.paramMap.get('emp')) {
       this.stateService.setBlocking(1);
       let emp = this.route.snapshot.paramMap.get('emp');
@@ -310,6 +321,7 @@ export class ProfilMainComponent implements OnInit {
     });
     dialogRefInfo.afterClosed.subscribe((res) => {
       if (res == 1) {
+        this.showAlert("Perubahan berhasil disimpan, menunggu approval HC", false);
         this.bindData(qc => {
           this.currentEmployee = qc;
         })
@@ -320,17 +332,17 @@ export class ProfilMainComponent implements OnInit {
   showPopUp(params) {
     this.stateService.setBlocking(1);
     this.accountService.getJSON(params + ".json").subscribe(ed => {
-      if (ed.length) {
+      if (ed.length && this.currentEmployee) {
         let objDialog;
         switch (params) {
           case "edu":
-            objDialog = this.objDialogBuilder("Pendidikan", ['Degree', 'Institution'], ed, this.currentEmployee.EmployeeEduTemps, this.currentEmployee.EmployeeEdus);
+            objDialog = this.objDialogBuilder("Pendidikan", this.currentEmployee.NRP, this.currentEmployee.Id, ['Degree', 'Institution'], ed, this.currentEmployee.EmployeeEduTemps, this.currentEmployee.EmployeeEdus, this.currentEmployee.EmployeeAttachmentTemps, this.currentEmployee.EmployeeAttachments);
             break;
           case "trn":
-            objDialog = this.objDialogBuilder("Pelatihan", ['Institution', 'Description'], ed, this.currentEmployee.EmployeeTrainingTemps, this.currentEmployee.EmployeeTrainings);
+            objDialog = this.objDialogBuilder("Pelatihan", this.currentEmployee.NRP, this.currentEmployee.Id, ['Institution', 'Description'], ed, this.currentEmployee.EmployeeTrainingTemps, this.currentEmployee.EmployeeTrainings, this.currentEmployee.EmployeeAttachmentTemps, this.currentEmployee.EmployeeAttachments);
             break;
           case "fam":
-            objDialog = this.objDialogBuilder("Keluarga", ['Relation', 'FullName'], ed, this.currentEmployee.EmployeeFamilyTemps, this.currentEmployee.EmployeeFamilies);
+            objDialog = this.objDialogBuilder("Keluarga", this.currentEmployee.NRP, this.currentEmployee.Id, ['Relation', 'FullName'], ed, this.currentEmployee.EmployeeFamilyTemps, this.currentEmployee.EmployeeFamilies, this.currentEmployee.EmployeeAttachmentTemps, this.currentEmployee.EmployeeAttachments);
             break;
         }
         this.stateService.setBlocking(0);
@@ -339,9 +351,9 @@ export class ProfilMainComponent implements OnInit {
           data: objDialog
         });
         dialogRefInfo.afterClosed.subscribe((res) => {
-
+          this.ngOnInit();
         });
-      }
+      } else { this.stateService.setBlocking(0); }
     })
   }
 
@@ -353,13 +365,17 @@ export class ProfilMainComponent implements OnInit {
     return myObj;
   }
 
-  objDialogBuilder(objectData, col, fieldInput, dataTemp, data) {
+  objDialogBuilder(objectData, username, empID, col, fieldInput, dataTemp, data, attachmentTemp, attachment) {
     return {
       objectData: objectData,
+      username: username,
       fieldInput: fieldInput,
       col: col,
       dataTemp: dataTemp,
-      data: data
+      data: data,
+      attachmentTemp: attachmentTemp,
+      attachment: attachment,
+      empID: empID
     }
   }
 

@@ -3,12 +3,14 @@
         "Text": "Absen Masuk",
         "Icon": "access_time",
         "RuleName":"reg",
-        "Path":"/main/reg-user/create-absent-in/1"
+        "Path":"/main/reg-user/create-absent-in/1",
+        "Role":["ESS_REG"]
     },
     {
         "Text": "Absen Keluar",
         "Icon": "timelapse",
         "RuleName":"reg",
-        "Path":"/main/reg-user/create-absent-out/2"
+        "Path":"/main/reg-user/create-absent-out/2",
+        "Role":["ESS_REG"]
     }
 ]

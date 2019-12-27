@@ -37,6 +37,7 @@ export class SetAccountComponent implements OnInit {
   fields = [];
   employeeID = 0;
   params;
+  dataView: any;
   constructor(private theme: LyTheme2, private stateService: StateService,
     private route: ActivatedRoute, private _dialog: LyDialog, private router: Router,
     private employeeService: EmployeeService, private accountService: AccountService,
@@ -45,10 +46,11 @@ export class SetAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accountService.getJSON("acc-field.json").subscribe(res => {
-      this.accForm = this.stateService.toFormGroup(res);
-      this.fields = res;
-      if (this.fields) {
+    this.accountService.getJSON("acc-field.json").subscribe(fl => {
+      //this.accForm = this.stateService.toFormGroup(res);
+      //this.fields = fl;
+
+      if (fl) {
         this.fetchParameter();
         this.route.queryParams.subscribe(params => {
           if (params.emp) { //view
@@ -57,7 +59,8 @@ export class SetAccountComponent implements OnInit {
             this.employeeService.getEmployeeQuickProfile({ Username: params.emp }, null).subscribe(res => {
               if (res) {
                 this.employeeID = res[0].EmployeeID;
-                let acc = res.map(m => {
+                //this.fetchParameter();
+                this.dataView = res.map(m => {
                   return {
                     RowStatus: m.RowStatus,
                     Username: m.Username,
@@ -70,16 +73,20 @@ export class SetAccountComponent implements OnInit {
                     DirectReportID: m.DirectReportID,
                     OrganizationLevelID: m.OrganizationLevelID,
                     ClockIn: moment(m.ClockIn).utc().format("YYYY-MM-DD HH:mm"),
-                    ClockOut: moment(m.ClockOut).utc().format("YYYY-MM-DD HH:mm")
+                    ClockOut: moment(m.ClockOut).utc().format("YYYY-MM-DD HH:mm"),
+                    Role: m.Role
                   }
                 })[0];
-                this.stateService.resetForm(this.accForm, acc);
+                this.fields = fl;
+                //this.stateService.resetForm(this.accForm, acc);
                 this.stateService.setBlocking(0);
               }
             })
+          }else{
+            this.fields = fl;
           }
         });
-      }
+      } 
     })
   }
 
@@ -131,26 +138,24 @@ export class SetAccountComponent implements OnInit {
   checkProfile() {
     this.router.navigate(['main/reg-user/profile-main/' + this.params]);
   }
-  resetPassword(){
-    if (this.accForm.valid) {
-      let objInsert = this.accForm.value;
-      let objPut ={
-        Username:objInsert.Username,
-        EmailPrivate:objInsert.EmailPrivate
-      }
-      this.accountService.resetPwd(objPut).subscribe(res=>{
+  resetPassword() {
+    if (this.dataView) {
+        this.accountService.resetPwd(this.dataView).subscribe(res => {
         this.showAlert("Password baru telah dikirim email pribadi", false);
       })
     }
   }
-  onSubmit() {
-    if (this.accForm.valid) {
-      let objInsert = this.accForm.value;
+  onSubmit($event) {
+    if ($event.valid) {
+      //if (this.accForm.valid) {
+      let objInsert = $event.value;
       objInsert.ClockIn = moment(objInsert.ClockIn).format("YYYY-MM-DD HH:mm:ss");
       objInsert.ClockOut = moment(objInsert.ClockOut).format("YYYY-MM-DD HH:mm:ss");
       if (this.employeeID > 0) {
         objInsert.Id = this.employeeID;
+        this.accountService.putAccount({ Username: objInsert.Username, Role: objInsert.Role }).subscribe();
         delete objInsert.Username;
+        delete objInsert.Role;
         this.employeeService.putEmployee(objInsert).subscribe(ins => {
           if (ins) {
             this.showAlert("Data tersimpan", false);

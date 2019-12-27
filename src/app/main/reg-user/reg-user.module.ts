@@ -16,15 +16,22 @@ import { ProfilMainComponent } from './profil/profil-main/profil-main.component'
 import { ProfilMainFieldComponent } from './profil/profil-main-field/profil-main-field.component';
 import { KlaimComponent } from './klaim/klaim.component';
 import { SuratTugasComponent } from './surat-tugas/surat-tugas.component';
+import { MaintainSuratTugasComponent } from './maintain-surat-tugas/maintain-surat-tugas.component';
+import { MaintainKlaimComponent } from './maintain-klaim/maintain-klaim.component';
+import { MaintainCutiComponent } from './maintain-cuti/maintain-cuti.component';
+import { IsiCutiComponent } from './isi-cuti/isi-cuti.component';
+import { CreateAbsentLemburComponent } from './absent/create-absent-lembur/create-absent-lembur.component';
+import { EditAbsentLemburComponent } from './absent/edit-absent-lembur/edit-absent-lembur.component';
+import { HistoryAbsentLemburComponent } from './absent/history-absent-lembur/history-absent-lembur.component';
 @NgModule({
   declarations: [CreateAbsentComponent,
     ProfileItemsComponent,
     HistoryAbsentComponent, 
-    EditAbsentComponent, 
+    EditAbsentComponent, EditAbsentLemburComponent,
     MyLocationComponent, 
     ProfileItemsFieldComponent, 
     ProfilMainComponent, 
-    ProfilMainFieldComponent, KlaimComponent, SuratTugasComponent],
+    ProfilMainFieldComponent, KlaimComponent, SuratTugasComponent, MaintainSuratTugasComponent, MaintainKlaimComponent, MaintainCutiComponent, IsiCutiComponent, CreateAbsentLemburComponent, EditAbsentLemburComponent, HistoryAbsentLemburComponent],
   imports: [
     CommonModule,
     RegUserRoutingModule,
@@ -34,12 +41,12 @@ import { SuratTugasComponent } from './surat-tugas/surat-tugas.component';
     LyExpansionIconModule,
     LyExpansionModule
   ],
-  exports: [EditAbsentComponent,
+  exports: [EditAbsentComponent,EditAbsentLemburComponent,
     MyLocationComponent,
     ProfileItemsComponent,
     ProfileItemsFieldComponent,
     ProfilMainFieldComponent],
-  entryComponents:[EditAbsentComponent,
+  entryComponents:[EditAbsentComponent,EditAbsentLemburComponent,
     MyLocationComponent,
     ProfileItemsComponent,
     ProfileItemsFieldComponent,

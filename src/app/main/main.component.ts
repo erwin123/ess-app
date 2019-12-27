@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef, ɵConsole } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { LyTheme2 } from '@alyle/ui';
@@ -10,12 +10,12 @@ import * as SecureLS from 'secure-ls';
 
 const STYLES = ({
   drawerContainer: {
-    height: 'calc(100vh - 64px)',
+    height: 'calc(100vh - 64px)',//height: 'calc(100vh - 64px)',
     transform: 'translate3d(0,0,0)'
   },
   drawerContentArea: {
     padding: '1%',
-    height: '100%',
+    height: '96%',
     overflow: 'auto'
   },
   icon: {
@@ -138,16 +138,29 @@ export class MainComponent implements OnInit {
       }
     })
     this.accService.getJSON("main-menu.json").subscribe(res => {
-      this.menus = res;
-    })
+      this.menus = res.map(m => {
+        if (m.Role.indexOf(this.credential.Role) != -1) {
+          return m
+        }
+      }).filter(f=>f != null);
+    });
+
     this.accService.getJSON("side-menu.json").subscribe(res => {
-      this.sidemenus = res;
+      this.sidemenus = res.map(m => {
+        if (m.Role.indexOf(this.credential.Role) != -1) {
+          return m
+        }
+      }).filter(f=>f != null);
     });
     // this.accService.getJSON("left-menu.json").subscribe(res => {
     //   this.nodes = res;
     // });
     this.accService.getJSON("left-menu-personal.json").subscribe(res => {
-      this.nodes = res;
+      this.nodes = res.map(m => {
+        if (m.role.indexOf(this.credential.Role) != -1) {
+          return m
+        }
+      }).filter(f=>f != null);
     });
     console.log(this.credential);
     if (this.credential.quickProfile.Photo)

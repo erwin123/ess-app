@@ -1,0 +1,35 @@
+[
+    {
+        "key": "Type",
+        "label": "Jenis Cuti",
+        "type": "dropdown",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "TanggalAwal",
+        "label": "Tanggal Awal",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "TanggalAkhir",
+        "label": "Tanggal Akhir",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Notes",
+        "label": "Catatan",
+        "type": "textarea",
+        "validator": [
+            "required"
+        ]
+    }
+]

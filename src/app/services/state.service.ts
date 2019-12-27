@@ -123,6 +123,9 @@ export class StateService {
         })
       else
         group[question.key] = new FormControl(question.value || '');
+      
+      if(question.disable)
+      group[question.key].disable();
     });
     return new FormGroup(group);
   }

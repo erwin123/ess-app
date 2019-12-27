@@ -18,10 +18,29 @@ export class AbstractService {
     if (this.credential) {
       this.headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'x-access-token': this.credential.token
+        'x-access-token': this.credential.token,
       });
     }
   }
+
+  getBlob(url) {
+    const options: {
+      reportProgress: boolean;
+      headers: HttpHeaders;
+      responseType:'json';
+    } = {
+      reportProgress: true,
+      headers: this.headers,
+      responseType:'blob' as 'json'
+    };
+    return this.httpClient.get<any>(url, options).pipe(
+      retry(3), catchError(err => {
+        if (err.error.auth == false)
+          this.stateService.logout();
+        throw err;
+      }));
+  }
+
 
   get(url) {
     return this.httpClient.get<any>(this.config.Api.global_api + url, { headers: this.headers }).pipe(

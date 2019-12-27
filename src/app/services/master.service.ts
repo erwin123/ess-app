@@ -46,4 +46,87 @@ export class MasterService extends AbstractService {
   getDivision(crit) {
     return this.get_post("/division/cr", crit);
   }
+  postCuti(obj) {
+    obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.CreateBy = this.credential.Username;
+    return this.post("/cuti",obj);
+  }
+  putCuti(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.put("/cuti",obj);
+  }
+  getCuti(crit) {
+    return this.get_post("/cuti/cr", crit);
+  }
+  postClaim(obj) {
+    obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.CreateBy = this.credential.Username;
+    return this.post("/claim",obj);
+  }
+  putClaim(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.put("/claim",obj);
+  }
+  getClaim(crit) {
+    return this.get_post("/claim/cr", crit);
+  }
+
+  postMasterApproval(obj) {
+    obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.CreateBy = this.credential.Username;
+    return this.post("/approval/step",obj);
+  }
+  putMasterApproval(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.put("/approval/step",obj);
+  }
+  getMasterApproval(crit) {
+    return this.get_post("/approval/step/cr", crit);
+  }
+
+  postSpd(obj) {
+    obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.CreateBy = this.credential.Username;
+    return this.post("/spd",obj);
+  }
+  putSpd(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.put("/spd",obj);
+  }
+  getSpd(crit) {
+    return this.get_post("/spd/cr", crit);
+  }
+
+
+  postDocClaim(obj) {
+    obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.CreateBy = this.credential.Username;
+    return this.post("/claim/doc",obj);
+  }
+  putDocClaim(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.put("/claim/doc",obj);
+  }
+  getDocClaim(crit) {
+    return this.get_post("/claim/doc/cr", crit);
+  }
+
+  postDocCuti(obj) {
+    obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.CreateBy = this.credential.Username;
+    return this.post("/cuti/doc",obj);
+  }
+  putDocCuti(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.put("/cuti/doc",obj);
+  }
+  getDocCuti(crit) {
+    return this.get_post("/cuti/doc/cr", crit);
+  }
 }

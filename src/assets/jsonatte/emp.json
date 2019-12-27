@@ -151,7 +151,7 @@
     {
         "order": "Informasi Sosial",
         "key": "FamilyTax",
-        "label": "Jenis Pajak",
+        "label": "Status Pajak",
         "type": "dropdown",
         "option": [],
         "validator": [
@@ -162,7 +162,25 @@
         "order": "Informasi Sosial",
         "key": "HomeStatus",
         "label": "Status Rumah",
-        "type": "text",
+        "type": "dropdown",
+        "option": [
+            {
+                "text": "Pribadi",
+                "value": "Pribadi"
+            },
+            {
+                "text": "Orang Tua",
+                "value": "Orang Tua"
+            },
+            {
+                "text": "Sewa/Kost",
+                "value": "Sewa/Kost"
+            },
+            {
+                "text": "Keluarga",
+                "value": "Keluarga"
+            }
+        ],
         "validator": [
             "required"
         ]

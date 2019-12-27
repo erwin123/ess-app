@@ -22,7 +22,7 @@
         </ly-menu>
       </ng-template>
     </ly-toolbar>
-    <ly-drawer-container [withClass]="classes.drawerContainer" [class.drawerContainerMobile]="mobileQuery.matches">
+    <ly-drawer-container [withClass]="classes.drawerContainer" [class.drawerContainerMobile]="mobileQuery.matches && menus.length">
       <ly-drawer #drwMain="lyDrawer" ly-paper [opened]="!mobileQuery.matches" position="before"
         [mode]="mobileQuery.matches ? 'over' : 'side'" width="250px" [hasBackdrop]="mobileQuery.matches ? true : false"
         bg="background:primary">
@@ -45,7 +45,7 @@
           <ly-paper>
             <ly-list>
               <button class="side-button" *ngFor="let node of nodes" (click)="goTo(node.path, node.name);" ly-list-item>
-                <ly-icon class="side-button"  ly-list-icon>{{node.icon}}</ly-icon>
+                <ly-icon class="side-button" ly-list-icon>{{node.icon}}</ly-icon>
                 <span ly-line>{{node.name}}</span>
               </button>
             </ly-list>
@@ -58,7 +58,8 @@
       </ly-drawer-content>
     </ly-drawer-container>
 
-    <ly-toolbar position="static" [elevation]="3" class="menuDown" [class.menuDesktop]="!mobileQuery.matches">
+    <ly-toolbar *ngIf="menus.length" position="static" [elevation]="3" class="menuDown"
+      [class.menuDesktop]="!mobileQuery.matches">
       <ly-grid container [spacing]="2" style="text-align: center;padding: 0px !important;">
         <ly-grid item col *ngFor="let menu of menus" routerLinkActive="active-link">
           <button [routerLink]="menu.Path" (click)="goTo(menu.Path, menu.Text)" routerLinkActive="active-link">

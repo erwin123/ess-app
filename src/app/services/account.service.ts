@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
 import * as SecureLS from 'secure-ls';
 import { StateService } from './state.service';
-
+import * as moment from 'moment';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +22,18 @@ export class AccountService {
         'x-access-token': this.credential.token
       });
     }
+  }
+
+  putAccount(obj) {
+    let objPut = obj;
+    objPut.UpdateBy=this.credential.Username;
+    obj.UpdateDate = moment().format("YYYY-MM-DD HH:mm:ss");
+    return this.httpClient.put<any>(this.config.Api.global_api + "/account", obj, { headers: this.headers }).pipe(
+      retry(3), map(
+        res => {
+          return res;
+        }
+      ));
   }
 
   getJSON(filejson: string): Observable<any> {

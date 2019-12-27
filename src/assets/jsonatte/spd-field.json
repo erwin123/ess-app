@@ -1,0 +1,52 @@
+[
+    {
+        "key": "TanggalAwal",
+        "label": "Tanggal Berangkat",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "TanggalAkhir",
+        "label": "Tanggal Pulang",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Tujuan",
+        "label": "Tujuan",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Akomodasi",
+        "label": "Akomodasi",
+        "type": "dropdown",
+        "validator": [
+            "required"
+        ],
+        "option":[
+            {
+                "text": "Menginap",
+                "value": "Menginap"
+            },
+            {
+                "text": "Tidak Menginap",
+                "value": "TidakMenginap"
+            }
+        ]
+    },
+    {
+        "key": "Notes",
+        "label": "Catatan",
+        "type": "textarea",
+        "validator": [
+            "required"
+        ]
+    }
+]

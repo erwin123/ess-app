@@ -1,0 +1,68 @@
+[
+    {
+        "key": "ClaimType",
+        "label": "Tipe Klaim",
+        "type": "dropdown",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "ClaimDate",
+        "label": "Tanggal Peristiwa",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Recipient",
+        "label": "Nama Penerima",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Relation",
+        "label": "Hubungan",
+        "type": "dropdown",
+        "option":[
+            {
+                "text": "Diri Sendiri",
+                "value": "DiriSendiri"
+            },
+            {
+                "text": "Istri",
+                "value": "Istri"
+            },
+            {
+                "text": "Suami",
+                "value": "Suami"
+            },
+            {
+                "text": "Anak",
+                "value": "Anak"
+            }
+        ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "key": "Nominal",
+        "label": "Nominal",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "key": "Notes",
+        "label": "Catatan",
+        "type": "textarea",
+        "validator": [ ]
+    }
+]

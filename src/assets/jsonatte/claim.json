@@ -1,0 +1,90 @@
+[
+    {
+        "order": 0,
+        "key": "Id",
+        "label": "Generated Id",
+        "type": "number",
+        "validator": [],
+        "disable": true
+    },
+    {
+        "order": 1,
+        "key": "Type",
+        "label": "Tipe",
+        "type": "dropdown",
+        "validator": [
+            "required"
+        ],
+        "option": [
+            {
+                "text": "Suka",
+                "value": "Suka"
+            },
+            {
+                "text": "Duka",
+                "value": "Duka"
+            },
+            {
+                "text": "Medical",
+                "value": "Medical"
+            }
+        ]
+    },
+    {
+        "order": 2,
+        "key": "Description",
+        "label": "Deskripsi",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 4,
+        "key": "Amount",
+        "label": "Amount",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "order": 11,
+        "key": "ValidFrom",
+        "label": "Tanggal Awal",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 12,
+        "key": "ValidTo",
+        "label": "Tanggal Akhir",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 10,
+        "key": "RowStatus",
+        "label": "Status",
+        "type": "dropdown",
+        "validator": [
+            "required",
+            "number"
+        ],
+        "option": [
+            {
+                "text": "Aktif",
+                "value": 1
+            },
+            {
+                "text": "NonAktif",
+                "value": 0
+            }
+        ]
+    }
+]

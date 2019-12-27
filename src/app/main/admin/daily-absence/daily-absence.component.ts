@@ -3,11 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AbsentService } from 'src/app/services/absent.service';
 import { StateService } from 'src/app/services/state.service';
 import { LyTheme2, ThemeVariables } from '@alyle/ui';
-import { FormGroup, FormControl } from '@angular/forms';
 import { AccountService } from 'src/app/services/account.service';
 import { LyDialog } from '@alyle/ui/dialog';
 import { DialogInfoComponent } from 'src/app/alert/dialog-info/dialog-info.component';
-import { callbackify } from 'util';
 const thmstyles = () => ({
   container: {
     maxWidth: '100%'
@@ -44,6 +42,7 @@ export class DailyAbsenceComponent implements OnInit {
   config;
   fields;
   approveMode = false;
+  lembur = false;
   constructor(private _dialog: LyDialog, private absenService: AbsentService, private theme: LyTheme2, private accService: AccountService,
     private stateService: StateService, private router: Router, private route: ActivatedRoute) {
     this.stateService.currentCredential.subscribe(cr => {
@@ -53,7 +52,14 @@ export class DailyAbsenceComponent implements OnInit {
   }
   ngOnInit() {
     this.route.queryParams.subscribe(p => {
-      if (p.idabs) {
+      if (p.idabs && p.lembur) {
+        this.fetchDataUv({ Id: p.idabs }, (cb) => {
+          if (cb.Status == 2 && p.apabs == 1) {
+            this.approveMode = true;
+            this.lembur =true;
+          }
+        }, true);
+      } else if (p.idabs) {
         this.fetchDataUv({ Id: p.idabs }, (cb) => {
           if (cb.Status == 2 && p.apabs == 1) {
             this.approveMode = true;
@@ -62,9 +68,10 @@ export class DailyAbsenceComponent implements OnInit {
       }
     })
   }
-  fetchDataUv(crit, callback) {
+  fetchDataUv(crit, callback, lembur?) {
     this.stateService.setBlocking(1);
-    this.absenService.postCriteriaUv(crit).subscribe(emp => {
+    let fetcher = lembur ? this.absenService.postCriteriaUv(crit, lembur) : this.absenService.postCriteriaUv(crit);
+    fetcher.subscribe(emp => {
       if (emp.length) {
         this.dataView = emp.map(m => {
           m.ClockIn = m.ClockIn ? m.ClockIn.split('T')[0] + " " + m.ClockIn.split('T')[1].replace('.000Z', '') : "-Belum Absen-";
@@ -144,7 +151,8 @@ export class DailyAbsenceComponent implements OnInit {
     });
   }
   putData(isApprove, callback) {
-    this.absenService.putAbsent({ Id: this.data.Id, Status: isApprove }, this.data.EmployeeID).subscribe(res => {
+    let putter = this.lembur ? this.absenService.putAbsent({ Id: this.data.Id, Status: isApprove }, this.data.EmployeeID, true):this.absenService.putAbsent({ Id: this.data.Id, Status: isApprove }, this.data.EmployeeID);
+    putter.subscribe(res => {
       callback(res);
     });
   }

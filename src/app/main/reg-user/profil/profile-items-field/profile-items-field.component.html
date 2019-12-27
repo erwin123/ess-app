@@ -88,7 +88,50 @@
                     </div>
                 </div>
             </div>
-            <button [withClass]="classes.button" ly-button bg="primary">
+            <br />
+            <!-- <div *ngIf="files.length>0">
+                <br />
+                <div *ngFor="let f of files" style="float: left;">
+                    <button type="button" style="margin: 10px;" size="small" outlined (click)="windowOpenDataUrl(f)"
+                        ly-button color="primary">
+                        <ly-icon>attachment</ly-icon>
+                        {{ f.name}}
+                    </button>
+                    <span class="badge1" data-badge="x" (click)="deleteFile(f.FileName);fileInput.value=null;"></span>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div *ngIf="message"><br />{{message}}</div>
+            <div [withClass]="classes.btnWrapper" style="position: relative;">
+                <button [withClass]="classes.button" type="button" ly-button outlined color="primary"
+                    (click)="fileInput.click()">
+                    <ly-icon>search</ly-icon>
+                    <span [className]="classes.labelAfter"></span>Pilih File (Max 1Mb)
+                </button>
+                <input [withClass]="classes.uploadBtnFile" type="file" #fileInput name="empFile"
+                    (change)="readFile($event)" accept="image/jpg,image/jpeg,image/png,application/pdf" multiple />
+            </div>
+            <button *ngIf="files.length>0" style="margin-bottom:15px;" [withClass]="classes.button" type="button"
+                ly-button bg="primary" (click)="uploadFile()">
+                <ly-icon>arrow_upward</ly-icon>
+                <span [className]="classes.labelAfter">Upload File</span>
+            </button> -->
+            <div *ngIf="data" style="text-align: center;">
+                <button [withClass]="classes.buttonHalf" type="submit" ly-button bg="primary">
+                    <ly-icon>check</ly-icon>
+                    <span [className]="classes.labelAfter">Simpan</span>
+                </button>&nbsp;
+                <button [withClass]="classes.buttonHalf" type="button" ly-button outlined color="primary"
+                    (click)="cancel()">
+                    <ly-icon>cancel</ly-icon>
+                    <span [className]="classes.labelAfter">Batal</span>
+                </button><br /><br />
+                <button [withClass]="classes.button" type="button" ly-button bg="warn" (click)="showAlert()">
+                    <ly-icon>delete</ly-icon>
+                    <span [className]="classes.labelAfter">Hapus</span>
+                </button>
+            </div>
+            <button type="submit" *ngIf="!data" [withClass]="classes.button" ly-button bg="primary">
                 <ly-icon>add</ly-icon>
                 <span [className]="classes.labelAfter">Tambah</span>
             </button>

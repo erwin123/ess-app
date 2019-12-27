@@ -6,10 +6,12 @@
         </ly-grid>
         <ly-grid item col="7 12@XSmall">
             <div style="text-align: center;margin-top:-80px;margin-bottom:30px;">
-                <ly-avatar *ngIf="currentEmployee &&  currentEmployee.Id!=credential.quickProfile.EmployeeID" size="150" style="border:3px solid #fff;cursor: pointer;">
+                <ly-avatar *ngIf="currentEmployee &&  currentEmployee.Id!=credential.quickProfile.EmployeeID" size="150"
+                    style="border:3px solid #fff;cursor: pointer;">
                     <img alt="credential.Username" [src]="profilePhoto">
                 </ly-avatar>
-                <ly-avatar *ngIf="currentEmployee &&  currentEmployee.Id==credential.quickProfile.EmployeeID" size="150" style="border:3px solid #fff;cursor: pointer;" (click)="fileInput.click();">
+                <ly-avatar *ngIf="currentEmployee &&  currentEmployee.Id==credential.quickProfile.EmployeeID" size="150"
+                    style="border:3px solid #fff;cursor: pointer;" (click)="fileInput.click();">
                     <div *ngIf="loadImage"
                         style="position: absolute;background: rgb(0,0,0,0.5);height: 100%;width: 100%;border-radius: 50%;padding-top:30%;">
                         Mengganti <br />foto profile...</div>
@@ -25,8 +27,14 @@
                         <ly-panel-title>
                             <h1 ly-line style="font-size: 18px;">{{ panel.key }}</h1>
                         </ly-panel-title>
-                        <button ly-button *ngIf="panel.state && panel.key !=='Human Capital' && (currentEmployee.Id==credential.quickProfile.EmployeeID)" bg="primary" size="small"
-                            (click)="showSection(panel.key)">
+                        <!-- <button ly-button
+                            *ngIf="panel.state && panel.key !=='Human Capital' && (currentEmployee.Id==credential.quickProfile.EmployeeID)"
+                            bg="primary" size="small" (click)="showSection(panel.key)">
+                            &nbsp;Ubah&nbsp;
+                        </button>&nbsp;&nbsp; -->
+                        <button ly-button
+                            *ngIf="(panel.state && panel.key !=='Human Capital' && (currentEmployee.Id==credential.quickProfile.EmployeeID)) || credential.Role==='ESS_ADM'"
+                            bg="primary" size="small" (click)="showSection(panel.key)">
                             &nbsp;Ubah&nbsp;
                         </button>&nbsp;&nbsp;
                         <button ly-button [color]="panel.state ? 'primary' : 'text'" appearance="icon">
@@ -50,26 +58,34 @@
         <ly-grid item col="7 12@XSmall">
             <ly-grid container [spacing]="8" style="margin:10px 0 10px 0;">
                 <ly-grid item col="4 12@XSmall">
-                    <button outlined color="primary" [withClass]="classes.button" (click)="showPopUp('fam')" type="button"
-                        ly-button>
+                    <button outlined color="primary" [withClass]="classes.button" (click)="showPopUp('fam')"
+                        type="button" ly-button>
                         <ly-icon>people</ly-icon>
                         <span [className]="classes.labelAfter">Keluarga</span>
                     </button>
                 </ly-grid>
                 <ly-grid item col="4 12@XSmall">
-                    <button outlined color="primary" [withClass]="classes.button" (click)="showPopUp('edu')" type="button"
-                        ly-button>
+                    <button outlined color="primary" [withClass]="classes.button" (click)="showPopUp('edu')"
+                        type="button" ly-button>
                         <ly-icon>school</ly-icon>
                         <span [className]="classes.labelAfter">Pendidikan</span>
                     </button>
                 </ly-grid>
                 <ly-grid item col="4 12@XSmall">
-                    <button outlined color="primary" [withClass]="classes.button" (click)="showPopUp('trn')" type="button"
-                        ly-button>
+                    <button outlined color="primary" [withClass]="classes.button" (click)="showPopUp('trn')"
+                        type="button" ly-button>
                         <ly-icon>sports_handball</ly-icon>
                         <span [className]="classes.labelAfter">Pelatihan</span>
                     </button>
                 </ly-grid>
+                <!-- <div [withClass]="classes.adminFloat" *ngIf="credential.Role === 'ESS_ADM'">
+                    <button ly-button bg="grind" raised (click)="approveChange()">
+                        <ly-icon>check</ly-icon>&nbsp; Setuju
+                    </button>&nbsp;
+                    <button ly-button outlined color="warn" raised (click)="rejectChange()">
+                        <ly-icon>close</ly-icon>&nbsp; Tolak
+                    </button>
+                </div> -->
             </ly-grid>
         </ly-grid>
     </ly-grid>

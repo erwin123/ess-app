@@ -8,45 +8,45 @@ import { AbstractService } from './abstract.service';
   providedIn: 'root'
 })
 export class AbsentService extends AbstractService {
-  config:any;
+  config: any;
   credential: any;
   headers: any;
   ls = new SecureLS();
   serviceObj = "/absen"
-  constructor(private httpClients: HttpClient, private stateServices:StateService) {
+  constructor(private httpClients: HttpClient, private stateServices: StateService) {
     super(httpClients, stateServices);
   }
 
-  getLastHistory(limit, dateEnd, empId){
-    let obj ={
-      Limit:limit,
-      DateEnd:dateEnd,
-      EmployeeID:empId
+  getLastHistory(limit, dateEnd, empId, lembur?) {
+    let obj = {
+      Limit: limit,
+      DateEnd: dateEnd,
+      EmployeeID: empId
     };
-    return this.post(this.serviceObj+"/history",obj);
+    return lembur ? this.post(this.serviceObj + "/lembur/history", obj) : this.post(this.serviceObj + "/history", obj);
   }
 
-  getLast(empId){
-    return this.get(this.serviceObj+"/last?empid="+empId);
+  getLast(empId, lembur?) {
+    return lembur ? this.get(this.serviceObj + "/lembur/last?empid=" + empId) : this.get(this.serviceObj + "/last?empid=" + empId);
   }
 
-  postCriteria(criteria) {
-    return this.post(this.serviceObj+"/cr",criteria);
+  postCriteria(criteria, lembur?) {
+    return lembur ? this.post(this.serviceObj + "/lembur/cr", criteria) : this.post(this.serviceObj + "/cr", criteria);
   }
 
-  postCriteriaUv(criteria) {
-    return this.post(this.serviceObj+"/maintain/cr",criteria);
+  postCriteriaUv(criteria, lembur?) {
+    return lembur ? this.post(this.serviceObj + "/lembur/maintain/cr", criteria) : this.post(this.serviceObj + "/maintain/cr", criteria);
   }
 
-  postAbsent(obj) {
-    return this.post(this.serviceObj,obj);
+  postAbsent(obj, lembur?) {
+    return lembur ? this.post(this.serviceObj + "/lembur", obj) : this.post(this.serviceObj, obj);
   }
 
-  putAbsent(obj,empid) {
-    return this.put(this.serviceObj+"/"+empid,obj);
+  putAbsent(obj, empid, lembur?) {
+    return lembur ? this.put(this.serviceObj + "/lembur/" + empid, obj) : this.put(this.serviceObj + "/" + empid, obj);
   }
 
-  postUpload(fileToUpload: File, nameTag: string) {
+  postUpload(fileToUpload: File, nameTag) {
     let _headers = new HttpHeaders().set('x-access-token', this.credential.token);
     const formData: FormData = new FormData();
     formData.append(nameTag, fileToUpload, fileToUpload.name);
@@ -60,6 +60,6 @@ export class AbsentService extends AbstractService {
       headers: _headers
     };
     const req = new HttpRequest('POST', this.config.Api.global_api + "/absen/upload", formData, options);
-    return this.httpClient.request(req).pipe(retry(3),map(event => { return event }));
+    return this.httpClient.request(req).pipe(retry(3), map(event => { return event }));
   }
 }

@@ -16,7 +16,8 @@ const thmstyles = ({
     textAlign: 'center'
   },
   button: {
-    width: '100%'
+    width: '48%',
+    margin: '0 1% 0 1%'
   },
   labelAfter: {
     paddingBefore: '8px'
@@ -35,23 +36,44 @@ export class AbstractFormComponent implements OnInit {
   @Input('fields') fields;
   @Input('mode') mode; //0 insert, 1 edit, 2 view
   @Input('data') data;
+  pickDate = [];
+  pickDateModel = "";
   @Output('onSubmit') onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output('onChange') onChange: EventEmitter<any> = new EventEmitter<any>();
   readonly classes = this.theme.addStyleSheet(thmstyles);
   constructor(private theme: LyTheme2, private stateService: StateService) { }
 
   ngOnInit() {
     this.genForm = this.stateService.toFormGroup(this.fields);
     if (this.data)
-      setTimeout(() => {this.stateService.resetForm(this.genForm, this.data);}, 0);
-    if(this.mode == 2){
+    {
+      //this.stateService.resetForm(this.genForm, this.data);
+      setTimeout(() => { this.stateService.resetForm(this.genForm, this.data); }, 0);
+    }
+    if (this.mode == 2) {
       this.genForm.disable();
     }
+    this.genForm.valueChanges.subscribe(val => {
+      this.onChange.emit(val)
+    })
   }
 
+  // ngAfterViewInit() {
+   
+  // }
+
+  clickPickedDate(key) {
+    this.pickDate[key] = true;
+  }
 
   formSubmit() {
     if (this.genForm.valid)
       this.onSubmit.emit(this.genForm);
+  }
+
+  handleDate(event, key) {
+    this.pickDate[key] = false;
+    this.genForm.get(key).setValue(event.format("YYYY-MM-DD"));
   }
 
 }

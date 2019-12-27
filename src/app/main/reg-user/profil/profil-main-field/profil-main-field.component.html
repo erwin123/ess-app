@@ -89,7 +89,7 @@
                             </ng-select>
                         </div>
                         <div *ngSwitchCase="'select'">
-                            <ng-select [placeholder]="f.label" [items]="f.option" bindLabel="text"
+                            <ng-select [placeholder]="f.label" [items]="f.option" bindLabel="text" bindValue="value"
                                 [formControlName]="f.key">
                             </ng-select>
                         </div>

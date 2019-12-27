@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MasterService } from 'src/app/services/master.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { StateService } from 'src/app/services/state.service';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
@@ -31,13 +31,43 @@ export class InboxComponent implements OnInit {
     { key: 'CreateDate', title: 'Tanggal', width: '25%' }
   ];
   credential: any;
-  constructor(private theme: LyTheme2, private _dialog: LyDialog, private empService: EmployeeService, private router: Router, private stateService: StateService) {
+  constructor(private theme: LyTheme2, private _dialog: LyDialog,
+    private empService: EmployeeService, private route: ActivatedRoute, private stateService: StateService) {
     this.stateService.currentCredential.subscribe(cr => {
       this.credential = cr;
     });
   }
 
   ngOnInit() {
+    console.log(this.route.snapshot.paramMap.get('id'));
+    if (this.route.snapshot.paramMap.get('id')) {
+
+      switch (this.route.snapshot.paramMap.get('id')) {
+        case '1': //Berhasil
+          this.showAlert({
+            MessageTitle: "Informasi",
+            Message: "Data berhasil disetujui",
+            ConfirmationMode: false
+          }, false,(cb)=>{})
+          break;
+        case '2': //Ditolak
+          this.showAlert({
+            MessageTitle: "Informasi",
+            Message: "Penolakan data berhasil",
+            ConfirmationMode: false
+          }, false, (cb)=>{})
+          break;
+        case '3': //Ditolak
+          this.showAlert({
+            MessageTitle: "Informasi",
+            Message: "Request expired",
+            ConfirmationMode: false
+          }, false, (cb)=>{})
+          break;
+        default:
+          break;
+      }
+    }
     this.fetchData();
   }
   fetchData() {
@@ -55,7 +85,7 @@ export class InboxComponent implements OnInit {
     data.ReadIt = 1;
     this.empService.putMessage(objPut).subscribe();
     this.showAlert(data, false, (cb) => {
-      this.data.splice(this.data.findIndex(f=>f.Id == data.Id), 1, data);
+      this.data.splice(this.data.findIndex(f => f.Id == data.Id), 1, data);
     });
   }
   receiveAddEvent(data) {
@@ -66,14 +96,14 @@ export class InboxComponent implements OnInit {
       if (cb == 1) {
         let objPut = data;
         data.RowStatus = 0;
-        this.empService.putMessage(objPut).subscribe(del=>{
+        this.empService.putMessage(objPut).subscribe(del => {
           this.fetchData();
         });
       }
     })
   }
 
-  showAlert(data: any, err: boolean, callback) {
+  showAlert(data: any, err: boolean, callback?) {
     this.stateService.setBlocking(0);
     const dialogRefInfo = this._dialog.open<DialogInfoComponent>(DialogInfoComponent, {
       containerClass: this.theme.style(STYLES_DIALOG),

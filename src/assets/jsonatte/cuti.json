@@ -1,0 +1,95 @@
+[
+    {
+        "order": 0,
+        "key": "Id",
+        "label": "Generated Id",
+        "type": "number",
+        "validator": [ ],
+        "disable":true
+    },
+    {
+        "order": 1,
+        "key": "Type",
+        "label": "Tipe Cuti",
+        "type": "dropdown",
+        "validator": [
+            "required"
+        ],
+        "option": [
+            {
+                "text": "Istirahat",
+                "value": "Istirahat"
+            },
+            {
+                "text": "Izin Khusus",
+                "value": "IzinKhusus"
+            },
+            {
+                "text": "Izin Meninggalkan Pekerjaan",
+                "value": "IzinMeninggalkanPekerjaan"
+            },
+            {
+                "text": "Sakit",
+                "value": "Sakit"
+            }
+        ]
+    },
+    {
+        "order": 2,
+        "key": "Description",
+        "label": "Deskripsi",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 3,
+        "key": "City",
+        "label": "Kota",
+        "type": "dropdown",
+        "option": [
+            {
+                "text": "Dalam Kota",
+                "value": "DalamKota"
+            },
+            {
+                "text": "Luar Kota",
+                "value": "LuarKota"
+            }
+        ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 4,
+        "key": "Quota",
+        "label": "Quota",
+        "type": "number",
+        "validator": [
+            "required",
+            "number"
+        ]
+    },
+    {
+        "order": 10,
+        "key": "RowStatus",
+        "label": "Status",
+        "type": "dropdown",
+        "validator": [
+            "required",
+            "number"
+        ],
+        "option": [
+            {
+                "text": "Aktif",
+                "value": 1
+            },
+            {
+                "text": "NonAktif",
+                "value": 0
+            }
+        ]
+    }
+]

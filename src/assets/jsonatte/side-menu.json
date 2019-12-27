@@ -3,18 +3,21 @@
         "Text": "Profil",
         "Icon": "face",
         "RuleName":"REG",
-        "Path":"/main/reg-user/profile-main"
+        "Path":"/main/reg-user/profile-main",
+        "Role":["ESS_REG"]
     },
     {
         "Text": "Settings",
         "Icon": "build",
         "RuleName":"REG",
-        "Path":"/main/settings/change-password"
+        "Path":"/main/settings/change-password",
+        "Role":["ESS_REG","ESS_ADM"]
     },
     {
         "Text": "Logout",
         "Icon": "exit_to_app",
         "RuleName":"REG",
-        "Path":"/main/ancor"
+        "Path":"/main/ancor",
+        "Role":["ESS_REG","ESS_ADM"]
     }
 ]

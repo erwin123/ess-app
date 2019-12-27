@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MasterService } from 'src/app/services/master.service';
 import { Router } from '@angular/router';
+import { StateService } from 'src/app/services/state.service';
 @Component({
   selector: 'app-maintain-location',
   templateUrl: './maintain-location.component.html',
@@ -14,14 +15,16 @@ export class MaintainLocationComponent implements OnInit {
     { key: 'LocationAddress', title: 'Alamat' },
     { key: 'RowStatus', title: 'Aktif' }
   ];
-  constructor(private masterService:MasterService, private router:Router) { }
+  constructor(private masterService:MasterService, private router:Router, private stateService:StateService) { }
 
   ngOnInit() {
     this.fetchData();
   }
   fetchData() {
+    this.stateService.setBlocking(1);
     this.masterService.getLocation({}).subscribe(loc => {
       this.data = loc;
+      this.stateService.setBlocking(0);
     });
   }
   receiveEvent(data){

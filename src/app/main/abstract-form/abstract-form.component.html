@@ -31,12 +31,12 @@
                 </div>
                 <div *ngSwitchCase="'textdate'">
                     <ly-field appearance="outlined" fullWidth>
-                        <input (click)="pickDate = true" lyNativeControl [placeholder]="f.label"
+                        <input (click)="clickPickedDate(f.key)" lyNativeControl [placeholder]="f.label"
                             [formControlName]="f.key">
                         <ly-hint></ly-hint>
                         <ly-error>Wajib diisi</ly-error>
-                        <div *ngIf="pickDate">
-                            <owl-date-time-inline (ngModelChange)="handleDate($event)"
+                        <div *ngIf="pickDate[f.key]">
+                            <owl-date-time-inline (ngModelChange)="handleDate($event, f.key)"
                                 [ngModelOptions]="{standalone: true}" [(ngModel)]="pickDateModel"
                                 [pickerType]="'calendar'">
                             </owl-date-time-inline>
@@ -78,11 +78,20 @@
                         </ng-template>
                     </ng-select>
                 </div>
+                <div *ngSwitchCase="'select'">
+                    <ng-select [placeholder]="f.label" [items]="f.option" bindLabel="text" bindValue="value"
+                        [formControlName]="f.key">
+                    </ng-select>
+                </div>
             </div>
         </div>
         <button [withClass]="classes.button" ly-button bg="primary" *ngIf="mode != 2">
             <ly-icon>check</ly-icon>
             <span [className]="classes.labelAfter">Simpan</span>
+        </button>
+        <button [withClass]="classes.button" ly-button type="reset" outlined color="warn" *ngIf="mode != 2">
+            <ly-icon>refresh</ly-icon>
+            <span [className]="classes.labelAfter">Reset</span>
         </button>
     </form>
 </div>

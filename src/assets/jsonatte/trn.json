@@ -16,7 +16,7 @@
         ]
     },
     {
-        "key": "Tahun",
+        "key": "Year",
         "label": "Tahun",
         "type": "number",
         "validator": [
