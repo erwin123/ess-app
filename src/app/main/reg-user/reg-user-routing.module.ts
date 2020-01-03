@@ -10,7 +10,6 @@ import { MaintainSuratTugasComponent } from './maintain-surat-tugas/maintain-sur
 import { MaintainKlaimComponent } from './maintain-klaim/maintain-klaim.component';
 import { IsiCutiComponent } from './isi-cuti/isi-cuti.component';
 import { MaintainCutiComponent } from './maintain-cuti/maintain-cuti.component';
-import { HistoryAbsentLemburComponent } from './absent/history-absent-lembur/history-absent-lembur.component';
 import { CreateAbsentLemburComponent } from './absent/create-absent-lembur/create-absent-lembur.component';
 
 const routes: Routes = [
@@ -27,7 +26,13 @@ const routes: Routes = [
     canActivate:[AuthguardService]
   },
   {
-    path: 'history-absent',
+    path: 'history-absent/:lembur',
+    component: HistoryAbsentComponent,
+    data: { state: 'history-absent' },
+    canActivate:[AuthguardService]
+  },
+  {
+    path: 'history-absent/',
     component: HistoryAbsentComponent,
     data: { state: 'history-absent' },
     canActivate:[AuthguardService]
@@ -42,12 +47,6 @@ const routes: Routes = [
     path: 'create-absent-lembur-out/:purpose',
     component: CreateAbsentLemburComponent,
     data: { state: 'create-absent-lembur-out' },
-    canActivate:[AuthguardService]
-  },
-  {
-    path: 'history-absent-lembur',
-    component: HistoryAbsentLemburComponent,
-    data: { state: 'history-absent' },
     canActivate:[AuthguardService]
   },
   {

@@ -56,6 +56,24 @@
     },
     {
         "id": 5,
+        "name": "Master Function",
+        "icon": "people_alt",
+        "path": "main/admin/maintain-divisi",
+        "role": [
+            "ESS_ADM"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Master Sub-Function",
+        "icon": "supervisor_account",
+        "path": "main/admin/maintain-department",
+        "role": [
+            "ESS_ADM"
+        ]
+    },
+    {
+        "id": 5,
         "name": "Master Cuti",
         "icon": "directions_run",
         "path": "main/admin/maintain-mastercuti",

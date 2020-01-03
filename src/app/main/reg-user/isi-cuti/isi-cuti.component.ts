@@ -31,6 +31,7 @@ export class IsiCutiComponent implements OnInit {
   mode = 1;
   message = "";
   title = "Ajukan Cuti";
+  app=false;
   constructor(private theme: LyTheme2, private stateService: StateService, private accountService: AccountService,
     private router: Router, private _dialog: LyDialog, private masterService: MasterService, private route: ActivatedRoute) {
     this.stateService.currentCredential.subscribe(cr => {
@@ -57,6 +58,9 @@ export class IsiCutiComponent implements OnInit {
             })
           }
         });
+        if(p.app){
+          this.app = true;
+        }
       } else {
         this.fetchField(cb => {
           this.fields = cb

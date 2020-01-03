@@ -40,8 +40,28 @@ export class MasterService extends AbstractService {
   getTitle(crit) {
     return this.get_post("/organizationlevel/cr", crit);
   }
+  postDepartment(obj) {
+    obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.CreateBy = this.credential.Username;
+    return this.post("/department",obj);
+  }
+  putDepartment(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.put("/department",obj);
+  }
   getDepartment(crit) {
     return this.get_post("/department/cr", crit);
+  }
+  postDivision(obj) {
+    obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.CreateBy = this.credential.Username;
+    return this.post("/division",obj);
+  }
+  putDivision(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.put("/division",obj);
   }
   getDivision(crit) {
     return this.get_post("/division/cr", crit);

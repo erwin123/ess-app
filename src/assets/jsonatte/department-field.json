@@ -1,0 +1,65 @@
+[
+    {
+        "order": 0,
+        "key": "Id",
+        "label": "Generated Id",
+        "type": "number",
+        "validator": [ ],
+        "disable":true
+    },
+    {
+        "order": 1,
+        "key": "Name",
+        "label": "Nama",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 2,
+        "key": "Initial",
+        "label": "Inisial",
+        "type": "text",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 2,
+        "key": "CostCenterCode",
+        "label": "Cost Center",
+        "type": "text",
+        "validator": []
+    },
+    {
+        "order": 3,
+        "key": "DivisionID",
+        "label": "Function",
+        "type": "dropdown",
+        "option": [ ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": 10,
+        "key": "RowStatus",
+        "label": "Status",
+        "type": "dropdown",
+        "validator": [
+            "required",
+            "number"
+        ],
+        "option": [
+            {
+                "text": "Aktif",
+                "value": 1
+            },
+            {
+                "text": "NonAktif",
+                "value": 0
+            }
+        ]
+    }
+]

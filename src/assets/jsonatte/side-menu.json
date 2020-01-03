@@ -7,8 +7,8 @@
         "Role":["ESS_REG"]
     },
     {
-        "Text": "Settings",
-        "Icon": "build",
+        "Text": "Ganti Password",
+        "Icon": "vpn_key",
         "RuleName":"REG",
         "Path":"/main/settings/change-password",
         "Role":["ESS_REG","ESS_ADM"]

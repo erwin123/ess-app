@@ -12,8 +12,19 @@
             <div *ngIf="message" [className]="classes.msg">
                 {{message}}
             </div>
-            <app-abstract-form [fields]="fields" (onChange)="handleChange($event)" [mode]="mode" (onSubmit)="onSubmit($event)" [data]="dataView">
+            <app-abstract-form [fields]="fields" (onChange)="handleChange($event)" [mode]="mode"
+                (onSubmit)="onSubmit($event)" [data]="dataView">
             </app-abstract-form>
+            <button (click)="goTo('main/reg-user/maintain-klaim')" ly-button type="button" bg="primary"
+                style="width: 100%;" *ngIf="app">
+                <ly-icon>check</ly-icon>
+                <span [className]="classes.labelAfter">Setuju</span>
+            </button><br /><br />
+            <button (click)="goTo('main/reg-user/maintain-klaim')" outlined ly-button type="button" color="warn"
+                style="width: 100%;" *ngIf="app">
+                <ly-icon>close</ly-icon>
+                <span [className]="classes.labelAfter">Tolak</span>
+            </button>
         </ly-grid>
     </ly-grid>
 </div>

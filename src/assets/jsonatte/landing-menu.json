@@ -31,14 +31,14 @@
         "Text": "Riwayat Absen",
         "Icon": "history",
         "RuleName":"reg",
-        "Path":"/main/reg-user/history-absent",
+        "Path":"/main/reg-user/history-absent/0",
         "Role":["ESS_REG"]
     },
     {
         "Text": "Riwayat Lembur",
         "Icon": "history",
         "RuleName":"reg",
-        "Path":"/main/reg-user/history-absent-lembur",
+        "Path":"/main/reg-user/history-absent/1",
         "Role":["ESS_REG"]
     },
     {
@@ -49,21 +49,21 @@
         "Role":["ESS_REG","ESS_ADM"]
     },
     {
-        "Text": "Klaim",
+        "Text": "Klaim saya",
         "Icon": "receipt",
         "RuleName":"reg",
         "Path":"/main/reg-user/maintain-klaim",
         "Role":["ESS_REG"]
     },
     {
-        "Text": "Cuti",
+        "Text": "Cuti Saya",
         "Icon": "directions_run",
         "RuleName":"reg",
         "Path":"/main/reg-user/maintain-cuti",
         "Role":["ESS_REG"]
     },
     {
-        "Text": "Surat Tugas",
+        "Text": "Surat Tugas Saya",
         "Icon": "markunread_mailbox",
         "RuleName":"reg",
         "Path":"/main/reg-user/maintain-surat-tugas",

@@ -22,7 +22,6 @@ import { MaintainCutiComponent } from './maintain-cuti/maintain-cuti.component';
 import { IsiCutiComponent } from './isi-cuti/isi-cuti.component';
 import { CreateAbsentLemburComponent } from './absent/create-absent-lembur/create-absent-lembur.component';
 import { EditAbsentLemburComponent } from './absent/edit-absent-lembur/edit-absent-lembur.component';
-import { HistoryAbsentLemburComponent } from './absent/history-absent-lembur/history-absent-lembur.component';
 @NgModule({
   declarations: [CreateAbsentComponent,
     ProfileItemsComponent,
@@ -31,7 +30,7 @@ import { HistoryAbsentLemburComponent } from './absent/history-absent-lembur/his
     MyLocationComponent, 
     ProfileItemsFieldComponent, 
     ProfilMainComponent, 
-    ProfilMainFieldComponent, KlaimComponent, SuratTugasComponent, MaintainSuratTugasComponent, MaintainKlaimComponent, MaintainCutiComponent, IsiCutiComponent, CreateAbsentLemburComponent, EditAbsentLemburComponent, HistoryAbsentLemburComponent],
+    ProfilMainFieldComponent, KlaimComponent, SuratTugasComponent, MaintainSuratTugasComponent, MaintainKlaimComponent, MaintainCutiComponent, IsiCutiComponent, CreateAbsentLemburComponent, EditAbsentLemburComponent],
   imports: [
     CommonModule,
     RegUserRoutingModule,

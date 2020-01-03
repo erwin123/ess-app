@@ -1,4 +1,4 @@
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LyButtonModule } from '@alyle/ui/button';
 import { LyCardModule } from '@alyle/ui/card';
@@ -28,6 +28,7 @@ import { CheckLocationComponent } from '../main/location/check-location/check-lo
 import { AbstractFormComponent } from '../main/abstract-form/abstract-form.component';
 import { MaintainTplComponent } from '../main/maintain-tpl/maintain-tpl.component';
 import { LyCarouselModule } from '@alyle/ui/carousel';
+import { DialogForgot } from '../login/login.component';
 export const MY_MOMENT_FORMATS = {
   parseInput: 'l LT',
   fullPickerInput: 'l LT',
@@ -39,7 +40,7 @@ export const MY_MOMENT_FORMATS = {
 };
 
 @NgModule({
-  declarations: [DialogInfoComponent,
+  declarations: [DialogInfoComponent,DialogForgot,
     TextvalPipe,
     CheckLocationComponent,
     AbstractFormComponent,
@@ -101,9 +102,10 @@ export const MY_MOMENT_FORMATS = {
     TextvalPipe,
     LyCarouselModule,
     LyListModule,
-    LyBadgeModule
+    LyBadgeModule,
+    DialogForgot
   ],
-  entryComponents: [DialogInfoComponent],
+  entryComponents: [DialogInfoComponent, DialogForgot],
   providers: [
     { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS }
   ],

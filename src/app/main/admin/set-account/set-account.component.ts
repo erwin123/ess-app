@@ -92,34 +92,39 @@ export class SetAccountComponent implements OnInit {
 
   fetchParameter() {
     let master = forkJoin(
-      this.masterService.getDepartment({}),
       this.masterService.getDivision({}),
       this.masterService.getTitle({}),
       this.masterService.getLocation({}),
       this.employeeService.getEmployeeQuickProfileSimple({})
     )
     master.subscribe(res => {
-      this.fields.find(f => f.key === 'DivisionID').option = res[1] ? res[1].map(m => {
+      this.fields.find(f => f.key === 'DivisionID').option = res[0] ? res[0].map(m => {
         m.text = m.Name,
           m.value = m.Id
         return m;
       }) : [];
-      this.fields.find(f => f.key === 'DepartmentID').option = res[0] ? res[0].map(m => {
+      //get child of division
+      let Departments = [];
+      res[0].map(m => {
+        Departments.push(...m.Departments);
+      })
+      this.fields.find(f => f.key === 'DepartmentID').option = res[0] ? Departments.map(m => {
         m.text = m.Name,
           m.value = m.Id
         return m;
       }) : [];
-      this.fields.find(f => f.key === 'OrganizationLevelID').option = res[2] ? res[2].map(m => {
+      //end get
+      this.fields.find(f => f.key === 'OrganizationLevelID').option = res[1] ? res[1].map(m => {
         m.text = m.Name,
           m.value = m.Id
         return m;
       }) : [];
-      this.fields.find(f => f.key === 'LocationID').option = res[3] ? res[3].map(m => {
+      this.fields.find(f => f.key === 'LocationID').option = res[2] ? res[2].map(m => {
         m.text = m.LocationName,
           m.value = m.Id
         return m;
       }) : [];
-      this.fields.find(f => f.key === 'DirectReportID').option = res[4] ? res[4].map(m => {
+      this.fields.find(f => f.key === 'DirectReportID').option = res[3] ? res[3].map(m => {
         m.text = "(" + m.Username + ") " + m.FullName,
           m.value = m.EmployeeId
         return m;

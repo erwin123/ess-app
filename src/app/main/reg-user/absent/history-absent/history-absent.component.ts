@@ -6,6 +6,7 @@ import { LyTheme2, ThemeVariables } from '@alyle/ui';
 import { LyDialog } from '@alyle/ui/dialog';
 import { EditAbsentComponent } from '../edit-absent/edit-absent.component';
 import { DialogInfoComponent } from 'src/app/alert/dialog-info/dialog-info.component';
+import { ActivatedRoute } from '@angular/router';
 
 const STYLES = (_theme: ThemeVariables) => ({
   statusData: {
@@ -23,8 +24,9 @@ export class HistoryAbsentComponent implements OnInit {
   credential: any;
   quickProfile: any;
   data = [];
+  title="7 Riwayat Absen";
   constructor(private absenService: AbsentService, private stateService: StateService,
-    private theme: LyTheme2, private _dialog: LyDialog) {
+    private theme: LyTheme2, private _dialog: LyDialog, private route:ActivatedRoute) {
     this.stateService.currentCredential.subscribe(cr => {
       this.credential = cr;
       this.quickProfile = cr.quickProfile;
@@ -32,12 +34,19 @@ export class HistoryAbsentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchData();
+    if(this.route.snapshot.paramMap.get('lembur')==="1"){
+      this.title = "7 Riwayat Lembur";
+      this.fetchData(true);
+    }else{
+      this.fetchData();
+    }
+    
   }
 
-  fetchData() {
+  fetchData(lembur?) {
     this.stateService.setBlocking(1);
-    this.absenService.getLastHistory(8, moment().format("YYYY-MM-DD"), this.quickProfile.EmployeeID).subscribe(last8 => {
+    let fetcher = lembur ? this.absenService.getLastHistory(7, moment().format("YYYY-MM-DD"), this.quickProfile.EmployeeID, true) : this.absenService.getLastHistory(8, moment().format("YYYY-MM-DD"), this.quickProfile.EmployeeID);
+    fetcher.subscribe(last8 => {
       this.data = last8.map(m => {
         m.ClockIn = m.ClockIn ? m.ClockIn.split('T')[0] + " " + m.ClockIn.split('T')[1].replace('.000Z', '') : "-Belum Absen-";
         m.ClockOut = m.ClockOut ? m.ClockOut.split('T')[0] + " " + m.ClockOut.split('T')[1].replace('.000Z', '') : "-Belum Absen-";

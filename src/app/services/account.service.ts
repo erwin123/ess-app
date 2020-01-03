@@ -63,8 +63,8 @@ export class AccountService {
   }
   resetPwd(obj) {
     let objPut = obj;
-    objPut.UpdateBy=this.credential.Username;
-    return this.httpClient.post<any>(this.config.Api.global_api + "/account/resetpwd", obj, { headers: this.headers }).pipe(
+    objPut.UpdateBy=this.credential ? this.credential.Username : obj.Username;
+    return this.httpClient.post<any>(this.config.Api.global_api + "/account/resetpwd", objPut, { headers: this.headers }).pipe(
       retry(3), map(
         res => {
           return res;

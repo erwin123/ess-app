@@ -148,6 +148,16 @@
         ]
     },
     {
+        "order": 27,
+        "key": "FamilyTax",
+        "label": "Jenis Pajak",
+        "type": "dropdown",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
         "order": 13,
         "key": "AddressKtp",
         "label": "Alamat KTP",
@@ -280,16 +290,6 @@
         "validator": [
             "required",
             "number"
-        ]
-    },
-    {
-        "order": 27,
-        "key": "FamilyTax",
-        "label": "Jenis Pajak",
-        "type": "dropdown",
-        "option": [],
-        "validator": [
-            "required"
         ]
     },
     {

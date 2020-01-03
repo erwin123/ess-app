@@ -15,11 +15,15 @@ import { SetMasterClaimComponent } from './set-master-claim/claim.component';
 import { MasterApprovalComponent } from './master-approval/master-approval.component';
 import { SetMasterApprovalComponent } from './set-master-approval/set-master-approval.component';
 import { MaintainApprovalComponent } from './maintain-approval/maintain-approval.component';
+import { MaintainDivisiComponent } from './maintain-divisi/maintain-divisi.component';
+import { MaintainDepartmentComponent } from './maintain-department/maintain-department.component';
+import { SetDepartmentComponent } from './set-department/set-department.component';
+import { SetDivisiComponent } from './set-divisi/set-divisi.component';
 
 @NgModule({
   declarations: [SetLocationComponent, MaintainLocationComponent,
     SetAccountComponent, MaintainEmployeeComponent,
-    DailyAbsenceComponent, MaintainAbsenceComponent, SetMasterCutiComponent, MaintainCutiComponent, MaintainClaimComponent, SetMasterClaimComponent, MasterApprovalComponent, SetMasterApprovalComponent, MaintainApprovalComponent],
+    DailyAbsenceComponent, MaintainAbsenceComponent, SetMasterCutiComponent, MaintainCutiComponent, MaintainClaimComponent, SetMasterClaimComponent, MasterApprovalComponent, SetMasterApprovalComponent, MaintainApprovalComponent, MaintainDivisiComponent, MaintainDepartmentComponent, SetDepartmentComponent, SetDivisiComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

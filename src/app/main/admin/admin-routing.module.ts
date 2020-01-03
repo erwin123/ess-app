@@ -13,6 +13,10 @@ import { MaintainClaimComponent } from './maintain-claim/maintain-claim.componen
 import { SetMasterClaimComponent } from './set-master-claim/claim.component';
 import { SetMasterApprovalComponent } from './set-master-approval/set-master-approval.component';
 import { MaintainApprovalComponent } from './maintain-approval/maintain-approval.component';
+import { SetDivisiComponent } from './set-divisi/set-divisi.component';
+import { SetDepartmentComponent } from './set-department/set-department.component';
+import { MaintainDivisiComponent } from './maintain-divisi/maintain-divisi.component';
+import { MaintainDepartmentComponent } from './maintain-department/maintain-department.component';
 
 const routes: Routes = [
   {
@@ -43,6 +47,18 @@ const routes: Routes = [
     path: 'set-absence',
     component: DailyAbsenceComponent,
     data: { state: 'set-absence' },
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'set-divisi',
+    component: SetDivisiComponent,
+    data: { state: 'set-master-divisi' },
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'set-department',
+    component: SetDepartmentComponent,
+    data: { state: 'set-master-department' },
     canActivate: [AuthguardService]
   },
   {
@@ -85,6 +101,18 @@ const routes: Routes = [
     path: 'maintain-masterclaim',
     component: MaintainClaimComponent,
     data: { state: 'maintain-masterclaim' },
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'maintain-divisi',
+    component: MaintainDivisiComponent,
+    data: { state: 'maintain-divisi' },
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'maintain-department',
+    component: MaintainDepartmentComponent,
+    data: { state: 'maintain-department' },
     canActivate: [AuthguardService]
   }
 

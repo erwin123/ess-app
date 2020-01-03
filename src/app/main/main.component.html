@@ -9,6 +9,9 @@
           <img src="assets/img/logo.png" alt="" title="acst-logo">
         </a>
       </h6>
+      <h6 *ngIf="credential" style="text-align:right;padding-right: 10px;width: 30%;white-space: pre-wrap;word-wrap: break-word;">
+        {{credential.quickProfile.FullName}}
+      </h6>
       <button *ngIf="credential" ly-button color="primary:contrast" appearance="icon" [lyMenuTriggerFor]="menu">
         <ly-avatar>
           <img alt="credential.Username" [src]="profilePhoto ? profilePhoto:'assets/img/person-icon.png'">

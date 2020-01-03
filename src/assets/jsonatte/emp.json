@@ -112,6 +112,16 @@
     },
     {
         "order": "Informasi Sosial",
+        "key": "FamilyTax",
+        "label": "Status Pajak",
+        "type": "dropdown",
+        "option": [],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": "Informasi Sosial",
         "key": "AddressKtp",
         "label": "Alamat KTP",
         "type": "textarea",
@@ -143,16 +153,6 @@
         "key": "AreaCodeDomisile",
         "label": "Kota Domisili",
         "type": "selectarea",
-        "option": [],
-        "validator": [
-            "required"
-        ]
-    },
-    {
-        "order": "Informasi Sosial",
-        "key": "FamilyTax",
-        "label": "Status Pajak",
-        "type": "dropdown",
         "option": [],
         "validator": [
             "required"

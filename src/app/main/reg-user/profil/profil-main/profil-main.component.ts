@@ -167,7 +167,6 @@ export class ProfilMainComponent implements OnInit {
       this.masterService.getArea({ Levels: 1 }),
       this.masterService.getArea({ Levels: 2 }),
       this.masterService.getEnum({}),
-      this.masterService.getDepartment({}),
       this.masterService.getDivision({}),
       this.masterService.getTitle({}),
       this.employeeService.getEmployeeQuickProfileSimple({})
@@ -196,28 +195,34 @@ export class ProfilMainComponent implements OnInit {
         m.value = m.Value;
         return m;
       })
-      fields.find(f => f.key === 'DivisionID').option = res[4] ? res[4].map(m => {
+      fields.find(f => f.key === 'DivisionID').option = res[3] ? res[3].map(m => {
         m.text = m.Name,
           m.value = m.Id
         return m;
       }) : [];
-      fields.find(f => f.key === 'DepartmentID').option = res[3] ? res[3].map(m => {
+      //get child of division
+      let Departments = [];
+      res[3].map(m => {
+        Departments.push(...m.Departments);
+      })
+      fields.find(f => f.key === 'DepartmentID').option = res[3] ? Departments.map(m => {
         m.text = m.Name,
           m.value = m.Id
         return m;
       }) : [];
-      fields.find(f => f.key === 'OrganizationLevelID').option = res[5] ? res[5].map(m => {
+      //end get
+      fields.find(f => f.key === 'OrganizationLevelID').option = res[4] ? res[4].map(m => {
         m.text = m.Name,
           m.value = m.Id
         return m;
       }) : [];
-      fields.find(f => f.key === 'DirectReportID').option = res[6] ? res[6].map(m => {
+      fields.find(f => f.key === 'DirectReportID').option = res[5] ? res[5].map(m => {
         m.text = "(" + m.Username + ") " + m.FullName,
           m.value = m.EmployeeId
         return m;
       }).filter(f => f.EmployeeId != this.currentQuickProfile.EmployeeID) : [];
 
-      if (res[0] && res[1] && res[2] && res[3] && res[4] && res[5] && res[6]) {
+      if (res[0] && res[1] && res[2] && res[3] && res[4] && res[5]) {
         this.stateService.setBlocking(0);
         callback(fields);
       }
