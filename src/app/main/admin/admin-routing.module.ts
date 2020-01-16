@@ -17,6 +17,8 @@ import { SetDivisiComponent } from './set-divisi/set-divisi.component';
 import { SetDepartmentComponent } from './set-department/set-department.component';
 import { MaintainDivisiComponent } from './maintain-divisi/maintain-divisi.component';
 import { MaintainDepartmentComponent } from './maintain-department/maintain-department.component';
+import { SetHolidayComponent } from './set-holiday/set-holiday.component';
+import { MaintainHolidayComponent } from './maintain-holiday/maintain-holiday.component';
 
 const routes: Routes = [
   {
@@ -47,6 +49,12 @@ const routes: Routes = [
     path: 'set-absence',
     component: DailyAbsenceComponent,
     data: { state: 'set-absence' },
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'set-holiday',
+    component: SetHolidayComponent,
+    data: { state: 'set-holiday' },
     canActivate: [AuthguardService]
   },
   {
@@ -107,6 +115,12 @@ const routes: Routes = [
     path: 'maintain-divisi',
     component: MaintainDivisiComponent,
     data: { state: 'maintain-divisi' },
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'maintain-holiday',
+    component: MaintainHolidayComponent,
+    data: { state: 'maintain-holiday' },
     canActivate: [AuthguardService]
   },
   {

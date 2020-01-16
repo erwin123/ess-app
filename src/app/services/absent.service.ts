@@ -17,6 +17,10 @@ export class AbsentService extends AbstractService {
     super(httpClients, stateServices);
   }
 
+  getSAPRaw(crit, lembur?) {
+    return lembur ? this.post(this.serviceObj + "/lembur/sapreport", crit) : this.post(this.serviceObj + "/sapreport", crit);
+  }
+
   getLastHistory(limit, dateEnd, empId, lembur?) {
     let obj = {
       Limit: limit,

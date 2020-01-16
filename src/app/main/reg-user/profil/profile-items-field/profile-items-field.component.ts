@@ -11,7 +11,6 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { DialogInfoComponent } from 'src/app/alert/dialog-info/dialog-info.component';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { AccountService } from 'src/app/services/account.service';
-import { ActivatedRoute } from '@angular/router';
 import { LY_DIALOG_DATA, LyDialogRef, LyDialog } from '@alyle/ui/dialog';
 // const STYLES_DIALOG = (theme: ThemeVariables) => ({
 //   width: '800px',
@@ -82,6 +81,7 @@ export class ProfileItemsFieldComponent implements OnInit {
   @Input('type') type;
   @Input('isTemp') isTemp = true;
   @Input('data') data;
+  @Input('empID') empID;
   pickDate = false;
   pickDateModel = "";
   readonly classes = this.theme.addStyleSheet(thmstyles);
@@ -118,6 +118,7 @@ export class ProfileItemsFieldComponent implements OnInit {
         this.stateService.resetForm(this.genForm, this.data);
       }, 500); // bugs on radio button
     }
+    
   }
   showAlert() {
     const dialogRefInfo = this._dialog.open<DialogInfoComponent>(DialogInfoComponent, {
@@ -198,7 +199,7 @@ export class ProfileItemsFieldComponent implements OnInit {
       this.stateService.setBlocking(1);
       let obj = this.genForm.value;
       obj.RowStatus = isDelete ? 0 : 1;
-      obj.EmployeeID = this.credential.quickProfile.EmployeeID;
+      obj.EmployeeID = this.empID;
       if (this.data)
         obj.Id = this.data.Id;
       switch (this.type) {

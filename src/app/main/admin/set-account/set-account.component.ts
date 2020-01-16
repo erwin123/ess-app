@@ -10,6 +10,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import * as moment from 'moment';
 import { LyDialog } from '@alyle/ui/dialog';
 import { DialogInfoComponent } from 'src/app/alert/dialog-info/dialog-info.component';
+import { callbackify } from 'util';
 const thmstyles = ({
   errMsg: {
     color: 'red',
@@ -49,48 +50,53 @@ export class SetAccountComponent implements OnInit {
     this.accountService.getJSON("acc-field.json").subscribe(fl => {
       //this.accForm = this.stateService.toFormGroup(res);
       //this.fields = fl;
-
       if (fl) {
-        this.fetchParameter();
-        this.route.queryParams.subscribe(params => {
-          if (params.emp) { //view
-            this.params = params.emp;
-            this.stateService.setBlocking(1);
-            this.employeeService.getEmployeeQuickProfile({ Username: params.emp }, null).subscribe(res => {
-              if (res) {
-                this.employeeID = res[0].EmployeeID;
-                //this.fetchParameter();
-                this.dataView = res.map(m => {
-                  return {
-                    RowStatus: m.RowStatus,
-                    Username: m.Username,
-                    FullName: m.FullName,
-                    Gender: m.Gender,
-                    LocationID: m.LocationID,
-                    EmailPrivate: m.EmailPrivate,
-                    DepartmentID: m.DepartmentID,
-                    DivisionID: m.DivisionID,
-                    DirectReportID: m.DirectReportID,
-                    OrganizationLevelID: m.OrganizationLevelID,
-                    ClockIn: moment(m.ClockIn).utc().format("YYYY-MM-DD HH:mm"),
-                    ClockOut: moment(m.ClockOut).utc().format("YYYY-MM-DD HH:mm"),
-                    Role: m.Role
-                  }
-                })[0];
-                this.fields = fl;
-                //this.stateService.resetForm(this.accForm, acc);
-                this.stateService.setBlocking(0);
-              }
-            })
-          }else{
-            this.fields = fl;
-          }
+        this.fetchParameter(fl, cb => {
+          this.route.queryParams.subscribe(params => {
+            if (params.emp) { //view
+
+              this.params = params.emp;
+              this.stateService.setBlocking(1);
+              this.employeeService.getEmployeeQuickProfile({ Username: params.emp }, null).subscribe(res => {
+                if (res) {
+                  this.employeeID = res[0].EmployeeID;
+                  //this.fetchParameter();
+                  this.dataView = res.map(m => {
+                    return {
+                      RowStatus: m.RowStatus,
+                      Username: m.Username,
+                      FullName: m.FullName,
+                      Gender: m.Gender,
+                      LocationID: m.LocationID,
+                      EmailPrivate: m.EmailPrivate,
+                      DepartmentID: m.DepartmentID,
+                      DivisionID: m.DivisionID,
+                      JoinDate: m.JoinDate,
+                      ContractPeriode: m.ContractPeriode,
+                      EmployeeStatus: m.EmployeeStatus,
+                      DirectReportID: m.DirectReportID,
+                      OrganizationLevelID: m.OrganizationLevelID,
+                      ClockIn: moment(m.ClockIn).utc().format("YYYY-MM-DD HH:mm"),
+                      ClockOut: moment(m.ClockOut).utc().format("YYYY-MM-DD HH:mm"),
+                      Role: m.Role
+                    }
+                  })[0];
+                  this.fields = fl;
+                  //this.stateService.resetForm(this.accForm, acc);
+                  this.stateService.setBlocking(0);
+                }
+              })
+            } else {
+              this.fields = fl;
+            }
+          });
         });
-      } 
+
+      }
     })
   }
 
-  fetchParameter() {
+  fetchParameter(fields, callback) {
     let master = forkJoin(
       this.masterService.getDivision({}),
       this.masterService.getTitle({}),
@@ -98,7 +104,7 @@ export class SetAccountComponent implements OnInit {
       this.employeeService.getEmployeeQuickProfileSimple({})
     )
     master.subscribe(res => {
-      this.fields.find(f => f.key === 'DivisionID').option = res[0] ? res[0].map(m => {
+      fields.find(f => f.key === 'DivisionID').option = res[0] ? res[0].map(m => {
         m.text = m.Name,
           m.value = m.Id
         return m;
@@ -108,27 +114,29 @@ export class SetAccountComponent implements OnInit {
       res[0].map(m => {
         Departments.push(...m.Departments);
       })
-      this.fields.find(f => f.key === 'DepartmentID').option = res[0] ? Departments.map(m => {
+      fields.find(f => f.key === 'DepartmentID').option = res[0] ? Departments.map(m => {
         m.text = m.Name,
           m.value = m.Id
         return m;
       }) : [];
       //end get
-      this.fields.find(f => f.key === 'OrganizationLevelID').option = res[1] ? res[1].map(m => {
+      fields.find(f => f.key === 'OrganizationLevelID').option = res[1] ? res[1].map(m => {
         m.text = m.Name,
           m.value = m.Id
         return m;
       }) : [];
-      this.fields.find(f => f.key === 'LocationID').option = res[2] ? res[2].map(m => {
+      fields.find(f => f.key === 'LocationID').option = res[2] ? res[2].map(m => {
         m.text = m.LocationName,
           m.value = m.Id
         return m;
       }) : [];
-      this.fields.find(f => f.key === 'DirectReportID').option = res[3] ? res[3].map(m => {
+      fields.find(f => f.key === 'DirectReportID').option = res[3] ? res[3].map(m => {
         m.text = "(" + m.Username + ") " + m.FullName,
           m.value = m.EmployeeId
         return m;
       }).filter(f => f.Username !== this.params) : [];
+    }, err => { }, () => {
+      callback(fields);
     });
   }
   showAlert(msg: string, err: boolean) {
@@ -145,7 +153,7 @@ export class SetAccountComponent implements OnInit {
   }
   resetPassword() {
     if (this.dataView) {
-        this.accountService.resetPwd(this.dataView).subscribe(res => {
+      this.accountService.resetPwd(this.dataView).subscribe(res => {
         this.showAlert("Password baru telah dikirim email pribadi", false);
       })
     }

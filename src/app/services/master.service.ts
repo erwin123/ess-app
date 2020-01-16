@@ -66,6 +66,22 @@ export class MasterService extends AbstractService {
   getDivision(crit) {
     return this.get_post("/division/cr", crit);
   }
+  postHoliday(obj) {
+    obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.CreateBy = this.credential.Username;
+    return this.post("/holiday",obj);
+  }
+  putHoliday(obj) {
+    obj.UpdateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    obj.UpdateBy = this.credential.Username;
+    return this.put("/holiday",obj);
+  }
+  getCalendar() {
+    return this.get("/holiday/calendar");
+  }
+  getHoliday(crit) {
+    return this.get_post("/holiday/cr", crit);
+  }
   postCuti(obj) {
     obj.CreateDate = moment().format('YYYY-MM-DD HH:mm:ss');
     obj.CreateBy = this.credential.Username;

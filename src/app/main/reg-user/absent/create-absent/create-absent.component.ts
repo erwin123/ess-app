@@ -135,13 +135,14 @@ export class CreateAbsentComponent implements OnInit, AfterViewInit {
       if (res.length > 0) {
         if (res[0].AbsentDate === moment().format("YYYY-MM-DD")) {
           this.lastAbsent = res[0];
-          this.lastAbsent.ClockIn = this.lastAbsent.ClockIn ? this.lastAbsent.ClockIn.split('T')[0] + " " + this.lastAbsent.ClockIn.split('T')[1].replace('.000Z', '') : "";
-          this.lastAbsent.ClockOut = this.lastAbsent.ClockOut ? this.lastAbsent.ClockOut.split('T')[0] + " " + this.lastAbsent.ClockOut.split('T')[1].replace('.000Z', '') : "";
+          this.lastAbsent.ClockIn = this.lastAbsent.ClockIn ? this.lastAbsent.ClockIn.split('T')[0] + " " + this.lastAbsent.ClockIn.split('T')[1].replace('.000Z', '') : null;
+          this.lastAbsent.ClockOut = this.lastAbsent.ClockOut ? this.lastAbsent.ClockOut.split('T')[0] + " " + this.lastAbsent.ClockOut.split('T')[1].replace('.000Z', '') : null;
 
           if (this.clockIn) {
             this.validateOnceAllow = this.lastAbsent.ClockIn ? false : true;
           } else {
-            this.validateOnceAllow = this.lastAbsent.ClockOut && this.lastAbsent.ClockIn ? false : true;
+            this.validateOnceAllow = (this.lastAbsent.ClockIn && this.lastAbsent.ClockOut) || (!this.lastAbsent.ClockIn && !this.lastAbsent.ClockOut) ? false : true;
+            //console.log(this.lastAbsent);
           }
         } else {
           if (!this.clockIn) {
@@ -261,6 +262,7 @@ export class CreateAbsentComponent implements OnInit, AfterViewInit {
       delete myObj.LongOut;
       delete myObj.LatOut;
       delete myObj.StatusOut;
+      myObj.Status = this.lastAbsent.StatusIn === "1|1" ? 1 :2 ;
     } else {
       delete myObj.ClockIn;
       delete myObj.PhotoIn;

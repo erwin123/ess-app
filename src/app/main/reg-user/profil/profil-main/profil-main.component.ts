@@ -318,9 +318,11 @@ export class ProfilMainComponent implements OnInit {
     const dialogRefInfo = this._dialog.open<ProfilMainFieldComponent>(ProfilMainFieldComponent, {
       containerClass: this.theme.style(STYLES_DIALOG),
       data: {
+        NRP:this.currentEmployee.NRP,
         EmployeeID: this.currentEmployee.Id,
         objectData: section,
         fieldInput: this.groupInfo.find(f => f.key === section).value,
+        files: [...this.currentEmployee.EmployeeAttachmentTemps, ...this.currentEmployee.EmployeeAttachments],
         data: this.filterObjectProp(this.groupInfo.find(f => f.key === section).value, this.currentEmployee)
       }
     });

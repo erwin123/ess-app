@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { API, APIDefinition } from 'ngx-easy-table';
 import { LyTheme2, ThemeVariables } from '@alyle/ui';
+import { LyDialog } from '@alyle/ui/dialog';
+import { UploaderComponent } from '../uploader/uploader.component';
 
 const STYLES = (_theme: ThemeVariables) => ({
   container: {
@@ -12,6 +14,16 @@ const STYLES = (_theme: ThemeVariables) => ({
   },
   table: {
     fontSize: '14px'
+  }
+});
+const STYLES_DIALOG = (theme: ThemeVariables) => ({
+  width: '800px',
+  borderRadius: 0,
+  [theme.getBreakpoint('XSmall')]: {
+    width: '100vw',
+    height: '100vh',
+    maxWidth: '100vw !important',
+    maxHeight: '100vh !important'
   }
 });
 @Component({
@@ -27,6 +39,8 @@ export class MaintainTplComponent implements OnInit {
 
   @Input('columns') columns = [];
   @Input('addButton') addButton = true;
+  @Input('upButton') upButton = true;
+  
   @Input('data') data = [];
   @Input('objectData') objectData;
   @Input('isAdvanced') isAdvanced = false;
@@ -35,7 +49,7 @@ export class MaintainTplComponent implements OnInit {
   @Output() actionAddEvent = new EventEmitter<number>();
   @Output() actionDeleteEvent = new EventEmitter<any>();
   public toggledRows = new Set<number>();
-  constructor(private theme: LyTheme2) { }
+  constructor(private _dialog: LyDialog, private theme: LyTheme2) { }
 
   ngOnInit() {
   }
@@ -52,11 +66,21 @@ export class MaintainTplComponent implements OnInit {
       this.actionClickEvent.emit($event.value.row);
   }
 
-  sendAdd() {
-    this.actionAddEvent.emit(1);
+  sendAdd(act) {
+    this.actionAddEvent.emit(act);
   }
 
-  deleteAction($event,data){
+  
+    // const dialogRefInfo = this._dialog.open<UploaderComponent>(UploaderComponent, {
+    //   containerClass: this.theme.style(STYLES_DIALOG),
+    //   data:{}
+    // });
+    // dialogRefInfo.afterClosed.subscribe((res) => {
+
+    //   console.log(res);
+    // });
+  
+  deleteAction($event, data) {
     this.actionDeleteEvent.emit(data);
     $event.stopPropagation();
   }

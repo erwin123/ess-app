@@ -393,6 +393,43 @@
     },
     {
         "order": "Human Capital",
+        "key": "JoinDate",
+        "label": "Tanggal Bergabung",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": "Human Capital",
+        "key": "ContractPeriode",
+        "label": "Masa Berakhir Kontrak",
+        "type": "textdate",
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": "Human Capital",
+        "key": "EmployeeStatus",
+        "label": "Status Karyawan",
+        "type": "dropdown",
+        "option": [
+            {
+                "text": "Kontrak",
+                "value": "Kontrak"
+            },
+            {
+                "text": "Tetap",
+                "value": "Tetap"
+            }
+        ],
+        "validator": [
+            "required"
+        ]
+    },
+    {
+        "order": "Human Capital",
         "key": "ClockIn",
         "label": "Jam Masuk",
         "type": "texttime",

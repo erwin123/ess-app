@@ -3,7 +3,9 @@ import { LyTheme2 } from '@alyle/ui';
 import { AccountService } from 'src/app/services/account.service';
 import { Router } from '@angular/router';
 import { StateService } from 'src/app/services/state.service';
-
+import dayGridPlugin from '@fullcalendar/daygrid';
+import * as moment from 'moment';
+import { MasterService } from 'src/app/services/master.service';
 const STYLES = {
   paper: {
     display: 'block',
@@ -48,19 +50,30 @@ const STYLES = {
 export class LandingComponent implements OnInit {
   readonly classes = this._theme.addStyleSheet(STYLES);
   menus = [];
+  eventCal;
   car = [];
   credential;
   config;
+  calendarPlugins = [dayGridPlugin];
+  calendarEvents = [
+    { title: 'Event Now', start: new Date(), allDay: true, backgroundColor: '#378006' }
+  ];
   constructor(private _theme: LyTheme2, private accountService: AccountService,
-    private router: Router, private stateService:StateService) {
+    private router: Router, private stateService: StateService, private masterService: MasterService) {
     this.stateService.currentCredential.subscribe(cr => {
       this.credential = cr;
     })
 
     this.config = this.stateService.getConfig();
   }
-
+  eventClick($event) {
+    this.eventCal = {
+      title: $event.event.title,
+      start: moment($event.event.start).format("YYYY-MM-DD")
+    }
+  }
   ngOnInit() {
+
     this.accountService.getJSON("landing-menu.json").subscribe(res => {
       this.menus = res.map(m => {
         if (m.Role.indexOf(this.credential.Role) != -1) {
@@ -70,6 +83,17 @@ export class LandingComponent implements OnInit {
     })
     this.accountService.getJSON("carousel.json").subscribe(res => {
       this.car = res
+    })
+    this.masterService.getCalendar().subscribe(cal => {
+      this.calendarEvents = cal.map(m => {
+        return {
+          title: m.Title,
+          start: m.Tanggal,
+          allDay: true,
+          backgroundColor: m.Typ,
+          borderColor: "#fff"
+        }
+      })
     })
   }
 

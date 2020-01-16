@@ -29,6 +29,7 @@ import { AbstractFormComponent } from '../main/abstract-form/abstract-form.compo
 import { MaintainTplComponent } from '../main/maintain-tpl/maintain-tpl.component';
 import { LyCarouselModule } from '@alyle/ui/carousel';
 import { DialogForgot } from '../login/login.component';
+import { UploaderComponent } from '../main/uploader/uploader.component';
 export const MY_MOMENT_FORMATS = {
   parseInput: 'l LT',
   fullPickerInput: 'l LT',
@@ -40,7 +41,7 @@ export const MY_MOMENT_FORMATS = {
 };
 
 @NgModule({
-  declarations: [DialogInfoComponent,DialogForgot,
+  declarations: [DialogInfoComponent,DialogForgot,UploaderComponent,
     TextvalPipe,
     CheckLocationComponent,
     AbstractFormComponent,
@@ -103,9 +104,10 @@ export const MY_MOMENT_FORMATS = {
     LyCarouselModule,
     LyListModule,
     LyBadgeModule,
-    DialogForgot
+    DialogForgot,
+    UploaderComponent
   ],
-  entryComponents: [DialogInfoComponent, DialogForgot],
+  entryComponents: [DialogInfoComponent, DialogForgot,UploaderComponent],
   providers: [
     { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS }
   ],

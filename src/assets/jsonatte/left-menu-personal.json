@@ -10,6 +10,13 @@
         ]
     },
     {
+        "id":0,
+        "name": "Profil",
+        "icon": "face",
+        "path":"/main/reg-user/profile-main",
+        "role":["ESS_REG"]
+    },
+    {
         "id": 1,
         "name": "Lokasi",
         "icon": "outlined_flag",
@@ -68,6 +75,15 @@
         "name": "Master Sub-Function",
         "icon": "supervisor_account",
         "path": "main/admin/maintain-department",
+        "role": [
+            "ESS_ADM"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Master Hari Raya",
+        "icon": "calendar_today",
+        "path": "main/admin/maintain-holiday",
         "role": [
             "ESS_ADM"
         ]

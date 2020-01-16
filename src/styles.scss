@@ -4,13 +4,17 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 @import "~@ng-select/ng-select/themes/material.theme.css";
 @import "ol-css.scss";
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
 .ol-control button {
   background-color: rgba(40, 40, 40, 0.8) !important;
 }
 .ol-control button:hover {
   background-color: rgba(40, 40, 40, 1) !important;
 }
-
+.fc-left h2{
+  font-size: 18px;
+}
 html {
   height: 100%;
 }

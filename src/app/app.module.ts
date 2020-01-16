@@ -16,9 +16,9 @@ import { AuthguardService } from './services/authguard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfig, InitConfig } from './app-config';
 import { BlockUIModule } from 'ng-block-ui';
-import { TreeModule } from 'angular-tree-component';
+//import { TreeModule } from 'angular-tree-component';
 import { InboxComponent } from './main/inbox/inbox.component';
-
+import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 
 export class CustomMinimaLight implements PartialThemeVariables {
   name = 'minima-light';
@@ -53,7 +53,8 @@ export class CustomMinimaLight implements PartialThemeVariables {
     LyThemeModule.setTheme('minima-light'),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BlockUIModule.forRoot(),
-    TreeModule.forRoot()
+    //TreeModule.forRoot(),
+    FullCalendarModule 
   ],
   providers: [
     AuthguardService, AppConfig,

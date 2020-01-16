@@ -38,7 +38,7 @@
                                 <ly-error>Wajib diisi</ly-error>
                             </ly-field>
                         </div>
-                        <div *ngSwitchCase="'textdate'">
+                        <!-- <div *ngSwitchCase="'textdate'">
                             <ly-field appearance="outlined" fullWidth>
                                 <input (click)="pickDate = true" lyNativeControl [placeholder]="f.label"
                                     [formControlName]="f.key">
@@ -50,6 +50,17 @@
                                         [pickerType]="'calendar'">
                                     </owl-date-time-inline>
                                 </div>
+                            </ly-field>
+                        </div> -->
+                        <div *ngSwitchCase="'textdate'">
+                            <ly-field appearance="outlined" fullWidth>
+                                <!-- <input (click)="pickDate = true" lyNativeControl [placeholder]="f.label"
+                                    [formControlName]="f.key"> -->
+                                    <input [owlDateTimeTrigger]="tPicker1" [owlDateTime]="tPicker1" lyNativeControl
+                                    [placeholder]="f.label" [formControlName]="f.key">
+                                <ly-hint></ly-hint>
+                                <ly-error>Wajib diisi</ly-error>
+                                <owl-date-time [pickerType]="'calendar'" #tPicker1></owl-date-time>
                             </ly-field>
                         </div>
                         <div *ngSwitchCase="'texttime'">
@@ -94,6 +105,25 @@
                             </ng-select>
                         </div>
                     </div>
+                </div>
+                <div *ngIf="files.length>0">
+                    <br />
+                    <div *ngFor="let f of files" style="float: left;">
+                        <button type="button" style="margin: 10px;" size="small" outlined (click)="windowOpenDataUrl(f)"
+                            ly-button color="primary">
+                            <ly-icon>attachment</ly-icon>
+                            {{ f.name}}
+                        </button>
+                        <span class="badge1" data-badge="x" (click)="deleteFile(f);fileInput.value=null;"></span>
+                    </div>
+                </div>
+                <div *ngIf="message"><br />{{message}}</div>
+                <div [withClass]="classes.btnWrapper" style="position: relative;">
+                    <button type="button" [withClass]="classes.button" ly-button outlined color="primary" (click)="fileInput.click()">
+                        <ly-icon>contacts</ly-icon>&nbsp;Upload KTP (Max 1Mb)
+                    </button>
+                    <input [withClass]="classes.uploadBtnFile" type="file" #fileInput name="empFile"
+                        (change)="readFile($event)" accept="image/jpg,image/jpeg,image/png,application/pdf" multiple />
                 </div>
                 <button [withClass]="classes.button" ly-button bg="primary">
                     <ly-icon>check</ly-icon>
