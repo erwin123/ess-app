@@ -216,13 +216,13 @@ export class CreateAbsentLemburComponent implements OnInit {
         let eventRes: any;
         if (event.type === HttpEventType.UploadProgress) {
           this.progressPercent = Math.round(100 * event.loaded / event.total);
-          console.log(this.progressPercent);
+          // console.log(this.progressPercent);
         }
         if (event instanceof HttpResponse) {
           eventRes = event.body;
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
-              console.log(position.coords)
+              // console.log(position.coords)
               this.lonlat = [position.coords.longitude, position.coords.latitude];
               this.postAbsen(this.lonlat, this.captureDate, eventRes.filename, result => {
                 if (result) {
@@ -248,7 +248,7 @@ export class CreateAbsentLemburComponent implements OnInit {
 
         }
       }, errUpload => {
-        console.log(errUpload);
+        console.error(errUpload);
         this.showAlert("<b>Absen gagal, mohon cek jaringan Anda</b>", true);
       });
       this.webcamImage = webcamImage;

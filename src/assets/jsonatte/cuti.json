@@ -10,7 +10,7 @@
     {
         "order": 1,
         "key": "Type",
-        "label": "Tipe Cuti",
+        "label": "Tipe Istirahat Kerja",
         "type": "dropdown",
         "validator": [
             "required"

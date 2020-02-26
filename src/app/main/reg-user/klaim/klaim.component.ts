@@ -107,7 +107,7 @@ export class KlaimComponent implements OnInit {
   }
 
   handleChange($event){
-    console.log($event)
+    // console.log($event)
   }
   onSubmit($event) {
     this.stateService.setBlocking(1);

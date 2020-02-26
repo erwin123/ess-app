@@ -1,25 +1,39 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef, ɵConsole } from '@angular/core';
-import { AccountService } from '../services/account.service';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { LyTheme2 } from '@alyle/ui';
-import { trigger, animate, style, group, query, transition } from '@angular/animations';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { StateService } from '../services/state.service';
-import { Router } from '@angular/router';
-import * as SecureLS from 'secure-ls';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef,
+  ɵConsole
+} from "@angular/core";
+import { AccountService } from "../services/account.service";
+import { MediaMatcher } from "@angular/cdk/layout";
+import { LyTheme2 } from "@alyle/ui";
+import {
+  trigger,
+  animate,
+  style,
+  group,
+  query,
+  transition
+} from "@angular/animations";
+import { BlockUI, NgBlockUI } from "ng-block-ui";
+import { StateService } from "../services/state.service";
+import { Router } from "@angular/router";
+import * as SecureLS from "secure-ls";
 
-const STYLES = ({
+const STYLES = {
   drawerContainer: {
-    height: 'calc(100vh - 64px)',//height: 'calc(100vh - 64px)',
-    transform: 'translate3d(0,0,0)'
+    height: "calc(100vh - 64px)", //height: 'calc(100vh - 64px)',
+    transform: "translate3d(0,0,0)"
   },
   drawerContentArea: {
-    padding: '1%',
-    height: '96%',
-    overflow: 'auto'
+    padding: "1%",
+    height: "96%",
+    overflow: "auto"
   },
   icon: {
-    margin: '0 8px'
+    margin: "0 8px"
   },
   iconSize: {
     fontSize: "20px"
@@ -27,75 +41,135 @@ const STYLES = ({
   grow: {
     flex: 1
   }
-});
+};
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"],
   animations: [
-    trigger('routerTransition', [
-      transition('* => landing', [
-        query(':enter, :leave', style({ position: 'fixed', width: '100%' })
-          , { optional: true }),
+    trigger("routerTransition", [
+      transition("* => landing", [
+        query(":enter, :leave", style({ position: "fixed", width: "100%" }), {
+          optional: true
+        }),
         group([
-          query(':enter', [
-            style({ transform: 'translateX(-100%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
-          ], { optional: true }),
-          query(':leave', [
-            style({ transform: 'translateX(0%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(100%)' }))
-          ], { optional: true }),
+          query(
+            ":enter",
+            [
+              style({ transform: "translateX(-100%)" }),
+              animate(
+                "0.5s ease-in-out",
+                style({ transform: "translateX(0%)" })
+              )
+            ],
+            { optional: true }
+          ),
+          query(
+            ":leave",
+            [
+              style({ transform: "translateX(0%)" }),
+              animate(
+                "0.5s ease-in-out",
+                style({ transform: "translateX(100%)" })
+              )
+            ],
+            { optional: true }
+          )
         ])
       ]),
-      transition('landing => *', [
+      transition("landing => *", [
         group([
-          query(':enter, :leave', style({ position: 'fixed', width: '100%' })
-            , { optional: true }),
-          query(':enter', [
-            style({ transform: 'translateX(100%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
-          ], { optional: true }),
-          query(':leave', [
-            style({ transform: 'translateX(0%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(-100%)' }))
-          ], { optional: true }),
+          query(":enter, :leave", style({ position: "fixed", width: "100%" }), {
+            optional: true
+          }),
+          query(
+            ":enter",
+            [
+              style({ transform: "translateX(100%)" }),
+              animate(
+                "0.5s ease-in-out",
+                style({ transform: "translateX(0%)" })
+              )
+            ],
+            { optional: true }
+          ),
+          query(
+            ":leave",
+            [
+              style({ transform: "translateX(0%)" }),
+              animate(
+                "0.5s ease-in-out",
+                style({ transform: "translateX(-100%)" })
+              )
+            ],
+            { optional: true }
+          )
         ])
       ]),
-      transition('* => progress', [
+      transition("* => progress", [
         group([
-          query(':enter, :leave', style({ position: 'fixed', width: '100%' })
-            , { optional: true }),
-          query(':enter', [
-            style({ transform: 'translateX(100%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
-          ], { optional: true }),
-          query(':leave', [
-            style({ transform: 'translateX(0%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(-100%)' }))
-          ], { optional: true }),
+          query(":enter, :leave", style({ position: "fixed", width: "100%" }), {
+            optional: true
+          }),
+          query(
+            ":enter",
+            [
+              style({ transform: "translateX(100%)" }),
+              animate(
+                "0.5s ease-in-out",
+                style({ transform: "translateX(0%)" })
+              )
+            ],
+            { optional: true }
+          ),
+          query(
+            ":leave",
+            [
+              style({ transform: "translateX(0%)" }),
+              animate(
+                "0.5s ease-in-out",
+                style({ transform: "translateX(-100%)" })
+              )
+            ],
+            { optional: true }
+          )
         ])
       ]),
-      transition('progress => baseticket', [
-        query(':enter, :leave', style({ position: 'fixed', width: '100%' })
-          , { optional: true }),
+      transition("progress => baseticket", [
+        query(":enter, :leave", style({ position: "fixed", width: "100%" }), {
+          optional: true
+        }),
         group([
-          query(':enter', [
-            style({ transform: 'translateX(-100%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
-          ], { optional: true }),
-          query(':leave', [
-            style({ transform: 'translateX(0%)' }),
-            animate('0.5s ease-in-out', style({ transform: 'translateX(100%)' }))
-          ], { optional: true }),
+          query(
+            ":enter",
+            [
+              style({ transform: "translateX(-100%)" }),
+              animate(
+                "0.5s ease-in-out",
+                style({ transform: "translateX(0%)" })
+              )
+            ],
+            { optional: true }
+          ),
+          query(
+            ":leave",
+            [
+              style({ transform: "translateX(0%)" }),
+              animate(
+                "0.5s ease-in-out",
+                style({ transform: "translateX(100%)" })
+              )
+            ],
+            { optional: true }
+          )
         ])
       ])
     ])
   ]
 })
 export class MainComponent implements OnInit {
-  @ViewChild('drwMain', { static: false }) drwMain: any;
+  @ViewChild("drwMain", { static: false }) drwMain: any;
   menus = [];
   sidemenus = [];
   mobileQuery: MediaQueryList;
@@ -110,15 +184,20 @@ export class MainComponent implements OnInit {
   credential: any;
   profilePhoto = "";
   config: any;
-  constructor(private _theme: LyTheme2, changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher, private accService: AccountService,
-    private stateService: StateService, private router: Router) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+  constructor(
+    private _theme: LyTheme2,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private accService: AccountService,
+    private stateService: StateService,
+    private router: Router
+  ) {
+    this.mobileQuery = media.matchMedia("(max-width: 600px)");
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.stateService.currentCredential.subscribe(cr => {
       this.credential = cr;
-    })
+    });
 
     this.config = this.stateService.getConfig();
     //this.profilePhoto = this.config.Api.profile + "person-icon.png";
@@ -127,44 +206,61 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.stateService.currentProfilePic.subscribe(pp => {
       this.profilePhoto = pp;
-      console.log(pp);
-    })
+      // console.log(pp);
+    });
     this.stateService.currentBlocking.subscribe(b => {
       if (b == 1) {
-        this.blockUI.start('Loading...');
-      }
-      else {
+        this.blockUI.start("Loading...");
+      } else {
         this.blockUI.stop();
       }
-    })
+    });
     this.accService.getJSON("main-menu.json").subscribe(res => {
-      this.menus = res.map(m => {
-        if (m.Role.indexOf(this.credential.Role) != -1) {
-          return m
-        }
-      }).filter(f=>f != null);
+      this.menus = res
+        .map(m => {
+          if (m.Role.indexOf(this.credential.Role) != -1) {
+            return m;
+          }
+        })
+        .filter(f => f != null);
     });
 
     this.accService.getJSON("side-menu.json").subscribe(res => {
-      this.sidemenus = res.map(m => {
-        if (m.Role.indexOf(this.credential.Role) != -1) {
-          return m
-        }
-      }).filter(f=>f != null);
+      this.sidemenus = res
+        .map(m => {
+          if (m.Role.indexOf(this.credential.Role) != -1) {
+            return m;
+          }
+        })
+        .filter(f => f != null);
     });
     // this.accService.getJSON("left-menu.json").subscribe(res => {
     //   this.nodes = res;
     // });
     this.accService.getJSON("left-menu-personal.json").subscribe(res => {
-      this.nodes = res.map(m => {
-        if (m.role.indexOf(this.credential.Role) != -1) {
-          return m
-        }
-      }).filter(f=>f != null);
+      this.nodes = res
+        .map(m => {
+          if (m.role.indexOf(this.credential.Role) != -1) {
+            if (
+              m.path == "main/admin/maintain-absence" &&
+              this.credential.Role == "ESS_REG" &&
+              this.credential.quickProfile.LevelNumber == 5
+            ) {
+              // return false;
+            } else {
+              return m;
+            }
+          }
+        })
+        .filter(f => f != null);
     });
-    console.log(this.credential);
+    // console.log(this.credential);
     if (this.credential.quickProfile.Photo)
-      this.profilePhoto = this.config.Api.profile + this.credential.quickProfile.Username + "/" + this.credential.quickProfile.Photo;
+      this.profilePhoto =
+        this.config.Api.profile +
+        this.credential.quickProfile.Username +
+        "/" +
+        this.credential.quickProfile.Photo;
   }
 
   goTo(path, title) {
@@ -176,11 +272,9 @@ export class MainComponent implements OnInit {
         this.router.navigate([path + "/" + this.credential.Username]);
       } else if (title === "Logout") {
         this.stateService.logout();
-      }
-      else {
+      } else {
         this.router.navigate([path]);
       }
-
     }
   }
 }

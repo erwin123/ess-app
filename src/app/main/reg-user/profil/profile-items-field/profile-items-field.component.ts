@@ -1,18 +1,26 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, Input, Output, EventEmitter } from '@angular/core';
-import { LyTheme2, ThemeVariables, } from '@alyle/ui';
-import { FormGroup } from '@angular/forms';
-import { MasterService } from 'src/app/services/master.service';
-import { forkJoin } from 'rxjs';
-import * as moment from 'moment';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Inject,
+  Input,
+  Output,
+  EventEmitter
+} from "@angular/core";
+import { LyTheme2, ThemeVariables } from "@alyle/ui";
+import { FormGroup } from "@angular/forms";
+import { MasterService } from "src/app/services/master.service";
+import { forkJoin } from "rxjs";
+import * as moment from "moment";
 
-import { StateService } from 'src/app/services/state.service';
-import { NgxImageCompressService } from 'ngx-image-compress';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { DialogInfoComponent } from 'src/app/alert/dialog-info/dialog-info.component';
-import { EmployeeService } from 'src/app/services/employee.service';
-import { AccountService } from 'src/app/services/account.service';
-import { ActivatedRoute } from '@angular/router';
-import { LY_DIALOG_DATA, LyDialogRef, LyDialog } from '@alyle/ui/dialog';
+import { StateService } from "src/app/services/state.service";
+import { NgxImageCompressService } from "ngx-image-compress";
+import { HttpEventType, HttpResponse } from "@angular/common/http";
+import { DialogInfoComponent } from "src/app/alert/dialog-info/dialog-info.component";
+import { EmployeeService } from "src/app/services/employee.service";
+import { AccountService } from "src/app/services/account.service";
+import { LY_DIALOG_DATA, LyDialogRef, LyDialog } from "@alyle/ui/dialog";
 // const STYLES_DIALOG = (theme: ThemeVariables) => ({
 //   width: '800px',
 //   borderRadius: 0,
@@ -25,52 +33,53 @@ import { LY_DIALOG_DATA, LyDialogRef, LyDialog } from '@alyle/ui/dialog';
 // });
 const thmstyles = (_theme: ThemeVariables) => ({
   photoProfile: {
-    height: '100px',
+    height: "100px",
     background: "url('../../assets/img/bg-profile.jpg') no-repeat",
     borderBottom: "3px solid #fff",
-    backgroundSize: 'cover'
+    backgroundSize: "cover"
   },
   errMsg: {
-    color: 'red',
-    fontWeight: 'bold',
-    marginTop: '20px',
-    textAlign: 'center'
+    color: "red",
+    fontWeight: "bold",
+    marginTop: "20px",
+    textAlign: "center"
   },
   button: {
-    width: '100%'
+    width: "100%"
   },
   buttonHalf: {
-    width: '48%'
+    width: "48%"
   },
   labelAfter: {
-    paddingBefore: '8px'
+    paddingBefore: "8px"
   },
   iconLarge: {
-    fontSize: '20px'
+    fontSize: "20px"
   },
   btnWrapper: {
-    display: 'block',
-    width: '100%',
-    marginBottom: '25px',
-    marginTop: '50px'
+    display: "block",
+    width: "100%",
+    marginBottom: "25px",
+    marginTop: "50px"
   },
   uploadBtnFile: {
-    opacity: '0',
-    position: 'absolute',
-    left: '0', top: '0'
+    opacity: "0",
+    position: "absolute",
+    left: "0",
+    top: "0"
   },
   customBadge: {
     after: 0,
     above: 0,
     bottom: 0,
-    margin: 'auto 0',
+    margin: "auto 0",
     border: `2px solid ${_theme.background.tertiary}`
   }
 });
 @Component({
-  selector: 'app-profile-items-field',
-  templateUrl: './profile-items-field.component.html',
-  styleUrls: ['./profile-items-field.component.scss'],
+  selector: "app-profile-items-field",
+  templateUrl: "./profile-items-field.component.html",
+  styleUrls: ["./profile-items-field.component.scss"],
   providers: [NgxImageCompressService]
 })
 export class ProfileItemsFieldComponent implements OnInit {
@@ -78,11 +87,12 @@ export class ProfileItemsFieldComponent implements OnInit {
   @Output() addedRow: EventEmitter<any> = new EventEmitter<any>();
   @Output() editedRow: EventEmitter<any> = new EventEmitter<any>();
   @Output() cancelRow: EventEmitter<any> = new EventEmitter<any>();
-  @Input('fields') fields;
-  @Input('type') type;
-  @Input('isTemp') isTemp = true;
-  @Input('data') data;
-  pickDate = false;
+  @Input("fields") fields;
+  @Input("type") type;
+  @Input("isTemp") isTemp = true;
+  @Input("data") data;
+  @Input("empID") empID;
+  pickDate = [];
   pickDateModel = "";
   readonly classes = this.theme.addStyleSheet(thmstyles);
 
@@ -93,8 +103,14 @@ export class ProfileItemsFieldComponent implements OnInit {
   // files = [];
   // message = '';
 
-  constructor(private _dialog: LyDialog, private stateService: StateService, private imageCompress: NgxImageCompressService,
-    private theme: LyTheme2, private employeeService: EmployeeService, private masterService: MasterService) {
+  constructor(
+    private _dialog: LyDialog,
+    private stateService: StateService,
+    private imageCompress: NgxImageCompressService,
+    private theme: LyTheme2,
+    private employeeService: EmployeeService,
+    private masterService: MasterService
+  ) {
     this.stateService.currentCredential.subscribe(cr => {
       this.credential = cr;
     });
@@ -106,10 +122,10 @@ export class ProfileItemsFieldComponent implements OnInit {
       this.masterService.getEnum({ Code: "FAMREL" }).subscribe(res => {
         this.fields.find(f => f.key === "Relation").option = res.map(m => {
           m.text = m.Text;
-          m.value = m.Value;
+          m.value = m.Value || "";
           return m;
-        })
-      })
+        });
+      });
     }
     this.genForm = this.stateService.toFormGroup(this.fields);
 
@@ -120,15 +136,18 @@ export class ProfileItemsFieldComponent implements OnInit {
     }
   }
   showAlert() {
-    const dialogRefInfo = this._dialog.open<DialogInfoComponent>(DialogInfoComponent, {
-      data: {
-        MessageTitle: "Konfirmasi Hapus",
-        Message: "Anda yakin ingin hapus?",
-        err: false,
-        ConfirmationMode: true
+    const dialogRefInfo = this._dialog.open<DialogInfoComponent>(
+      DialogInfoComponent,
+      {
+        data: {
+          MessageTitle: "Konfirmasi Hapus",
+          Message: "Anda yakin ingin hapus?",
+          err: false,
+          ConfirmationMode: true
+        }
       }
-    });
-    dialogRefInfo.afterClosed.subscribe((res) => {
+    );
+    dialogRefInfo.afterClosed.subscribe(res => {
       if (res == 1) {
         this.onSubmit(true);
       }
@@ -137,9 +156,12 @@ export class ProfileItemsFieldComponent implements OnInit {
   cancel() {
     this.cancelRow.emit();
   }
-  handleDate(event) {
-    this.pickDate = false;
-    this.genForm.get("BirthDate").setValue(event.format("YYYY-MM-DD"));
+  clickPickedDate(key) {
+    this.pickDate[key] = true;
+  }
+  handleDate(event, key) {
+    this.pickDate[key] = false;
+    this.genForm.get(key).setValue(event.format("YYYY-MM-DD"));
   }
 
   // readFile(event: any) {
@@ -169,7 +191,6 @@ export class ProfileItemsFieldComponent implements OnInit {
   // }
 
   onSubmit(isDelete?: boolean) {
-
     // async.every(this.imgFile, (each, callback) => {
     //   if (each !== null) {
     //     this.transact.postUpload(each, "image").subscribe(event => {
@@ -198,9 +219,8 @@ export class ProfileItemsFieldComponent implements OnInit {
       this.stateService.setBlocking(1);
       let obj = this.genForm.value;
       obj.RowStatus = isDelete ? 0 : 1;
-      obj.EmployeeID = this.credential.quickProfile.EmployeeID;
-      if (this.data)
-        obj.Id = this.data.Id;
+      obj.EmployeeID = this.empID;
+      if (this.data) obj.Id = this.data.Id;
       switch (this.type) {
         case "Pendidikan":
           if (this.data) {
@@ -208,25 +228,24 @@ export class ProfileItemsFieldComponent implements OnInit {
               this.employeeService.putEmployeeEduTemp(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.editedRow.emit(this.genForm.value);
-              })
+              });
             } else {
               this.employeeService.putEmployeeEdu(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.editedRow.emit(this.genForm.value);
-              })
+              });
             }
-
           } else {
             if (this.isTemp) {
               this.employeeService.postEmployeeEduTemp(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.addedRow.emit(this.genForm.value);
-              })
+              });
             } else {
               this.employeeService.postEmployeeEdu(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.addedRow.emit(this.genForm.value);
-              })
+              });
             }
           }
           break;
@@ -236,24 +255,24 @@ export class ProfileItemsFieldComponent implements OnInit {
               this.employeeService.putEmployeeTrnTemp(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.editedRow.emit(this.genForm.value);
-              })
+              });
             } else {
               this.employeeService.putEmployeeTrn(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.editedRow.emit(this.genForm.value);
-              })
+              });
             }
           } else {
             if (this.isTemp) {
               this.employeeService.postEmployeeTrnTemp(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.addedRow.emit(this.genForm.value);
-              })
+              });
             } else {
               this.employeeService.postEmployeeTrn(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.addedRow.emit(this.genForm.value);
-              })
+              });
             }
           }
           break;
@@ -263,30 +282,28 @@ export class ProfileItemsFieldComponent implements OnInit {
               this.employeeService.putEmployeeFamTemp(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.editedRow.emit(this.genForm.value);
-              })
+              });
             } else {
               this.employeeService.putEmployeeFam(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.editedRow.emit(this.genForm.value);
-              })
+              });
             }
-
           } else {
             if (this.isTemp) {
               this.employeeService.postEmployeeFamTemp(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.addedRow.emit(this.genForm.value);
-              })
+              });
             } else {
               this.employeeService.postEmployeeFam(obj).subscribe(res => {
                 this.stateService.setBlocking(0);
                 this.addedRow.emit(this.genForm.value);
-              })
+              });
             }
           }
           break;
       }
-
     }
   }
 }

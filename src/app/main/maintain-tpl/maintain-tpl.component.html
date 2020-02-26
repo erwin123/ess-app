@@ -1,7 +1,10 @@
 <div style="margin: 6px 6px 6px 6px;">
-  <h1 lyTyp="display1" gutterBottom *ngIf="objectData">Maintain {{objectData}}
-    <button *ngIf="addButton" ly-button outlined color="primary" size="small" (click)="sendAdd()">
+  <h1 lyTyp="display1" gutterBottom *ngIf="objectData">{{objectData}}
+    <button *ngIf="addButton" ly-button outlined color="primary" size="small" (click)="sendAdd(1)">
       <ly-icon>add</ly-icon>Tambah baru
+    </button>&nbsp;
+    <button *ngIf="upButton" ly-button outlined color="primary" size="small" (click)="sendAdd(2)">
+      <ly-icon>arrow_upward</ly-icon>Upload
     </button>
   </h1>
   <ly-grid container>

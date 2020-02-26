@@ -70,7 +70,7 @@
         </ly-grid>
     </ly-grid>
     <br /><br />
-    <div [withClass]="classes.adminFloat" *ngIf="credential.Role === 'ESS_ADM'">
+    <div [withClass]="classes.adminFloat" *ngIf="credential.Role === 'ESS_ADM' && dataTemp.length">
         <button ly-button bg="grind" raised (click)="onAction(true)">
             <ly-icon>check</ly-icon>&nbsp; Setuju
         </button>&nbsp;
@@ -79,6 +79,6 @@
         </button>
     </div>
     <app-profile-items-field *ngIf="addRow && fields.length" [type]="title" [fields]="fields"
-        (addedRow)="addedRow($event)" [isTemp]="isTemp" (editedRow)="editedRow($event)" [data]="dataEdit" (cancelRow)="cancelRow($event)">
+        (addedRow)="addedRow($event)" [empID]="EmpID" [isTemp]="isTemp" (editedRow)="editedRow($event)" [data]="dataEdit" (cancelRow)="cancelRow($event)">
     </app-profile-items-field>
 </div>

@@ -5,7 +5,6 @@ import { DialogInfoComponent } from 'src/app/alert/dialog-info/dialog-info.compo
 import * as async from 'async';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { EmployeeService } from 'src/app/services/employee.service';
-import * as moment from 'moment';
 import { StateService } from 'src/app/services/state.service';
 const STYLES = (_theme: ThemeVariables) => ({
   container: {
@@ -17,7 +16,6 @@ const STYLES = (_theme: ThemeVariables) => ({
   },
   button: {
     width: '100%'
-
   },
   btnWrapper: {
     display: 'block',
@@ -40,7 +38,7 @@ const STYLES = (_theme: ThemeVariables) => ({
   adminFloat: {
     position: 'absolute',
     bottom: '5px',
-    right: '25px'
+    right: '25px',
   }
 });
 @Component({
@@ -98,6 +96,7 @@ export class ProfileItemsComponent implements OnInit {
         }
       })
     }
+    
   }
 
   addedRow($event) {
@@ -278,7 +277,7 @@ export class ProfileItemsComponent implements OnInit {
             let eventRes: any;
             if (event.type === HttpEventType.UploadProgress) {
               const percentDone = Math.round(100 * event.loaded / event.total);
-              console.log(percentDone);
+              // console.log(percentDone);
             }
             if (event instanceof HttpResponse) {
               eventRes = event.body;

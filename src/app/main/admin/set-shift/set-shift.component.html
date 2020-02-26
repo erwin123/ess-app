@@ -1,0 +1,16 @@
+<div style="margin: 6px 6px 6px 6px;">
+  <h1 lyTyp="display1" gutterBottom>
+    Set Master Shift
+  </h1>
+  <ly-grid container [spacing]="8" style="margin-bottom:18px;">
+    <ly-grid item col="7 12@XSmall" *ngIf="fields.length">
+      <app-abstract-form
+        [fields]="fields"
+        [mode]="1"
+        (onSubmit)="onSubmit($event)"
+        [data]="dataView"
+      >
+      </app-abstract-form>
+    </ly-grid>
+  </ly-grid>
+</div>

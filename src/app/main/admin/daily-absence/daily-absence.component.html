@@ -4,7 +4,7 @@
     </h1>
     <ly-grid container [spacing]="8" style="margin-bottom:18px;">
         <ly-grid item col="4 12@XSmall" *ngIf="fields">
-            <app-abstract-form [fields]="fields" [mode]="2" (onSubmit)="onSubmit($event)" [data]="dataView">
+            <app-abstract-form [fields]="fields" [mode]="mode" (onSubmit)="onSubmit($event)" [data]="dataView">
             </app-abstract-form>
             <button type="button" [withClass]="classes.button" ly-button bg="primary" *ngIf="approveMode"
                 (click)="actionData(1)">

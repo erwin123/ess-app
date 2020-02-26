@@ -1,7 +1,7 @@
 [
     {
         "key": "Type",
-        "label": "Jenis Cuti",
+        "label": "Jenis Istirahat Kerja",
         "type": "dropdown",
         "option": [],
         "validator": [

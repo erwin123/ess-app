@@ -1,12 +1,12 @@
 {
-    "AppName": "EssApp",
-    "Version": "0.5.0",
-    "WebMainAddress": "http://localhost:4200/",
-    "Api": {
-        "global_api": "http://localhost:3005/api",
-        "global_attachment": "http://localhost:3005/attachment/",
-        "global_img": "http://localhost:3005/img/",
-        "profile": "http://localhost:3005/img/profile/",
-        "absen": "http://localhost:3005/img/absen/"
-    }
+  "AppName": "EssApp",
+  "Version": "0.6.4",
+  "WebMainAddress": "https://stg-ess.acset.co/",
+  "Api": {
+    "global_api": "https://stg-api-ess.acset.co/api",
+    "global_attachment": "https://stg-api-ess.acset.co/attachment/",
+    "global_img": "https://stg-api-ess.acset.co/img/",
+    "profile": "https://stg-api-ess.acset.co/img/profile/",
+    "absen": "https://stg-api-ess.acset.co/img/absen/"
+  }
 }

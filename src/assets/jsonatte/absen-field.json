@@ -1,57 +1,48 @@
 [
-    {
-        "order": 1,
-        "key": "FullName",
-        "label": "Nama",
-        "type": "text",
-        "validator": [
-            "required"
-        ]
-    },
-    {
-        "order": 2,
-        "key": "NRP",
-        "label": "NRP",
-        "type": "text",
-        "validator": [
-            "required"
-        ]
-    },
-    {
-        "order": 4,
-        "key": "EmpLocName",
-        "label": "Lokasi",
-        "type": "text",
-        "validator": [
-            "required",
-            "email"
-        ]
-    },
-    {
-        "order": 4,
-        "key": "AbsentDate",
-        "label": "Tanggal Absen",
-        "type": "text",
-        "validator": [
-            "required"
-        ]
-    },
-    {
-        "order": 8,
-        "key": "ClockIn",
-        "label": "Jam Masuk",
-        "type": "texttime",
-        "validator": [
-            "required"
-        ]
-    },
-    {
-        "order": 9,
-        "key": "ClockOut",
-        "label": "Jam Pulang",
-        "type": "texttime",
-        "validator": [
-            "required"
-        ]
-    }
+  {
+    "order": 1,
+    "key": "FullName",
+    "label": "Nama",
+    "type": "text",
+    "validator": ["required"],
+    "disable": true
+  },
+  {
+    "order": 2,
+    "key": "NRP",
+    "label": "NRP",
+    "type": "text",
+    "validator": ["required"],
+    "disable": true
+  },
+  {
+    "order": 4,
+    "key": "EmpLocName",
+    "label": "Lokasi",
+    "type": "text",
+    "validator": [],
+    "disable": true
+  },
+  {
+    "order": 4,
+    "key": "AbsentDate",
+    "label": "Tanggal Absen",
+    "type": "text",
+    "validator": ["required"],
+    "disable": true
+  },
+  {
+    "order": 8,
+    "key": "ClockIn",
+    "label": "Jam Masuk",
+    "type": "texttime",
+    "validator": ["required"]
+  },
+  {
+    "order": 9,
+    "key": "ClockOut",
+    "label": "Jam Pulang",
+    "type": "texttime",
+    "validator": ["required"]
+  }
 ]

@@ -1,22 +1,71 @@
-<ly-grid container [spacing]="8" style="margin-bottom:18px;" *ngIf="menus.length">
-    <ly-grid item col="12 12@XSmall" style="padding:0px !important;">
+<ly-grid container [spacing]="8" style="margin-bottom:18px;">
+  <ly-grid item col="8 12@XSmall" style="padding:0px !important;">
+    <ly-grid container style="margin-bottom:18px;" *ngIf="menus.length">
+      <ly-grid item col="12 12@XSmall" style="padding:0px !important;">
         <ly-carousel [withClass]="classes.carousel" touch>
-            <ly-carousel-item *ngFor="let item of car" [withClass]="classes.carouselItem" [srcImg]="item.img">
-                <div>{{ item.title }}</div>
-            </ly-carousel-item>
+          <ly-carousel-item
+            *ngFor="let item of car"
+            [withClass]="classes.carouselItem"
+            [srcImg]="item.img"
+          >
+            <div>{{ item.title }}</div>
+          </ly-carousel-item>
         </ly-carousel>
-    </ly-grid>
-    <ly-grid item col="12 12@XSmall" style="margin-top:-20px;">
-        <ly-grid container [justify]="'center'" [spacing]="8" style="margin-bottom:18px;">
-            <ly-grid item col="3 6@XSmall" *ngFor="let menu of menus">
-                <ly-paper [withClass]="classes.paper" bg="primary" (click)="goTo(menu.Path)" [elevation]="2"
-                    [disableRipple]="false">
-                    <div [withClass]="classes.icon">
-                        <ly-icon style="font-size:3em;">{{menu.Icon}}</ly-icon>
-                    </div>
-                    <div [withClass]="classes.texting">{{menu.Text}}</div>
-                </ly-paper>
-            </ly-grid>
+      </ly-grid>
+      <ly-grid item col="12 12@XSmall" style="margin-top:-20px;">
+        <ly-grid
+          container
+          [justify]="'center'"
+          [spacing]="8"
+          style="margin-bottom:18px;"
+        >
+          <ly-grid item col="3 6@XSmall" *ngFor="let menu of menus">
+            <ly-paper
+              [withClass]="classes.paper"
+              bg="primary"
+              (click)="goTo(menu.Path)"
+              [elevation]="2"
+              [disableRipple]="false"
+            >
+              <div [withClass]="classes.icon">
+                <ly-icon style="font-size:3em;">{{ menu.Icon }}</ly-icon>
+              </div>
+              <div [withClass]="classes.texting">{{ menu.Text }}</div>
+              <div
+                *ngIf="menu.badge && badge.message != 0"
+                [withClass]="classes.badge"
+              >
+                {{ badge.message }}
+              </div>
+            </ly-paper>
+          </ly-grid>
         </ly-grid>
+      </ly-grid>
     </ly-grid>
+  </ly-grid>
+  <ly-grid
+    item
+    col="4 12@XSmall"
+    style="border-left:solid 1px #2e1b9c;padding:5px;"
+  >
+    <full-calendar
+      defaultView="dayGridMonth"
+      [header]="{
+        right: 'prev,next'
+      }"
+      [height]="'auto'"
+      [locale]="'id'"
+      [events]="calendarEvents"
+      [plugins]="calendarPlugins"
+      (eventMouseLeave)="eventCal = null"
+      (eventMouseEnter)="eventClick($event)"
+      (eventClick)="eventClick($event)"
+    ></full-calendar>
+    <div
+      *ngIf="eventCal"
+      style="background: khaki;padding: 5px;margin-top: 5px;"
+    >
+      <b>{{ eventCal.start }} : </b>{{ eventCal.title }}
+    </div>
+  </ly-grid>
 </ly-grid>

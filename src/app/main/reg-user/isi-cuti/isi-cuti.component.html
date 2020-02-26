@@ -1,30 +1,73 @@
 <div style="margin: 6px 6px 6px 6px;">
-    <h1 lyTyp="display1" gutterBottom>
-        {{title}}
-        <button (click)="goTo('main/reg-user/maintain-cuti')" size="small" outlined ly-button type="button"
-            color="primary" *ngIf="mode != 2">
-            <ly-icon>history</ly-icon>
-            <span [className]="classes.labelAfter">History</span>
-        </button>
-    </h1>
-    <ly-grid container [spacing]="8" style="margin-bottom:18px;">
-        <ly-grid item col="7 12@XSmall" *ngIf="fields.length">
-            <div *ngIf="message" [className]="classes.msg">
-                {{message}}
-            </div>
-            <app-abstract-form [fields]="fields" (onChange)="handleChange($event)" [mode]="mode"
-                (onSubmit)="onSubmit($event)" [data]="dataView">
-            </app-abstract-form>
-            <button (click)="goTo('main/reg-user/maintain-klaim')"  ly-button type="button"
-                bg="primary" style="width: 100%;" *ngIf="app">
-                <ly-icon>check</ly-icon>
-                <span [className]="classes.labelAfter">Setuju</span>
-            </button><br/><br/>
-            <button (click)="goTo('main/reg-user/maintain-klaim')"  outlined ly-button type="button"
-                color="warn" style="width: 100%;" *ngIf="app">
-                <ly-icon>close</ly-icon>
-                <span [className]="classes.labelAfter">Tolak</span>
-            </button>
-        </ly-grid>
+  <h1 lyTyp="display1" gutterBottom>
+    {{ title }}
+    <button
+      (click)="goTo('main/reg-user/maintain-cuti')"
+      size="small"
+      outlined
+      ly-button
+      type="button"
+      color="primary"
+      *ngIf="mode != 2"
+    >
+      <ly-icon>history</ly-icon>
+      <span [className]="classes.labelAfter">History</span>
+    </button>
+  </h1>
+  <ly-grid container [spacing]="8" style="margin-bottom:18px;">
+    <ly-grid item col="7 12@XSmall" *ngIf="fields.length">
+      <div *ngIf="message" [className]="classes.msg">
+        {{ message }}
+      </div>
+      <div *ngIf="mode == 1">
+        <h4>Total Istirahat Kerja</h4>
+        <div *ngFor="let blnc of cutiBalance">
+          <p *ngIf="blnc.PeriodeAwal && blnc.ExpiredDate">
+            {{ blnc.PeriodeAwal }} s/d {{ blnc.ExpiredDate }} :
+          </p>
+          <div class="box-border">
+            <div
+              class="meter"
+              [style.width]="
+                ((blnc.Balance / blnc.Quota) * 100).toString() + '%'
+              "
+            ></div>
+          </div>
+          <p align="center">{{ blnc.Balance }} / {{ blnc.Quota }}</p>
+        </div>
+      </div>
+
+      <app-abstract-form
+        [fields]="fields"
+        (onChange)="handleChange($event)"
+        [mode]="mode"
+        (onSubmit)="onSubmit($event)"
+        [data]="dataView"
+      >
+      </app-abstract-form>
+      <button
+        (click)="goTo('main/reg-user/maintain-klaim')"
+        ly-button
+        type="button"
+        bg="primary"
+        style="width: 100%;"
+        *ngIf="app"
+      >
+        <ly-icon>check</ly-icon>
+        <span [className]="classes.labelAfter">Setuju</span></button
+      ><br /><br />
+      <button
+        (click)="goTo('main/reg-user/maintain-klaim')"
+        outlined
+        ly-button
+        type="button"
+        color="warn"
+        style="width: 100%;"
+        *ngIf="app"
+      >
+        <ly-icon>close</ly-icon>
+        <span [className]="classes.labelAfter">Tolak</span>
+      </button>
     </ly-grid>
+  </ly-grid>
 </div>

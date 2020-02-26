@@ -132,7 +132,7 @@
     },
     {
         "id": 14,
-        "name": "Cuti",
+        "name": "Istirahat Kerja",
         "icon": "",
         "path": "",
         "role": "ESS_REG",
@@ -141,12 +141,12 @@
                 "id": 15,
                 "icon": "",
                 "path": "",
-                "name": "Pengajuan Cuti",
+                "name": "Pengajuan Istirahat Kerja",
                 "role": "ESS_REG"
             },
             {
                 "id": 16,
-                "name": "Maintain Cuti",
+                "name": "Maintain Istirahat Kerja",
                 "icon": "",
                 "path": "",
                 "role": "ESS_REG",

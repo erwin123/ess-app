@@ -1,121 +1,121 @@
 [
-    {
-        "id": 0,
-        "name": "Beranda",
-        "icon": "home",
-        "path": "main/landing",
-        "role": [
-            "ESS_REG",
-            "ESS_ADM"
-        ]
-    },
-    {
-        "id": 1,
-        "name": "Lokasi",
-        "icon": "outlined_flag",
-        "path": "main/admin/maintain-location",
-        "role": [
-            "ESS_ADM"
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Karyawan",
-        "icon": "supervised_user_circle",
-        "path": "main/admin/maintain-employee",
-        "role": [
-            "ESS_ADM"
-        ]
-    },
-    {
-        "id": 3,
-        "name": "Absensi",
-        "icon": "assignment_ind",
-        "path": "main/admin/maintain-absence",
-        "role": [
-            "ESS_ADM"
-        ]
-    },
-    {
-        "id": 4,
-        "name": "Klaim",
-        "icon": "receipt",
-        "path": "main/reg-user/isi-klaim",
-        "role": [
-            "ESS_REG"
-        ]
-    },
-    {
-        "id": 5,
-        "name": "Cuti",
-        "icon": "directions_run",
-        "path": "main/reg-user/isi-cuti",
-        "role": [
-            "ESS_REG"
-        ]
-    },
-    {
-        "id": 5,
-        "name": "Master Function",
-        "icon": "people_alt",
-        "path": "main/admin/maintain-divisi",
-        "role": [
-            "ESS_ADM"
-        ]
-    },
-    {
-        "id": 5,
-        "name": "Master Sub-Function",
-        "icon": "supervisor_account",
-        "path": "main/admin/maintain-department",
-        "role": [
-            "ESS_ADM"
-        ]
-    },
-    {
-        "id": 5,
-        "name": "Master Cuti",
-        "icon": "directions_run",
-        "path": "main/admin/maintain-mastercuti",
-        "role": [
-            "ESS_ADM"
-        ]
-    },
-    {
-        "id": 5,
-        "name": "Master Approval",
-        "icon": "ballot",
-        "path": "main/admin/maintain-masterapproval",
-        "role": [
-            "ESS_ADM"
-        ]
-    },
-    {
-        "id": 6,
-        "name": "Master Claim",
-        "icon": "how_to_vote",
-        "path": "main/admin/maintain-masterclaim",
-        "role": [
-            "ESS_ADM"
-        ]
-    },
-    {
-        "id": 7,
-        "name": "Surat Tugas",
-        "icon": "markunread_mailbox",
-        "path": "main/reg-user/isi-surat-tugas",
-        "role": [
-            "ESS_REG"
-        ]
-    },
-    {
-        "id": 8,
-        "name": "Logout",
-        "icon": "exit_to_app",
-        "path": "exit",
-        "role": [
-            "ESS_REG",
-            "ESS_ADM"
-        ]
-    }
+  {
+    "id": 0,
+    "name": "Beranda",
+    "icon": "home",
+    "path": "main/landing",
+    "role": ["ESS_REG", "ESS_ADM"]
+  },
+  {
+    "id": 0,
+    "name": "Profil",
+    "icon": "face",
+    "path": "/main/reg-user/profile-main",
+    "role": ["ESS_REG"]
+  },
+  {
+    "id": 1,
+    "name": "Lokasi Kerja",
+    "icon": "apartment",
+    "path": "main/admin/maintain-work-location",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 1,
+    "name": "Lokasi Absen",
+    "icon": "add_location",
+    "path": "main/admin/maintain-location",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 2,
+    "name": "Karyawan",
+    "icon": "supervised_user_circle",
+    "path": "main/admin/maintain-employee",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 3,
+    "name": "Absensi",
+    "icon": "assignment_ind",
+    "path": "main/admin/maintain-absence",
+    "role": ["ESS_ADM", "ESS_REG"]
+  },
+  {
+    "id": 4,
+    "name": "Klaim",
+    "icon": "receipt",
+    "path": "main/reg-user/isi-klaim",
+    "role": ["ESS_REG"]
+  },
+  {
+    "id": 5,
+    "name": "Istirahat Kerja",
+    "icon": "directions_run",
+    "path": "main/reg-user/isi-cuti",
+    "role": ["ESS_REG"]
+  },
+  {
+    "id": 5,
+    "name": "Master Function",
+    "icon": "people_alt",
+    "path": "main/admin/maintain-divisi",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 5,
+    "name": "Master Sub-Function",
+    "icon": "supervisor_account",
+    "path": "main/admin/maintain-department",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 5,
+    "name": "Master Hari Raya",
+    "icon": "calendar_today",
+    "path": "main/admin/maintain-holiday",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 5,
+    "name": "Master Istirahat Kerja",
+    "icon": "directions_run",
+    "path": "main/admin/maintain-mastercuti",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 5,
+    "name": "Master Approval",
+    "icon": "ballot",
+    "path": "main/admin/maintain-masterapproval",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 6,
+    "name": "Master Claim",
+    "icon": "how_to_vote",
+    "path": "main/admin/maintain-masterclaim",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 7,
+    "name": "Master Shift",
+    "icon": "alarm",
+    "path": "main/admin/maintain-shift",
+    "role": ["ESS_ADM"]
+  },
+  {
+    "id": 8,
+    "name": "Surat Tugas",
+    "icon": "markunread_mailbox",
+    "path": "main/reg-user/isi-surat-tugas",
+    "role": ["ESS_REG"]
+  },
+  {
+    "id": 9,
+    "name": "Logout",
+    "icon": "exit_to_app",
+    "path": "exit",
+    "role": ["ESS_REG", "ESS_ADM"]
+  }
 ]

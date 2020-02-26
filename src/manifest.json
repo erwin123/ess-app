@@ -1,6 +1,6 @@
 {
   "name": "ess-app",
-  "short_name": "ess-app",
+  "short_name": "ESS",
   "theme_color": "#203072",
   "background_color": "#fafafa",
   "display": "standalone",

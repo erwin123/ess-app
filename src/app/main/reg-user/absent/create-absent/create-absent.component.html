@@ -1,42 +1,64 @@
 <div style="margin: 6px 6px 6px 6px;">
   <h1 lyTyp="display1" gutterBottom>
-    {{title}}
+    {{ title }}
     <br />
-    <span style="font-size: 21px;background: #203072;color:#fff;padding:5px;border-radius: 5px;">{{myDate}}</span>
+    <span
+      style="font-size: 21px;background: #203072;color:#fff;padding:5px;border-radius: 5px;"
+      >{{ myDate }}</span
+    >
   </h1>
   <ly-grid container [spacing]="8" style="margin-bottom:18px;">
     <ly-grid #griCam item col="7 12@XSmall">
       <div [className]="classes.action">
-        <button (click)="help();" class="helpBtn" ly-button raised size="small">
+        <button (click)="help()" class="helpBtn" ly-button raised size="small">
           Bantuan
         </button>
-        <span class="locInfo" *ngIf="quickProfile" (click)="showMap();">
+        <span class="locInfo" *ngIf="quickProfile" (click)="showMap()">
           &nbsp;Lihat Posisi&nbsp;
         </span>
       </div>
       <div *ngIf="!showWebcam" style="margin:100px auto;">
         Mengakses Kamera...
       </div>
-      <webcam [height]="500" [width]="scrWidth" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
-        *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
-        [videoOptions]="videoOptions" [imageQuality]="0.92" (cameraSwitched)="cameraWasSwitched($event)"
-        (initError)="handleInitError($event)"></webcam>
+      <webcam
+        #webcam
+        [width]="scrWidth"
+        [trigger]="triggerObservable"
+        (imageCapture)="handleImage($event)"
+        *ngIf="showWebcam"
+        [allowCameraSwitch]="allowCameraSwitch"
+        [switchCamera]="nextWebcamObservable"
+        [videoOptions]="videoOptions"
+        [imageQuality]="0.92"
+        (cameraSwitched)="cameraWasSwitched($event)"
+        (initError)="handleInitError($event)"
+      ></webcam>
       <div [className]="classes.action" *ngIf="validateOnceAllow">
-        <button (click)="triggerSnapshot();" class="actionBtn" ly-button appearance="fab" outlined>
+        <button
+          (click)="triggerSnapshot()"
+          class="actionBtn"
+          ly-button
+          appearance="fab"
+          outlined
+        >
           <ly-icon style="font-size: 48px;">camera</ly-icon>
         </button>
+      </div>
+      <div [className]="classes.action">
+        <canvas
+          #canvasCamera
+          class="layoutCamera"
+          width="625"
+          height="468"
+        ></canvas>
       </div>
     </ly-grid>
     <ly-grid item col="7 12@XSmall">
       <ly-card *ngIf="lastAbsent">
         <ly-card-content>
           <h2 lyTyp="headline" gutterBottom>Absen Terakhir</h2>
-          <div>
-            Masuk : {{lastAbsent.ClockIn}}
-          </div>
-          <div>
-            Keluar : {{lastAbsent.ClockOut}}
-          </div>
+          <div>Masuk : {{ lastAbsent.ClockIn }}</div>
+          <div>Keluar : {{ lastAbsent.ClockOut }}</div>
         </ly-card-content>
       </ly-card>
     </ly-grid>

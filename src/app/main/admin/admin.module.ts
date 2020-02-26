@@ -19,11 +19,17 @@ import { MaintainDivisiComponent } from './maintain-divisi/maintain-divisi.compo
 import { MaintainDepartmentComponent } from './maintain-department/maintain-department.component';
 import { SetDepartmentComponent } from './set-department/set-department.component';
 import { SetDivisiComponent } from './set-divisi/set-divisi.component';
+import { MaintainHolidayComponent } from './maintain-holiday/maintain-holiday.component';
+import { SetHolidayComponent } from './set-holiday/set-holiday.component';
+import { MaintainWorkLocationComponent } from './maintain-work-location/maintain-work-location.component';
+import { SetWorkLocationComponent } from './set-work-location/set-work-location.component';
+import { MaintainShiftComponent } from './maintain-shift/maintain-shift.component';
+import { SetShiftComponent } from './set-shift/set-shift.component';
 
 @NgModule({
   declarations: [SetLocationComponent, MaintainLocationComponent,
     SetAccountComponent, MaintainEmployeeComponent,
-    DailyAbsenceComponent, MaintainAbsenceComponent, SetMasterCutiComponent, MaintainCutiComponent, MaintainClaimComponent, SetMasterClaimComponent, MasterApprovalComponent, SetMasterApprovalComponent, MaintainApprovalComponent, MaintainDivisiComponent, MaintainDepartmentComponent, SetDepartmentComponent, SetDivisiComponent],
+    DailyAbsenceComponent, MaintainAbsenceComponent, SetMasterCutiComponent, MaintainCutiComponent, MaintainClaimComponent, SetMasterClaimComponent, MasterApprovalComponent, SetMasterApprovalComponent, MaintainApprovalComponent, MaintainDivisiComponent, MaintainDepartmentComponent, SetDepartmentComponent, SetDivisiComponent, MaintainHolidayComponent, SetHolidayComponent, MaintainWorkLocationComponent, SetWorkLocationComponent, MaintainShiftComponent, SetShiftComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

@@ -1,2 +1,8 @@
-<app-maintain-tpl [addButton]="true" [columns]='columns' [data]='data' [objectData]="'Lokasi'"
-(actionClickEvent)="receiveEvent($event)" (actionAddEvent)="receiveAddEvent($event)"></app-maintain-tpl>
+<app-maintain-tpl
+  [upButton]="false"
+  [columns]="columns"
+  [data]="data"
+  [objectData]="'Lokasi Absen'"
+  (actionClickEvent)="receiveEvent($event)"
+  (actionAddEvent)="receiveAddEvent($event)"
+></app-maintain-tpl>

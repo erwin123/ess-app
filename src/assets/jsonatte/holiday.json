@@ -1,0 +1,58 @@
+[
+  {
+    "order": 0,
+    "key": "Id",
+    "label": "Generated Id",
+    "type": "number",
+    "validator": [],
+    "disable": true
+  },
+  {
+    "order": 1,
+    "key": "Holidate",
+    "label": "Tanggal",
+    "type": "textdate",
+    "validator": ["required"]
+  },
+  {
+    "order": 2,
+    "key": "Description",
+    "label": "Hari Raya",
+    "type": "text",
+    "validator": ["required"]
+  },
+  {
+    "order": 3,
+    "key": "CutiBersama",
+    "label": "Istirahat Kerja Bersama",
+    "type": "radio",
+    "option": [
+      {
+        "text": "Ya",
+        "value": 1
+      },
+      {
+        "text": "Tidak",
+        "value": 0
+      }
+    ],
+    "validator": ["required"]
+  },
+  {
+    "order": 10,
+    "key": "RowStatus",
+    "label": "Status",
+    "type": "dropdown",
+    "validator": ["required", "number"],
+    "option": [
+      {
+        "text": "Aktif",
+        "value": 1
+      },
+      {
+        "text": "NonAktif",
+        "value": 0
+      }
+    ]
+  }
+]

@@ -167,8 +167,8 @@ export class SetLocationComponent implements OnInit, AfterViewInit {
       let center = circleFeature.getCenter();
       let radius = circleFeature.getRadius();
       this.pickedLonLat = transform(center, 'EPSG:3857', 'EPSG:4326');
-      console.log("POINT: " + transform(center, 'EPSG:3857', 'EPSG:4326'));
-      console.log("RADIUS: " + radius * METERS_PER_UNIT[units]);
+      // console.log("POINT: " + transform(center, 'EPSG:3857', 'EPSG:4326'));
+      // console.log("RADIUS: " + radius * METERS_PER_UNIT[units]);
       this.addPoint(this.pickedLonLat);
       //this.addRadius(this.pickedLonLat, radius);
       this.locationForm.controls['Long'].setValue(this.pickedLonLat[0]);

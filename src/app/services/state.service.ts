@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { AppConfig } from '../app-config';
-import * as SecureLS from 'secure-ls';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
+import { AppConfig } from "../app-config";
+import * as SecureLS from "secure-ls";
+import { analyzeAndValidateNgModules } from "@angular/compiler";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class StateService {
   ls = new SecureLS();
@@ -14,7 +14,7 @@ export class StateService {
   private blocking = new BehaviorSubject<number>(0);
   currentBlocking = this.blocking.asObservable();
 
-  private credential = new BehaviorSubject<any>(this.ls.get('currentUser'));
+  private credential = new BehaviorSubject<any>(this.ls.get("currentUser"));
   currentCredential = this.credential.asObservable();
 
   // private profilePic = new BehaviorSubject<any>(this.app_config.get().profile + "person-icon.png");
@@ -22,15 +22,19 @@ export class StateService {
   currentProfilePic = this.profilePic.asObservable();
 
   constructor(private app_config: AppConfig) {
-    
     this.config = this.app_config.get();
-    if (this.ls.get('currentUser') && this.config) {
-      this.objCredential = this.ls.get('currentUser');
-      if(!this.objCredential.quickProfile){
+    if (this.ls.get("currentUser") && this.config) {
+      this.objCredential = this.ls.get("currentUser");
+      if (!this.objCredential.quickProfile) {
         this.logout();
       }
       if (this.objCredential.quickProfile.Photo) {
-        this.profilePic.next(this.config.Api.profile + this.objCredential.Username + "/" + this.objCredential.quickProfile.Photo);
+        this.profilePic.next(
+          this.config.Api.profile +
+            this.objCredential.Username +
+            "/" +
+            this.objCredential.quickProfile.Photo
+        );
       } else {
         this.profilePic.next(this.config.Api.profile + "person-icon.png");
       }
@@ -49,7 +53,7 @@ export class StateService {
   }
   setCredential(o) {
     this.credential.next(o);
-    this.ls.set('currentUser', o);
+    this.ls.set("currentUser", o);
   }
   setBlocking(o) {
     this.blocking.next(o);
@@ -76,35 +80,46 @@ export class StateService {
     let dLat = this.deg2rad(lonlat2[1] - lonlat1[1]);
     let dLon = this.deg2rad(lonlat2[0] - lonlat1[0]);
 
-    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(this.deg2rad(lonlat1[1])) * Math.cos(this.deg2rad(lonlat2[1])) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    let a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.deg2rad(lonlat1[1])) *
+        Math.cos(this.deg2rad(lonlat2[1])) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
     let c = 2 * Math.asin(Math.sqrt(a));
     let d = earth_radius * c;
     return d * 1000;
   }
 
   dataURLtoFile(dataurl, filename) {
-    let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    let arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
     while (n--) {
       u8arr[n] = bstr.charCodeAt(n);
     }
     return new File([u8arr], filename, { type: mime });
   }
 
-  fillValidator(arrayValidator, callback) {
+  fillValidator(arrayValidator, question, callback) {
     let collValidator: Validators[] = [];
     arrayValidator.forEach(el => {
-
       switch (el) {
         case "required":
           collValidator.push(Validators.required);
           break;
         case "number":
-          collValidator.push(Validators.pattern('^[0-9]+$'));
+          collValidator.push(Validators.pattern("^[0-9]+$"));
           break;
         case "email":
           collValidator.push(Validators.email);
           break;
+        case "minlength":
+          collValidator.push(Validators.minLength(question.minlength));
+        case "maxlength":
+          collValidator.push(Validators.maxLength(question.maxlength));
         default:
           break;
       }
@@ -116,16 +131,14 @@ export class StateService {
     let group: any = {};
     fields.forEach(question => {
       if (question.validator.length)
-        this.fillValidator(question.validator, res => {
+        this.fillValidator(question.validator, question, res => {
           if (res.length) {
-            group[question.key] = new FormControl(question.value || '', res);
+            group[question.key] = new FormControl(question.value || "", res);
           }
-        })
-      else
-        group[question.key] = new FormControl(question.value || '');
-      
-      if(question.disable)
-      group[question.key].disable();
+        });
+      else group[question.key] = new FormControl(question.value || "");
+
+      if (question.disable) group[question.key].disable();
     });
     return new FormGroup(group);
   }
@@ -152,12 +165,15 @@ export class StateService {
       }
       return prev;
     }, {});
-    return Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
+    return Object.keys(groupedObj).map(key => ({
+      key,
+      value: groupedObj[key]
+    }));
   }
 
   logout() {
     this.blocking = new BehaviorSubject<number>(0);
-    this.credential = new BehaviorSubject<any>(this.ls.get('currentUser'));
+    this.credential = new BehaviorSubject<any>(this.ls.get("currentUser"));
     this.profilePic = new BehaviorSubject<any>("");
     this.ls.clear();
     setTimeout(() => {

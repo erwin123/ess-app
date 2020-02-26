@@ -1,27 +1,32 @@
 [
-    {
-        "key": "Institution",
-        "label": "Institusi",
-        "type": "text",
-        "validator": [
-            "required"
-        ]
-    },
-    {
-        "key": "Description",
-        "label": "Deskripsi",
-        "type": "text",
-        "validator": [
-            "required"
-        ]
-    },
-    {
-        "key": "Year",
-        "label": "Tahun",
-        "type": "number",
-        "validator": [
-            "required",
-            "number"
-        ]
-    }
+  {
+    "key": "Institution",
+    "label": "Institusi",
+    "type": "text",
+    "validator": ["required"]
+  },
+  {
+    "key": "CertificateNo",
+    "label": "No. Sertifikat",
+    "type": "text",
+    "validator": ["required"]
+  },
+  {
+    "key": "Description",
+    "label": "Deskripsi",
+    "type": "text",
+    "validator": ["required"]
+  },
+  {
+    "key": "ValidDate",
+    "label": "Tanggal Berlaku",
+    "type": "textdate",
+    "validator": ["required"]
+  },
+  {
+    "key": "InvalidDate",
+    "label": "Tanggal Berakhir",
+    "type": "textdate",
+    "validator": ["required"]
+  }
 ]

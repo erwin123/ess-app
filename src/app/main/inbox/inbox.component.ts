@@ -39,7 +39,6 @@ export class InboxComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.route.snapshot.paramMap.get('id'));
     if (this.route.snapshot.paramMap.get('id')) {
 
       switch (this.route.snapshot.paramMap.get('id')) {
@@ -89,7 +88,7 @@ export class InboxComponent implements OnInit {
     });
   }
   receiveAddEvent(data) {
-    console.log(data);
+    // console.log(data);
   }
   receiveDeleteEvent(data) {
     this.showAlert({ Subject: "Konfirmasi", Message: "Anda yakin menghapus pesan ini?", ConfirmationMode: true }, true, (cb) => {

@@ -1,72 +1,73 @@
 [
-    {
-        "Text": "Absen Masuk",
-        "Icon": "access_time",
-        "RuleName":"reg",
-        "Path":"/main/reg-user/create-absent-in/1",
-        "Role":["ESS_REG"]
-    },
-    {
-        "Text": "Absen Keluar",
-        "Icon": "timelapse",
-        "RuleName":"reg",
-        "Path":"/main/reg-user/create-absent-out/2",
-        "Role":["ESS_REG"]
-    },
-    {
-        "Text": "Absen Lembur Masuk",
-        "Icon": "alarm_add",
-        "RuleName":"reg",
-        "Path":"/main/reg-user/create-absent-lembur-in/1",
-        "Role":["ESS_REG"]
-    },
-    {
-        "Text": "Absen Lembur Keluar",
-        "Icon": "alarm",
-        "RuleName":"reg",
-        "Path":"/main/reg-user/create-absent-lembur-out/2",
-        "Role":["ESS_REG"]
-    },
-    {
-        "Text": "Riwayat Absen",
-        "Icon": "history",
-        "RuleName":"reg",
-        "Path":"/main/reg-user/history-absent/0",
-        "Role":["ESS_REG"]
-    },
-    {
-        "Text": "Riwayat Lembur",
-        "Icon": "history",
-        "RuleName":"reg",
-        "Path":"/main/reg-user/history-absent/1",
-        "Role":["ESS_REG"]
-    },
-    {
-        "Text": "Pesan Masuk",
-        "Icon": "mail_outline",
-        "RuleName":"reg",
-        "Path":"/main/inbox",
-        "Role":["ESS_REG","ESS_ADM"]
-    },
-    {
-        "Text": "Klaim saya",
-        "Icon": "receipt",
-        "RuleName":"reg",
-        "Path":"/main/reg-user/maintain-klaim",
-        "Role":["ESS_REG"]
-    },
-    {
-        "Text": "Cuti Saya",
-        "Icon": "directions_run",
-        "RuleName":"reg",
-        "Path":"/main/reg-user/maintain-cuti",
-        "Role":["ESS_REG"]
-    },
-    {
-        "Text": "Surat Tugas Saya",
-        "Icon": "markunread_mailbox",
-        "RuleName":"reg",
-        "Path":"/main/reg-user/maintain-surat-tugas",
-        "Role":["ESS_REG"]
-    }
+  {
+    "Text": "Absen Masuk",
+    "Icon": "access_time",
+    "RuleName": "reg",
+    "Path": "/main/reg-user/create-absent-in/1",
+    "Role": ["ESS_REG"]
+  },
+  {
+    "Text": "Absen Keluar",
+    "Icon": "timelapse",
+    "RuleName": "reg",
+    "Path": "/main/reg-user/create-absent-out/2",
+    "Role": ["ESS_REG"]
+  },
+  {
+    "Text": "Absen Lembur Masuk",
+    "Icon": "alarm_add",
+    "RuleName": "reg",
+    "Path": "/main/reg-user/create-absent-lembur-in/1",
+    "Role": ["ESS_REG"]
+  },
+  {
+    "Text": "Absen Lembur Keluar",
+    "Icon": "alarm",
+    "RuleName": "reg",
+    "Path": "/main/reg-user/create-absent-lembur-out/2",
+    "Role": ["ESS_REG"]
+  },
+  {
+    "Text": "Riwayat Absen",
+    "Icon": "history",
+    "RuleName": "reg",
+    "Path": "/main/reg-user/history-absent/0",
+    "Role": ["ESS_REG"]
+  },
+  {
+    "Text": "Riwayat Lembur",
+    "Icon": "history",
+    "RuleName": "reg",
+    "Path": "/main/reg-user/history-absent/1",
+    "Role": ["ESS_REG"]
+  },
+  {
+    "Text": "Pesan Masuk",
+    "Icon": "mail_outline",
+    "RuleName": "reg",
+    "Path": "/main/inbox",
+    "Role": ["ESS_REG", "ESS_ADM"],
+    "badge": true
+  },
+  {
+    "Text": "Klaim saya",
+    "Icon": "receipt",
+    "RuleName": "reg",
+    "Path": "/main/reg-user/maintain-klaim",
+    "Role": ["ESS_REG"]
+  },
+  {
+    "Text": "Istirahat Kerja Saya",
+    "Icon": "directions_run",
+    "RuleName": "reg",
+    "Path": "/main/reg-user/maintain-cuti",
+    "Role": ["ESS_REG"]
+  },
+  {
+    "Text": "Surat Tugas Saya",
+    "Icon": "markunread_mailbox",
+    "RuleName": "reg",
+    "Path": "/main/reg-user/maintain-surat-tugas",
+    "Role": ["ESS_REG"]
+  }
 ]

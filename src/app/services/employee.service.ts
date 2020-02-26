@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { map, retry } from 'rxjs/operators';
-import * as SecureLS from 'secure-ls';
-import { StateService } from './state.service';
-import * as moment from 'moment';
-import { AbstractService } from './abstract.service';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders, HttpRequest } from "@angular/common/http";
+import { map, retry } from "rxjs/operators";
+import * as SecureLS from "secure-ls";
+import { StateService } from "./state.service";
+import * as moment from "moment";
+import { AbstractService } from "./abstract.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class EmployeeService extends AbstractService {
   config: any;
@@ -16,7 +16,10 @@ export class EmployeeService extends AbstractService {
   serviceObjEmployee = "/employee";
   serviceObjMessage = "/message";
   ls = new SecureLS();
-  constructor(private httpClients: HttpClient, private stateServices: StateService) {
+  constructor(
+    private httpClients: HttpClient,
+    private stateServices: StateService
+  ) {
     super(httpClients, stateServices);
   }
 
@@ -25,7 +28,9 @@ export class EmployeeService extends AbstractService {
   }
   getEmployeeQuickProfile(crit, page) {
     let appended = this.serviceObjEmployee + "/quickprofile";
-    appended = page ? appended + "/" + page.page + "/" + page.pagesize : appended;
+    appended = page
+      ? appended + "/" + page.page + "/" + page.pagesize
+      : appended;
     return this.get_post(appended, crit);
   }
   getEmployeeQuickProfileSimple(crit) {
@@ -34,25 +39,38 @@ export class EmployeeService extends AbstractService {
   }
 
   postUpload(fileToUpload: File, nameTag: string, nrp: string) {
-    let _headers = new HttpHeaders().set('x-access-token', this.credential.token);
+    let _headers = new HttpHeaders().set(
+      "x-access-token",
+      this.credential.token
+    );
     const formData: FormData = new FormData();
     formData.append(nameTag, fileToUpload, fileToUpload.name);
     const options: {
-      observe: 'events';
+      observe: "events";
       reportProgress: boolean;
       headers: HttpHeaders;
     } = {
       reportProgress: true,
-      observe: 'events',
+      observe: "events",
       headers: _headers
     };
-    const req = new HttpRequest('POST', this.config.Api.global_api + this.serviceObjEmployee + "/upload/" + nrp, formData, options);
-    return this.httpClient.request(req).pipe(retry(3), map(event => { return event }));
+    const req = new HttpRequest(
+      "POST",
+      this.config.Api.global_api + this.serviceObjEmployee + "/upload/" + nrp,
+      formData,
+      options
+    );
+    return this.httpClient.request(req).pipe(
+      retry(3),
+      map(event => {
+        return event;
+      })
+    );
   }
 
   postEmployeeTemp(obj) {
     let objAddOn = this.addAuditProp(obj, true);
-    return this.post(this.serviceObjEmployee+"/temp", objAddOn);
+    return this.post(this.serviceObjEmployee + "/temp", objAddOn);
   }
 
   putEmployee(obj) {
@@ -80,7 +98,7 @@ export class EmployeeService extends AbstractService {
   }
   putEmployeeAttachTemp(obj) {
     let objAddOn = this.addAuditProp(obj, false);
-    console.log(objAddOn);
+    // console.log(objAddOn);
     return this.put(this.serviceObjEmployee + "/attachtemp", objAddOn);
   }
 
@@ -102,11 +120,17 @@ export class EmployeeService extends AbstractService {
     return this.put(this.serviceObjEmployee + "/edutemp", objAddOn);
   }
   approveEmployee(type, nrp) {
-    return this.post(this.serviceObjEmployee + "/approvechange/" + type + "/" + nrp, {});
+    return this.post(
+      this.serviceObjEmployee + "/approvechange/" + type + "/" + nrp,
+      {}
+    );
   }
 
   rejectEmployee(type, nrp) {
-    return this.post(this.serviceObjEmployee + "/rejectchange/" + type + "/" + nrp, {});
+    return this.post(
+      this.serviceObjEmployee + "/rejectchange/" + type + "/" + nrp,
+      {}
+    );
   }
 
   //trn
@@ -146,7 +170,9 @@ export class EmployeeService extends AbstractService {
     return this.put(this.serviceObjEmployee + "/famtemp", objAddOn);
   }
   deleteFileProfile(nrp, filename) {
-    return this.post(this.serviceObjEmployee + "/deletefile/" + nrp, { filename: filename });
+    return this.post(this.serviceObjEmployee + "/deletefile/" + nrp, {
+      filename: filename
+    });
   }
 
   addAuditProp(obj, isInsert) {
@@ -169,5 +195,29 @@ export class EmployeeService extends AbstractService {
 
   downloadFile(targetUrl) {
     return this.getBlob(targetUrl);
+  }
+
+  getCountMessageUnread() {
+    return this.get(
+      this.serviceObjMessage +
+        "/countMessageUnread/" +
+        this.credential.quickProfile.EmployeeID
+    );
+  }
+
+  sapEmpProfile(crit) {
+    return this.get_post(this.serviceObjEmployee + "/sapEmpProfile", crit);
+  }
+
+  sapEmpFam(crit) {
+    return this.get_post(this.serviceObjEmployee + "/sapEmpFam", crit);
+  }
+
+  sapEmpEdu(crit) {
+    return this.get_post(this.serviceObjEmployee + "/sapEmpEdu", crit);
+  }
+
+  sapEmpTrn(crit) {
+    return this.get_post(this.serviceObjEmployee + "/sapEmpTrn", crit);
   }
 }

@@ -1,0 +1,56 @@
+[
+  {
+    "order": 0,
+    "key": "Id",
+    "label": "Generated Id",
+    "type": "number",
+    "validator": [],
+    "disable": true
+  },
+  {
+    "order": 1,
+    "key": "ShiftCode",
+    "label": "Kode Shift",
+    "type": "text",
+    "validator": ["required"],
+    "disable": true
+  },
+  {
+    "order": 2,
+    "key": "ShiftName",
+    "label": "Nama Shift",
+    "type": "text",
+    "validator": ["required"]
+  },
+  {
+    "order": 3,
+    "key": "ClockIn",
+    "label": "Jam Masuk",
+    "type": "texttime",
+    "validator": ["required"]
+  },
+  {
+    "order": 4,
+    "key": "ClockOut",
+    "label": "Jam Keluar",
+    "type": "texttime",
+    "validator": ["required"]
+  },
+  {
+    "order": 1,
+    "key": "RowStatus",
+    "label": "Status",
+    "type": "dropdown",
+    "validator": ["required", "number"],
+    "option": [
+      {
+        "text": "Aktif",
+        "value": 1
+      },
+      {
+        "text": "NonAktif",
+        "value": 0
+      }
+    ]
+  }
+]

@@ -49,7 +49,7 @@ export class CheckLocationComponent implements OnInit {
   };
   constructor(public stateService: StateService) { }
   ngOnInit() {
-    console.log(this.data)
+    // console.log(this.data)
   }
   ngAfterViewInit() {
     this.map = new Map({

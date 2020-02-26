@@ -13,7 +13,7 @@ export class MaintainDepartmentComponent implements OnInit {
   columns = [
     { key: 'Name', title: 'Nama' },
     { key: 'Initial', title: 'Inisial' },
-    { key: 'Division.Name', title: 'Divisi' }
+    { key: 'Division.Name', title: 'Function' }
   ];
   constructor(private stateService: StateService, private masterService: MasterService, private router: Router) { }
   ngOnInit() {
